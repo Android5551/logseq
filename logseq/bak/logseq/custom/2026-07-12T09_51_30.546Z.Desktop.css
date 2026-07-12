@@ -1,0 +1,48 @@
+/* ===== Elegant Logseq heading colors (black background) ===== */
+
+/* H1 - muted coral */
+.ls-block h1,
+.editor-inner h1,
+.markdown-rendered h1 {
+  color: #f7768e !important;
+}
+
+/* H2 - muted blue */
+.ls-block h2,
+.editor-inner h2,
+.markdown-rendered h2 {
+  color: #bb9af3 !important;
+}
+
+/* H3 - muted teal */
+.ls-block h3,
+.editor-inner h3,
+.markdown-rendered h3 {
+  color: #ff9e64 !important;
+}
+
+/* H4 - antique gold */
+.ls-block h4,
+.editor-inner h4,
+.markdown-rendered h4 {
+  color: #81a1c1 !important;
+}
+
+/* H5 - soft sky blue */
+.ls-block h5,
+.editor-inner h5,
+.markdown-rendered h5 {
+  color: #a3be8c !important;
+}
+
+
+/* ===== Bold text ===== */
+.ls-block .inline strong,
+.ls-block .inline b,
+.editor-inner .inline strong,
+.editor-inner .inline b,
+.markdown-rendered strong,
+.markdown-rendered b {
+  color: #e0af68 !important;
+  font-weight: 700 !important;
+}

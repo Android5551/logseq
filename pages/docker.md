@@ -1,0 +1,3 @@
+- `for /F %i in ('docker ps -q') do docker stop %i` -> stops all containers
+- `for /F %i in ('docker ps -aq') do docker rm -f %i` -> removes all
+-

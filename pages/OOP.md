@@ -1,0 +1,15 @@
+- Java is object oriented.
+- Used for creating Enterprise Applications
+- to make loosely-coupled
+- Increase reusablity
+- avoid code conflict
+- ---
+- 3 pillars
+	- Encapsulation
+	- Inheritance
+	- Polymorphism
+		- Data Abstraction
+- Structure/Blueprint is called Class
+- The entity which is used is called Object also called real world entity
+- Methods preform operations
+-
