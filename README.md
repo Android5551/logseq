@@ -1,0 +1,2 @@
+# logseq
+logseq java notes
