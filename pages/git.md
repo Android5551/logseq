@@ -1,5 +1,6 @@
 ## Cases:
 	- ### Case 1: Start from an existing remote repository (use `clone`)
+	  collapsed:: true
 		- Suppose GitHub already has a repository.
 		  
 		  ```bash
@@ -20,6 +21,7 @@
 			- Checks out the default branch (`main`).
 			  Running `git init` before `git clone` would be unnecessary.
 	- ### Case 2: Merging a Local  existing Git Repository with an Existing Remote Repository
+	  collapsed:: true
 		- ```bash
 		  git init
 		  git add .
@@ -134,6 +136,120 @@
 			- ```
 			  git push -u origin java
 			  ```
+	- ### Case 4: Pulling from git-hub to local repo
+	  collapsed:: true
+		- #### Git Stash, Pull, and Restore Workflow
+			- This workflow is useful when you have **uncommitted changes** but want to update your local branch with the latest changes from the remote repository.
+		- #### 1. `git stash`
+		  collapsed:: true
+			- **Purpose**
+				- Temporarily saves your uncommitted changes (both staged and un-staged) and restores your working directory to the last commit.
+				- It is useful when:
+					- You need to pull the latest changes.
+					- You want to switch branches.
+					- You don't want to create a temporary commit
+						- ```bash
+						  git stash
+						  ```
+				- ##### What happens?
+					- Before:
+					  
+					  ```
+					  Working Directory
+					  ├── pages/git.md (modified)
+					  └── other files
+					  ```
+					  
+					  After:
+					  
+					  ```
+					  Working Directory
+					  ├── Clean (no local changes)
+					  
+					  Stash
+					  └── Saved copy of pages/git.md changes
+					  ```
+					  
+					  Your changes are **not deleted**. They are stored in Git's stash.
+		- #### 2. `git pull origin main`
+		  collapsed:: true
+			- ##### Purpose
+				- Downloads the latest commits from the `main` branch of the `origin` remote and merges them into your current branch.
+			- ##### Command
+				- ```bash
+				  git pull origin main
+				  ```
+			- This command performs two operations:
+			  collapsed:: true
+				- 1. **Fetch**
+					- Downloads the latest commits from GitHub.
+				- 2. **Merge**
+					- Merges those commits into your local branch.
+					  Equivalent to:
+						- ```bash
+						  git fetch origin
+						  git merge origin/main
+						  ```
+		- #### 3. `git stash pop`
+			- ##### Purpose
+			  collapsed:: true
+				- Restores the most recently stashed changes and removes them from the stash list.
+			- ##### Command
+				- ```bash
+				  git stash pop
+				  ```
+			- ##### What happens?
+				- Before:
+				  
+				  ```
+				  Working Directory
+				  └── Clean
+				  
+				  Stash
+				  └── Your saved changes
+				  ```
+				  
+				  After:
+				  
+				  ```
+				  Working Directory
+				  └── Your changes restored
+				  
+				  Stash
+				  └── Empty (latest stash removed)
+				  ```
+		- #### Why use this workflow?
+		  
+		  Without stashing:
+		  
+		  ```
+		  Local Changes
+		      +
+		  git pull
+		      ↓
+		  Possible merge conflict or Git refuses to merge
+		  ```
+		  
+		  With stashing:
+		  
+		  ```
+		  Local Changes
+		      ↓
+		  git stash
+		      ↓
+		  Clean Working Directory
+		      ↓
+		  git pull origin main
+		      ↓
+		  Updated Local Branch
+		      ↓
+		  git stash pop
+		      ↓
+		  Continue Working
+		  ```
+		  
+		  ---
+		- This workflow helps avoid conflicts when pulling with unfinished work.
 - ## Habbit for existing
 	- ### Start of the day ("Check Out")
 		- Switch to the branch you'll work on:
