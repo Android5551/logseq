@@ -136,7 +136,6 @@
 			  ```
 - ## Habbit for existing
 	- ### Start of the day ("Check Out")
-	  collapsed:: true
 		- Switch to the branch you'll work on:
 		- #+BEGIN_TIP
 		  before checkout commit your changes
