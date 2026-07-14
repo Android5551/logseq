@@ -1,3 +1,4 @@
+## When to use
 - As parent can't call child method because parent cant extend child. and you need to call child method:
 	- To do that we use type casting
 		- Parent object to child obj typecast
@@ -13,5 +14,5 @@
 			  If casted on any other child class
 			  gets `ClassCastException` error
 			  #+END_CAUTION
-		- ==33:35==
+			-
 		-

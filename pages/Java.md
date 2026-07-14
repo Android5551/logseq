@@ -4,11 +4,13 @@
 	- [[Date]]
 	- [[Object]]
 	- [[Char]]
+	- [[Final]]
+	-
 - [[OOP]]:
 	- [[Encapsulation]]
 	- [[Inheritance]]
 	- [[Method Overriding]]
 		- [[Type casting]]
-		-
+	-
 	-
 -

@@ -1,0 +1,17 @@
+- [[Mon, 13.07.2026]]
+	- Final Class
+		- Complete class
+		- can't be extended
+		- These classes do not need specialization
+		- keyword `final`
+			- eg. `String` can't be extended
+			- `Math`
+	- Final Method
+		- If you don't want special behavior
+			- ex. Rbi said i won't provide interestRates so interestRate will be declared `final`
+		- if method is final ; child can't override it
+	- Final Attribute
+		- making attribute fixed or constant.
+		- Once assigned; can't be changed again.
+		-
+	-
