@@ -250,7 +250,57 @@
 		  
 		  ---
 		- This workflow helps avoid conflicts when pulling with unfinished work.
+	- ### Case 5: When the remote contains work that you do not have locally
+	  collapsed:: true
+		- ```bash
+		  # Rebase is currently paused because Git found conflicts.
+		  # This command removes the Eclipse workspace metadata folder (.metadata)
+		  # from Git tracking to resolve the modify/delete conflicts.
+		  git rm -r .metadata
+		  
+		  
+		  # Stage the resolved changes.
+		  # "git add" tells Git: I have fixed the conflicts, use these changes.
+		  git add .
+		  
+		  
+		  # Continue the paused rebase.
+		  # Rebase means Git is taking your local commits and replaying them
+		  # on top of the latest commits from the remote branch (origin/java).
+		  # This keeps history clean instead of creating an extra merge commit.
+		  git rebase --continue
+		  
+		  
+		  # Check whether the rebase finished successfully
+		  # and see the current state of your branch.
+		  git status
+		  
+		  
+		  # Create or open the .gitignore file.
+		  # .gitignore tells Git which files/folders should NOT be tracked.
+		  notepad .gitignore
+		  
+		  
+		  # Add this line inside .gitignore:
+		  # This prevents Eclipse workspace files from being added to Git again.
+		  .metadata/
+		  
+		  
+		  # Add the .gitignore changes to Git staging.
+		  git add .gitignore
+		  
+		  
+		  # Save the .gitignore change as a new commit.
+		  # This commit permanently tells Git to ignore Eclipse metadata files.
+		  git commit -m "Ignore Eclipse metadata"
+		  
+		  
+		  # Upload your local java branch to GitHub.
+		  # The rebase is complete, so the push should now be accepted.
+		  git push origin java
+		  ```
 - ## Habbit for existing
+  collapsed:: true
 	- ### Start of the day ("Check Out")
 		- Switch to the branch you'll work on:
 		- #+BEGIN_TIP

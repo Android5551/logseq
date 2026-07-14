@@ -6,5 +6,9 @@
 	- [[Char]]
 - [[OOP]]:
 	- [[Encapsulation]]
+	- [[Inheritance]]
+	- [[Method Overriding]]
+		- [[Type casting]]
+		-
 	-
 -
