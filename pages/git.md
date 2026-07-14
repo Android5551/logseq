@@ -1,4 +1,5 @@
 ## Cases:
+collapsed:: true
 	- ### Case 1: Start from an existing remote repository (use `clone`)
 	  collapsed:: true
 		- Suppose GitHub already has a repository.
@@ -337,7 +338,183 @@
 		  ```
 		  
 		  This ensures your work is saved on the remote repository.
+- ## Win to git-hub ; git-hub to Garuda
+	- Before writing any code:
+	- ```
+	  git checkout myBranch
+	  git pull --rebase origin myBranch
+	  ```
+	- Now you have yesterday's home changes.
+	- Work, then:
+	- ```
+	  git add .
+	  git commit -m "Finished feature X"
+	  git push origin myBranch
+	  ```
+	- Repeat this cycle indefinitely.
 - ---
+- ## Terms
+  collapsed:: true
+	- #### Diverge
+	  collapsed:: true
+		- Suppose the remote repository has:
+		  
+		  ```
+		  Remote (GitHub):
+		  A---B---C
+		  ```
+		  
+		  You cloned it earlier, then made your own commit:
+		  
+		  ```
+		  Your local:
+		  A---B---D
+		  ```
+		  
+		  Now the histories have **diverged**:
+		- GitHub has `C`
+		- You have `D`
+		- Both started from `B`
+			- ##### To solve diverge:
+			  collapsed:: true
+				- ##### Use rebase:
+				  You run:
+				  
+				  ```
+				  git pull --rebase origin java
+				  ```
+				  
+				  Git does this:
+					- Downloads `C` from remote.
+					- Temporarily removes your commit `D`.
+					  
+					  Result:
+					  
+					  ```
+					  A---B---C---D'
+					  ```
+					  
+					  Now your branch contains:
+					- Remote changes (`C`)
+					- Your changes (`D'`)
+					  
+					  Then:
+					  
+					  ```
+					  git push origin java
+					  ```
+					  
+					  works.
+					- ```
+					  Step 1: Save your commit D
+					  A---B
+					  
+					  (Git keeps D safely aside)
+					  
+					  Step 2: Get remote commit C
+					  A---B---C
+					  Step 3: Put your commit D back after C
+					  A---B---C---D'
+					  
+					  Now:
+					  
+					  C = remote changes
+					  D' = your changes reapplied on top of the new remote version
+					  
+					  The reason it is called rebase:
+					  
+					  Old base of your commit: B
+					  New base of your commit: C
+					  
+					  -------------------------understanding base---------------
+					  Example:
+					  
+					  A---B---C
+					  
+					  Suppose you create your own branch at B:
+					  
+					          C  (remote/java)
+					         /
+					  A---B
+					         \
+					          D---E  (your branch)
+					  
+					  Your commits D and E are based on B.
+					  
+					  So:
+					  
+					  Your base = B
+					  
+					  because Git says:
+					  
+					  "Your work started from B."
+					  
+					  Now GitHub gets a new commit C:
+					  
+					  Remote:
+					  A---B---C
+					  
+					  Your branch:
+					  A---B---D---E
+					  
+					  Your commits are still based on B, but B is no longer the latest version.
+					  
+					  When you run:
+					  
+					  git rebase origin/java
+					  
+					  Git changes your base:
+					  
+					  Before:
+					  
+					  A---B---D---E
+					      ↑
+					    old base
+					  
+					  After:
+					  
+					  A---B---C---D'---E'
+					          ↑
+					       new base
+					  
+					  Now your work is based on C.
+					  ```
+	- #### Stash
+	  collapsed:: true
+		- ##### to combine your unfinished work with the incoming changes.
+			- ```bash
+			  # You have unfinished changes
+			  git status
+			  
+			  # Save them temporarily
+			  git stash
+			  
+			  # Update your branch
+			  git pull --rebase origin java
+			  
+			  
+			  # Bring your changes back
+			  git stash pop
+			  ```
+	- #+BEGIN_NOTE
+	  Before commit -> stash
+	  ```
+	  I changed files but I'm not ready to commit
+	          ↓
+	      git stash
+	  ```
+	  after commit -> rebase
+	  ```
+	  I committed my work, but GitHub has new commits
+	          ↓
+	      git pull --rebase
+	  ```
+	  ```
+	  Remote: A-B-C
+	  Local:  A-B-C + modified files (not committed)
+	  ```
+	  #+END_NOTE
+- ##
 - [[Thu, 09.07.2026]]
   collapsed:: true
 	- `git init`
