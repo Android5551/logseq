@@ -339,19 +339,23 @@ collapsed:: true
 		  
 		  This ensures your work is saved on the remote repository.
 - ## Win to git-hub ; git-hub to Garuda
-	- Before writing any code:
 	- ```
-	  git checkout myBranch
-	  git pull --rebase origin myBranch
-	  ```
-	- Now you have yesterday's home changes.
-	- Work, then:
-	- ```
+	  On your laptop:
+	  
 	  git add .
-	  git commit -m "Finished feature X"
-	  git push origin myBranch
+	  git commit -m "Added Git notes"
+	  git pull --rebase origin main
+	  git push origin main
+	  
+	  Later on your home PC:
+	  
+	  git pull --rebase origin main
+	  # make changes
+	  git add .
+	  git commit -m "Improved Git notes"
+	  git pull --rebase origin main   # optional if you've been working a while
+	  git push origin main
 	  ```
-	- Repeat this cycle indefinitely.
 - ---
 - ## Terms
   collapsed:: true
