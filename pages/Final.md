@@ -1,7 +1,8 @@
 - [[Mon, 13.07.2026]]
 	- Final Class
+		- it is part of singleton class
 		- Complete class
-		- can't be extended
+		- can't be extended or inherited
 		- These classes do not need specialization
 		- keyword `final`
 			- eg. `String` can't be extended

@@ -3,9 +3,20 @@
 - to make loosely-coupled
 - Increase reusablity
 - avoid code conflict
+- Class Diagram :
+	- first box class name
+	- second box attributes
+		- - -> private
+		- $CAPS -> constant
+	- third methods
+		- + -> public
 - ---
 - 3 pillars
 	- Encapsulation
+		- Expert classes having related private attributes and related private methods
+		- All classes in java are expert classes
+		- expert classes has private attributes; public method
+		-
 	- Inheritance
 	- Polymorphism
 		- Data Abstraction

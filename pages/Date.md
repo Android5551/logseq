@@ -50,22 +50,34 @@
 	- `Thread.sleep(1000)`
 		- 1000 milliseconds
 		- to run task every second
-		- use `Interrupted Exception`
+		- use `Interrupted Exception` whenever you use `Thread.sleep()`
 		- new date object should be inside while loop otherwise a fix date will be printed it won't be dynamic
+	- `SimpleDateFormat` -> to print a default date to our said format use this class
+		- `java.text` package
+		- pass the desired format in obj created
+		- use format method and pass the date obj now it converts to your desired one.
+		-
 	- ---
 	- DOB print
 		- here past time is not available
-		- dob uses of.
-		- now - dob = age
-	- > `Date` to `FormattedDate` use objsdf.Format(obj.date)
+		- String format dob
+			- create obj of SimpleDateFormat and pass "dd-mm-yy"
+			- It gets exception too.
+			-
+	- > `Date` to `FormattedDate`String use objsdf.Format(obj.date)
 	  >  `FormattedDate` String to `Date` use parse Method(Str.obj)
 	-
 	- Local Date
-		- no new keyword needed
+	  collapsed:: true
+		- `java.time.LocalDate`
+		- no new keyword needed for obj creation as today's date is fixed and there is no time in it
 		- no time in this available
 		- it uses current date
 			- use DayOfWeek program `testLocalDate.java`
-			-
-	-
+		- `now` method to call to get today's date "yy-mm-dd"
+		- today's month , week , etc we can get
+		- `LocalDate.of(year, month, day)`
+		- dob uses of.
+		- now.getyear - dob.getyear = age
 	-
 	-

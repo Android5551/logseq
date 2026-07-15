@@ -1,6 +1,5 @@
 - [[Mon, 06.07.2026]]
 	- ### String:
-	  collapsed:: true
 		- Array of characters is called String
 		- `String` is a reference type because it is a class (an object).
 			- Only objects (reference types) have methods like `length()` and `toUpperCase()`.

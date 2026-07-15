@@ -1,0 +1,5 @@
+- [[Tue, 14.07.2026]]
+	- `i` → just read the value.
+	- `++i` → increment first, then use it.
+	- `i++` → use it first, then increment it.
+	-
