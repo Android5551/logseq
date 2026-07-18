@@ -130,3 +130,6 @@
 				- container gives project which we wrapped and sent
 			- Nowadays, Event listeners automatically start pipelines whenever you check in check out on github
 				- git actions are like Jenkins
+- [[Thu, 16.07.2026]]
+	- [[Project-04]]
+	-
