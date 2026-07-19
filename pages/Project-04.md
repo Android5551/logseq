@@ -1,4 +1,5 @@
 - 37:00 [[Thu, 16.07.2026]]
+  collapsed:: true
 	- This is java based web application.
 	  collapsed:: true
 		- Web apps -> can be accessed using web browsers.
@@ -57,6 +58,7 @@
 			-
 			-
 - [[Fri, 17.07.2026]]
+  collapsed:: true
 	- java project sends request to db; url is in `system.properties`
 		- its in /ORSProject04/src/main/resources/com/sunilos/p4/bundle/system.properties
 		- replace

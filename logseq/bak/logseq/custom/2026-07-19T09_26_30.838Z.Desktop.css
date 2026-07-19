@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/gh/dracula/logseq@master/custom.css');
 /* ===== Elegant Logseq heading colors (black background) ===== */
 
 /* H1 - muted coral */
@@ -36,6 +37,7 @@
 }
 
 
+
 /* ===== Bold text ===== */
 .ls-block .inline strong,
 .ls-block .inline b,
@@ -43,6 +45,32 @@
 .editor-inner .inline b,
 .markdown-rendered strong,
 .markdown-rendered b {
-  color: #e0af68 !important;
+  color: #f4edd8 !important;
   font-weight: 700 !important;
 }
+
+/* BACKGROUND COLORS*/
+--mark-yellow: #xxxxx;
+--mark-pink: #xxxxx;
+--mark-blue: #xxxxx;
+--mark-green: #xxxxx;
+--mark-red: #xxxxx;
+--mark-grey: #xxxxx;
+--mark-orange: #xxxxx;
+--mark-purple: #xxxxx;
+
+/*Decoration color*/
+--mark-decoration-yellow: ;
+--mark-decoration-pink: ;
+--mark-decoration-blue: ;
+--mark-decoration-green: ;
+--mark-decoration-red: ;
+--mark-decoration-grey: ;
+--mark-decoration-orange: ;
+--mark-decoration-purple: ;
+
+/* OPTIONS */
+--mark-text-color: ;
+--mark-decoration: ;
+--mark-thickness: ;
+--mark-border-radius: ;

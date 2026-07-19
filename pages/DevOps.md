@@ -1,5 +1,6 @@
 - [[Wed, 08.07.2026]]
 	- ## Development and Operations (DevOps)
+	  collapsed:: true
 		- Daily updates of projects to client ==15:04==
 		- To run a project with configs on one machine it must be done on another machine too.
 		  collapsed:: true
@@ -23,6 +24,7 @@
 									-
 		- Live Environment or Live Server -> AWS (Amazon web services), Azure
 		- ### Git #git
+		  collapsed:: true
 			- local on machine
 			- `ReadMe.md` connects local repo a.k.a. to github
 			- ```
@@ -59,6 +61,7 @@
 						- GitHub Actions
 		- ### Docker #docker
 		  id:: 6a4e196b-bd06-4f87-9619-895395dffc95
+		  collapsed:: true
 			- virtual container
 			- lessen installation of software's like java, python and configuration
 			- wraps or encapsulate all applications and requirements into one container.
@@ -71,6 +74,7 @@
 					- Gathering all related things to single entity
 				- docker on one machine and docker on another machine to run that image
 			- #### Types
+			  collapsed:: true
 				- ##### Docker Desktop
 					- local machine
 					- used for testing container if they are running or not

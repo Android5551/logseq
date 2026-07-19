@@ -1,8 +1,26 @@
-# Two types:
+- Provides dynamic behaviour
+- it is not a code , it is a concept.
+-
+- ## Two types:
 	- ## Static
 		- Is achieved by method overloading
 	- ## Dynamic
 		- At runtime when a method gives different output or behavior
 			- ex. area() in shape class shows different behavior after overriding in Circle class's area or any other class's area.
 		- Is achieved by  method overriding.
+- [[Wed, 15.07.2026]]
+  collapsed:: true
+	- ## Common Uses:
+		- #### Arrays
+			- in array you can create n number of objects
+				- store objects at 0th index
+				- s[0] can't access circle's radius because it is still an object of Parent class so we need to typecast it
+		- #### Method Arguments
+			- static methods can be called directly in main method
+		- #### Method return type
 		-
+	- ## Ways to provide polymorphism
+	  collapsed:: true
+		- #### Via Interfaces
+		- #### Method Overriding
+		- #### Method Overloading

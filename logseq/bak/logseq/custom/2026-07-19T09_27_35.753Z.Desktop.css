@@ -1,3 +1,4 @@
+@import url('https://logseq.catppuccin.com/ctp-oled.css');
 /* ===== Elegant Logseq heading colors (black background) ===== */
 
 /* H1 - muted coral */
@@ -11,14 +12,14 @@
 .ls-block h2,
 .editor-inner h2,
 .markdown-rendered h2 {
-  color: #bb9af3 !important;
+  color: #ff9e64 !important;
 }
 
 /* H3 - muted teal */
 .ls-block h3,
 .editor-inner h3,
 .markdown-rendered h3 {
-  color: #e2ab6e !important;
+  color: #bb9af3 !important;
 }
 
 /* H4 - antique gold */
@@ -36,6 +37,7 @@
 }
 
 
+
 /* ===== Bold text ===== */
 .ls-block .inline strong,
 .ls-block .inline b,
@@ -43,6 +45,32 @@
 .editor-inner .inline b,
 .markdown-rendered strong,
 .markdown-rendered b {
-  color: #ff9e64 !important;
+  color: #f4edd8 !important;
   font-weight: 700 !important;
 }
+
+/* BACKGROUND COLORS*/
+--mark-yellow: #xxxxx;
+--mark-pink: #xxxxx;
+--mark-blue: #xxxxx;
+--mark-green: #xxxxx;
+--mark-red: #xxxxx;
+--mark-grey: #xxxxx;
+--mark-orange: #xxxxx;
+--mark-purple: #xxxxx;
+
+/*Decoration color*/
+--mark-decoration-yellow: ;
+--mark-decoration-pink: ;
+--mark-decoration-blue: ;
+--mark-decoration-green: ;
+--mark-decoration-red: ;
+--mark-decoration-grey: ;
+--mark-decoration-orange: ;
+--mark-decoration-purple: ;
+
+/* OPTIONS */
+--mark-text-color: ;
+--mark-decoration: ;
+--mark-thickness: ;
+--mark-border-radius: ;

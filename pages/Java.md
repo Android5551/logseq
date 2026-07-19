@@ -6,6 +6,7 @@
 	- [[Object]]
 	- [[Char]]
 	- [[Singleton]]
+	  collapsed:: true
 		- [[Final]]
 	-
 	-

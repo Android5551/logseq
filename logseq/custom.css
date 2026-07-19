@@ -1,3 +1,11 @@
+@import url('https://logseq.catppuccin.com/ctp-oled.css');
+/* Inline code (`text`) */
+:not(pre) > code {
+  color: #f38ba8 !important;
+  background: #202020 !important;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
 /* ===== Elegant Logseq heading colors (black background) ===== */
 
 /* H1 - muted coral */
@@ -34,6 +42,7 @@
 .markdown-rendered h5 {
   color: #a3be8c !important;
 }
+
 
 
 /* ===== Bold text ===== */

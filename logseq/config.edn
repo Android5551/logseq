@@ -425,4 +425,5 @@
  :feature/enable-journals? true
  :feature/enable-whiteboards? false
  :default-home {:page "Index"}
- :feature/enable-flashcards? false}
+ :feature/enable-flashcards? false
+ :ui/show-brackets? false}
