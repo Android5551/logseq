@@ -1,6 +1,5 @@
 - [[Wed, 08.07.2026]]
 	- ## Development and Operations (DevOps)
-	  collapsed:: true
 		- Daily updates of projects to client ==15:04==
 		- To run a project with configs on one machine it must be done on another machine too.
 		  collapsed:: true

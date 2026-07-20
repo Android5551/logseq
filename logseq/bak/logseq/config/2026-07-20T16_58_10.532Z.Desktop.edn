@@ -299,7 +299,7 @@
  ;;  :charge-range    600}   ; Default value: 600
 
  ;; Favorites to list on the left sidebar
- :favorites ["git" "Project-04" "Index"]
+ :favorites ["DevOps" "Java" "Project-04" "Index"]
 
  ;; Set flashcards interval.
  ;; Expected value:
