@@ -1,6 +1,6 @@
 ## Cases:
+collapsed:: true
 	- ### Case 1: Start from an existing remote repository (use `clone`)
-	  collapsed:: true
 		- Suppose GitHub already has a repository.
 		  
 		  ```bash
@@ -21,7 +21,6 @@
 			- Checks out the default branch (`main`).
 			  Running `git init` before `git clone` would be unnecessary.
 	- ### Case 2: Merging a Local  existing Git Repository with an Existing Remote Repository
-	  collapsed:: true
 		- ```bash
 		  git init
 		  git add .
@@ -60,7 +59,6 @@
 				- first `-v` → show the latest commit information
 				- second `-v` → show tracking information (remote branch)
 	- ### Case 2-1: when current branch in local are not same as branches in remote
-	  collapsed:: true
 		- ```bash
 		  # first commit the changes in existing branch and push to cuuurent branch in remote
 		  git add .  
@@ -655,6 +653,7 @@
 		  
 		  This ensures your work is saved on the remote repository.
 - ## Win to git-hub ; git-hub to Garuda
+  collapsed:: true
 	- ```
 	  On your laptop:
 	  

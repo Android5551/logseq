@@ -7,39 +7,39 @@
   padding: 2px 4px;
 }
 /* ===== Elegant Logseq heading colors (black background) ===== */
-/* H1 - Dusty Rose */
+/* H1 - muted rose */
 .ls-block h1,
 .editor-inner h1,
 .markdown-rendered h1 {
   color: #d0879c !important;
 }
 
-/* H2 - Soft Teal */
+/* H2 - soft amber */
 .ls-block h2,
 .editor-inner h2,
 .markdown-rendered h2 {
-  color: #7aa8a1 !important;
+  color: #d8b27c !important;
 }
 
-/* H3 - Dusty Mauve */
+/* H3 - soft lavender */
 .ls-block h3,
 .editor-inner h3,
 .markdown-rendered h3 {
-  color: #b08aa8 !important;
+  color: #b7a0d9 !important;
 }
 
-/* H4 - Muted Blue */
+/* H4 - muted blue */
 .ls-block h4,
 .editor-inner h4,
 .markdown-rendered h4 {
-  color: #81a1c1 !important;
+  color: #8faec8 !important;
 }
 
-/* H5 - Sage Green */
+/* H5 - sage green */
 .ls-block h5,
 .editor-inner h5,
 .markdown-rendered h5 {
-  color: #a3be8c !important;
+  color: #9dbb91 !important;
 }
 
 .markdown-rendered h1 {
