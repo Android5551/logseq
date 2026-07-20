@@ -21,6 +21,7 @@
 			- Checks out the default branch (`main`).
 			  Running `git init` before `git clone` would be unnecessary.
 	- ### Case 2: Merging a Local  existing Git Repository with an Existing Remote Repository
+	  collapsed:: true
 		- ```bash
 		  git init
 		  git add .
@@ -298,6 +299,323 @@
 		  # The rebase is complete, so the push should now be accepted.
 		  git push origin java
 		  ```
+	- ### Case 6:
+	  collapsed:: true
+		- # Git Rebase Workflow (Two PCs)
+		  
+		  ## Scenario
+		  
+		  I have the same Git repository on two machines:
+		  
+		  - 💼 Work Laptop
+		  - 🏠 Home PC
+		  
+		  I worked on the laptop, pushed changes to GitHub, then came home and wanted to continue on the PC.
+		  
+		  ---
+		  
+		  # Normal Workflow
+		  
+		  ## 1. Before opening Logseq (or before editing files)
+		  
+		  ```bash
+		  git pull --rebase origin main
+		  # Download the latest commits from GitHub and replay my local commits on top.
+		  # This keeps history linear and avoids unnecessary merge commits.
+		  ```
+		  
+		  Then start working.
+		  
+		  ---
+		  
+		  ## 2. After finishing work
+		  
+		  ```bash
+		  git add .
+		  # Stage all modified/new files.
+		  ```
+		  
+		  ```bash
+		  git commit -m "Describe changes"
+		  # Save the current work as a local commit.
+		  ```
+		  
+		  ```bash
+		  git push origin main
+		  # Upload my local commits to GitHub.
+		  ```
+		  
+		  ---
+		  
+		  # What Happened This Time
+		  
+		  ## Initial Situation
+		  
+		  Laptop:
+		  
+		  ```
+		  A --- B --- C (GitHub)
+		  ```
+		  
+		  Home PC:
+		  
+		  ```
+		  A --- B --- X
+		  ```
+		  
+		  where
+		  
+		  - C = Work laptop commit
+		  - X = Home PC commit
+		  
+		  Because histories diverged, Git rejected a direct push.
+		  
+		  ---
+		  
+		  ## Step 1
+		  
+		  ```bash
+		  git pull --rebase origin main
+		  # Fetch remote commits and replay my local commit(s) after them.
+		  ```
+		  
+		  Git changed the history to:
+		  
+		  ```
+		  A --- B --- C --- X
+		  ```
+		  
+		  Now my PC contains:
+		  
+		  - every commit from GitHub
+		  - my own commit
+		  
+		  ---
+		  
+		  ## Step 2
+		  
+		  Git stopped because of a conflict.
+		  
+		  ```
+		  CONFLICT (content): Merge conflict in logseq/config.edn
+		  ```
+		  
+		  This happened because both machines modified the same file.
+		  
+		  ---
+		  
+		  ## Step 3
+		  
+		  Check repository state.
+		  
+		  ```bash
+		  git status
+		  # Shows which files have merge conflicts.
+		  ```
+		  
+		  Output showed:
+		  
+		  ```
+		  both modified:
+		  logseq/config.edn
+		  ```
+		  
+		  ---
+		  
+		  ## Step 4
+		  
+		  Keep the version from GitHub.
+		  
+		  ```bash
+		  git checkout --theirs logseq/config.edn
+		  # Replace the conflicted file with the remote version.
+		  ```
+		  
+		  If I wanted my own version instead:
+		  
+		  ```bash
+		  git checkout --ours logseq/config.edn
+		  ```
+		  
+		  ---
+		  
+		  ## Step 5
+		  
+		  Tell Git the conflict has been resolved.
+		  
+		  ```bash
+		  git add logseq/config.edn
+		  # Mark the conflict as resolved.
+		  ```
+		  
+		  ---
+		  
+		  ## Step 6
+		  
+		  Continue the rebase.
+		  
+		  ```bash
+		  git rebase --continue
+		  # Continue replaying commits after conflicts are fixed.
+		  ```
+		  
+		  Git failed because the configured editor was incorrect.
+		  
+		  ---
+		  
+		  ## Step 7
+		  
+		  Continue without opening an editor.
+		  
+		  ```bash
+		  GIT_EDITOR=true git rebase --continue
+		  # Reuse the existing commit message without launching an editor.
+		  ```
+		  
+		  ---
+		  
+		  ## Step 8
+		  
+		  Verify everything succeeded.
+		  
+		  ```bash
+		  git status
+		  ```
+		  
+		  Expected output:
+		  
+		  ```
+		  On branch main
+		  Your branch is ahead of 'origin/main' by 1 commit.
+		  
+		  nothing to commit, working tree clean
+		  ```
+		  
+		  Meaning:
+		  
+		  - Rebase completed successfully.
+		  - My local commit is now based on the latest remote commit.
+		  - Only one commit remains to upload.
+		  
+		  ---
+		  
+		  ## Step 9
+		  
+		  Publish the rebased commit.
+		  
+		  ```bash
+		  git push origin main
+		  # Upload my rebased commit to GitHub.
+		  ```
+		  
+		  ---
+		  
+		  # Useful Commands
+		  
+		  ## Show current state
+		  
+		  ```bash
+		  git status
+		  ```
+		  
+		  ---
+		  
+		  ## View conflicts
+		  
+		  ```bash
+		  git diff
+		  ```
+		  
+		  ---
+		  
+		  ## Abort a rebase
+		  
+		  ```bash
+		  git rebase --abort
+		  # Cancel the rebase and return to the previous state.
+		  ```
+		  
+		  ---
+		  
+		  ## Skip the current commit during rebase
+		  
+		  ```bash
+		  git rebase --skip
+		  # Ignore the commit currently being replayed.
+		  ```
+		  
+		  ---
+		  
+		  ## Keep remote version of conflicted file
+		  
+		  ```bash
+		  git checkout --theirs <file>
+		  ```
+		  
+		  ---
+		  
+		  ## Keep local version of conflicted file
+		  
+		  ```bash
+		  git checkout --ours <file>
+		  ```
+		  
+		  ---
+		  
+		  ## Mark conflict resolved
+		  
+		  ```bash
+		  git add <file>
+		  ```
+		  
+		  ---
+		  
+		  ## Continue rebase
+		  
+		  ```bash
+		  git rebase --continue
+		  ```
+		  
+		  ---
+		  
+		  # Mental Model
+		  
+		  Before rebase:
+		  
+		  ```
+		  GitHub
+		  
+		  A ---- B ---- C
+		                ↑ latest
+		  ```
+		  
+		  ```
+		  My PC
+		  
+		  A ---- B ---- X
+		  ```
+		  
+		  After `git pull --rebase`:
+		  
+		  ```
+		  A ---- B ---- C ---- X
+		  ```
+		  
+		  Now GitHub is only missing **X**, so a normal `git push` works.
+		  
+		  ---
+		  
+		  # Best Practice
+		  
+		  On every machine:
+		  
+		  1. `git pull --rebase origin main`
+		  2. Work.
+		  3. `git add .`
+		  4. `git commit -m "..."`
+		  5. `git push origin main`
+		  
+		  Following this order keeps both machines synchronized and minimizes merge conflicts.
 - ## Habbit for existing
   collapsed:: true
 	- ### Start of the day ("Check Out")
