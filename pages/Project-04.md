@@ -1,4 +1,4 @@
-- 37:00 [[Thu, 16.07.2026]]
+- `37:00` [[Thu, 16.07.2026]]
   collapsed:: true
 	- This is java based web application.
 	  collapsed:: true
@@ -200,10 +200,166 @@
 												- for admin access in ST_ROLES change to 1.
 				-
 - [[Sat, 18.07.2026]]
-	- ```bash
-	  docker run -d --name db --network my-network -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=p04 askew8151/mysql:8.0
-	  
-	  
-	  
-	  docker run -d --name ors --network my-network -p 8080:8080 -e DB_URL="jdbc:mysql://db:3306/p04" -e DB_USERNAME="root" -e DB_PASSWORD="root" askew8151/orsproject04-webapp:latest
-	  ```
+	- ## Commands to run webapp on AWS
+		- ### Create Docker Image on Docker Desktop
+		- ### Open Chrome Browser & log in to Docker Hub.
+		- ### Open Command Prompt & log in to Docker: docker login
+		- ### syntax of tagging
+		  collapsed:: true
+			- ```bash
+			  docker tag <source-image>:<tag> <dockerhub-username>/<new-image>:<tag>
+			  ```
+		- ### Tag the Docker images
+		  collapsed:: true
+			- ```bash
+			  docker tag orsproject04-webapp:latest abhaymalve09/orsproject04-webapp:latest
+			  
+			  docker tag mysql:8.0 abhaymalve09/mysql:8.0
+			  ```
+		- ### Push the Docker images to Docker Hub
+		  collapsed:: true
+			- ```bash
+			  push image => docker push abhaymalve09/orsproject04-webapp:latest
+			  
+			  push image => docker push abhaymalve09/mysql:8.0
+			  ```
+		- ### Connect to AWS EC2 Instance via SSH
+		  collapsed:: true
+			- ```bash
+			  ssh -i "C:\Users\Dell\Downloads\firstKeyPair.pem" ubuntu@13.50.111.244
+			  ```
+		- ### Install Docker on AWS EC2 Instance
+		  collapsed:: true
+			- ```bash
+			  ubuntu@ip-172-31-4-220:~$ nano filename.sh # esse likhenge fir ek khali blank page ayga fir usme "ctl+v" kr denge
+			  ```
+			- `Code:`
+			  collapsed:: true
+				- ```bash
+				  ###!/bin/bash
+				  
+				  echo "=== Stopping apt processes ==="
+				  sudo kill -9 1962 2>/dev/null
+				  sudo killall apt apt-get 2>/dev/null
+				  
+				  echo "=== Updating package list ==="
+				  sudo apt-get update
+				  
+				  echo "=== Installing required packages ==="
+				  sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+				  
+				  echo "=== Adding Docker GPG Key ==="
+				  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+				  
+				  echo "=== Adding Docker Repository ==="
+				  sudo add-apt-repository -y \
+				  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+				  $(lsb_release -cs) \
+				  stable"
+				  
+				  echo "=== Updating package list again ==="
+				  sudo apt-get update
+				  
+				  echo "=== Installing Docker ==="
+				  sudo apt-get install -y docker-ce
+				  
+				  echo "=== Starting and Enabling Docker ==="
+				  sudo systemctl start docker
+				  sudo systemctl enable docker
+				  
+				  echo "=== Adding current user to Docker group ==="
+				  sudo usermod -aG docker $USER
+				  
+				  echo "=== Checking Docker Version ==="
+				  docker --version
+				  
+				  echo "=== Granting Docker Socket Permission ==="
+				  sudo systemctl restart docker
+				  ls -l /var/run/docker.sock
+				  sudo chmod 666 /var/run/docker.sock
+				  
+				  echo "=== User Groups ==="
+				  groups $USER
+				  
+				  echo "=== Restarting Docker ==="
+				  sudo systemctl restart docker
+				  
+				  echo "========================================="
+				  echo "Docker installation completed successfully."
+				  echo "IMPORTANT: Logout and login again (or run 'newgrp docker')"
+				  echo "before using Docker without sudo."
+				  echo "========================================="
+				  ```
+				- `bash filename.sh #to run bash file`
+		- ### Log in to Docker on the EC2 Instance
+		  collapsed:: true
+			- ```bash
+			  docker login
+			  ```
+		- ### Pull the Docker images from Docker Hub
+		  collapsed:: true
+			- ```bash
+			  docker pull abhaymalve09/orsproject04-webapp:latest
+			  
+			  docker pull abhaymalve09/mysql:8.0
+			  ```
+		- ### Create a Network on AWS
+		  collapsed:: true
+			- ```bash
+			  docker network create my-network
+			  ```
+		- ### Run Web Application Container
+		  collapsed:: true
+			- ```bash
+			  docker run -d --name ors --network my-network -p 8080:8080 -e DB_URL="jdbc:mysql://db:3306/p-04" -e DB_USERNAME="root" -e DB_PASSWORD="root" abhaymalve09/orsproject04-webapp:latest
+			  
+			  docker run -d --name db --network my-network -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=p-04 abhaymalve09/mysql:8.0
+			  
+			  docker run -d --name db --network my-network -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=p04 askew8151/mysql:8.0
+			  
+			  docker run -d --name ors --network my-network -p 8080:8080 -e DB_URL="jdbc:mysql://db:3306/p04" -e DB_USERNAME="root" -e DB_PASSWORD="root" askew8151/orsproject04-webapp:latest
+			  ```
+		- ### View Docker Containers
+		  collapsed:: true
+			- ```bash
+			  docker ps
+			  ```
+		- ### To test the webapp
+		  collapsed:: true
+			- `http://13.50.111.244:8080/ORSProject04/LoginCtl`
+			- #### Troubleshooting
+			  collapsed:: true
+				- Expose the port of sql container
+					- Edit inbound rules par click karo.
+					- Add Rule.
+					- Fill the following:
+						- | Type       | Protocol | Port | Source                      |
+						  |------------|----------|------|-----------------------------|
+						  | Custom TCP | TCP      | 3307 | `0.0.0.0/0`  |
+					- Save Rules.
+					- ---
+					- In sql workbench create an instance
+						- Name : `Aws`
+						- IP : `13.50.111.244`
+						- Port: `3307`
+						- create tables using p04 code and execute
+						- 90+ rows created
+						- Capitalize table names
+		- ---
+		- ### Stop and Remove Specific Docker Container
+		  collapsed:: true
+			- ```bash
+			  docker stop tomcat-container
+			  docker rm tomcat-container
+			  ```
+		- ### View Logs of Docker Container
+		  collapsed:: true
+			- ```bash
+			  docker logs tomcat-container
+			  ```
+		- ### Remove Docker Images
+		  collapsed:: true
+			- ```bash
+			  docker rmi username/tomcat:latest
+			  ```
+		- ### Stop Instance
