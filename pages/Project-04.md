@@ -87,9 +87,6 @@
 				- refresh to see.
 			- Use system explorer to see location of project
 				-
-					-
-					-
-				-
 		- open the project now on vscode
 			- go to `C:\Users\Piyush\Documents\Project04\Mission_ORSProject4\New Project\ORSProject04`
 			  collapsed:: true
@@ -174,9 +171,6 @@
 													- paste the copied content in docker `exec`
 													- `show tables`
 												-
-												-
-											-
-								-
 					- in `ors-webapp` container
 						- go to localhost:8080 in browser
 							- run `localhost:8080/ORSProject04`
@@ -205,3 +199,11 @@
 											- Sign in, now everything works.
 												- for admin access in ST_ROLES change to 1.
 				-
+- [[Sat, 18.07.2026]]
+	- ```bash
+	  docker run -d --name db --network my-network -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=p04 askew8151/mysql:8.0
+	  
+	  
+	  
+	  docker run -d --name ors --network my-network -p 8080:8080 -e DB_URL="jdbc:mysql://db:3306/p04" -e DB_USERNAME="root" -e DB_PASSWORD="root" askew8151/orsproject04-webapp:latest
+	  ```
