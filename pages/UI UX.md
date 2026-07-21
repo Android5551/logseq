@@ -1,2 +1,47 @@
 - [[Mon, 20.07.2026]]
-	-
+	- ui -> user interface
+	- ux -> user expressions
+	- backend -> algorithms
+	- ui:
+		- html, css, bootstrap
+		- html -> tags
+			- basic structure of a house
+		- css -> properties, styles
+			- colour the house
+		- framework->React, node, angular
+		- javascript -> functions
+		- bootstrap -> having all combos of html, css and javascript's framework
+			- use libraries to use
+			- used for making responsive application
+			- device friendly applications
+				- adjusts the webpage according to device
+		- we use frameworks instead of using css, js or html individually
+	- use copilot to make structure of website
+	- use vs code
+		- download live-server
+		- download copilot
+		- open workspace for your folder
+		- ### code
+			- `Shift+1` -> boiler plate
+			- `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+				- creates device friendly website
+					- #+BEGIN_EXAMPLE
+					  if device is small it adjusts accordingly
+					  #+END_EXAMPLE
+			- h1 to h6
+			- centre -> to make content at centre
+			- `127.0.0.1` -> ip address or localhost
+			- ip + port -> uri(uniform resource identifier
+			- `<a href="path to link">content</a>` -> to make link; its called anchor tag
+		- ### copilot ai
+			- `ctrl+alt+i`
+		- TODO Create a portfolio
+			- use prompt
+			- use js, css and html only
+				- not bootstrap
+				- whatever tags you use, you should have knowledge why you have used it.
+			- Homepage having headers as tab
+				- resume details page having experience, qualification, x, xii etc.
+				- Gallery page, achievements page , skills page
+			- Add footers too.
+		-

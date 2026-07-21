@@ -1,0 +1,11 @@
+- [[Mon, 20.07.2026]]
+	- It does not have return type
+	- It's name is same as class.
+	- It is called at the time of object creation
+	- Used to initialise instance
+		- Provides memory to class variable
+		- create parameterised constructor
+		- To create instance use default constructor provided by java compiler
+	- A class can have multiple constructors called constructor overloading
+	- Constructors which receives parameters are parameterised constructors
+	- When we use default constructor, to give memory to class attribute we use setter methods.

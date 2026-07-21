@@ -1,10 +1,10 @@
 - Programming Languages
-  collapsed:: true
 	- [[java]]
 	- [[DevOps]]
 	- [[Sql]]
 	- [[UI UX]]
 - Playground
+  collapsed:: true
 	- [[Testing]]
 -
 -

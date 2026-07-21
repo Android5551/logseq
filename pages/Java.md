@@ -14,9 +14,13 @@
 	- [[Encapsulation]]
 	- [[Inheritance]]
 	- [[Method Overriding]]
+	  collapsed:: true
 		- [[Type casting]]
 	- [[Polymorphism]]
-		-
+	- [[Constructor]]
+	- [[Data Abstraction]]
+	- [[Data Hiding]]
+	-
 	-
 	-
 -

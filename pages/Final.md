@@ -3,6 +3,7 @@
 		- it is part of singleton class
 		- Complete class
 		- can't be extended or inherited
+			- child can't be created
 		- These classes do not need specialization
 		- keyword `final`
 			- eg. `String` can't be extended

@@ -1,0 +1,2 @@
+- ![image.png](../assets/image_1784604841842_0.png)
+	- scopes of access modifiers
