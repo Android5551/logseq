@@ -205,12 +205,10 @@
 		- ### Open Chrome Browser & log in to Docker Hub.
 		- ### Open Command Prompt & log in to Docker: docker login
 		- ### syntax of tagging
-		  collapsed:: true
 			- ```bash
 			  docker tag <source-image>:<tag> <dockerhub-username>/<new-image>:<tag>
 			  ```
 		- ### Tag the Docker images
-		  collapsed:: true
 			- ```bash
 			  docker tag orsproject04-webapp:latest abhaymalve09/orsproject04-webapp:latest
 			  
