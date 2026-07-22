@@ -4,7 +4,6 @@
 	- [[Sql]]
 	- [[UI UX]]
 - Playground
-  collapsed:: true
 	- [[Testing]]
 -
 -
