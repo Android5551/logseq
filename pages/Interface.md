@@ -20,7 +20,6 @@
 			- student extend person and implements bio
 				- so need to forcefully override
 - ### Difference between Interface and abstract class
-  collapsed:: true
 	- Abstract class can have both abstract and non abstract methods
 		- can have constants and non constants attributes
 	- Interface has all methods abstract.

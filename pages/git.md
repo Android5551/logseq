@@ -624,7 +624,6 @@
 		  
 		  This ensures your work is saved on the remote repository.
 - ## Win to git-hub ; git-hub to Garuda
-  collapsed:: true
 	- ```
 	  On your laptop:
 	  
