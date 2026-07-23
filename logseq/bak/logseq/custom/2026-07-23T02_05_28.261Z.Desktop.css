@@ -7,44 +7,54 @@
   padding: 2px 4px;
 }
 /* ===== Elegant Logseq heading colors (black background) ===== */
-
-/* H1 - muted coral */
+/* H1 - Dusty Rose */
 .ls-block h1,
 .editor-inner h1,
 .markdown-rendered h1 {
-  color: #f7768e !important;
+  color: #d0879c !important;
 }
 
-/* H2 - muted blue */
+/* H2 - Soft Teal */
 .ls-block h2,
 .editor-inner h2,
 .markdown-rendered h2 {
-  color: #ff9e64 !important;
+  color: #7aa8a1 !important;
 }
 
-/* H3 - muted teal */
+/* H3 - Dusty Mauve */
 .ls-block h3,
 .editor-inner h3,
 .markdown-rendered h3 {
-  color: #bb9af3 !important;
+  color: #b08aa8 !important;
 }
 
-/* H4 - antique gold */
+/* H4 - Muted Blue */
 .ls-block h4,
 .editor-inner h4,
 .markdown-rendered h4 {
   color: #81a1c1 !important;
 }
 
-/* H5 - soft sky blue */
+/* H5 - Sage Green */
 .ls-block h5,
 .editor-inner h5,
 .markdown-rendered h5 {
   color: #a3be8c !important;
 }
 
+.markdown-rendered h1 {
+  font-weight: 800 !important;
+}
 
+.markdown-rendered h2 {
+  font-weight: 700 !important;
+}
 
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5 {
+  font-weight: 600 !important;
+}
 /* ===== Bold text ===== */
 .ls-block .inline strong,
 .ls-block .inline b,
@@ -54,4 +64,15 @@
 .markdown-rendered b {
   color: #f4edd8 !important;
   font-weight: 700 !important;
+}
+
+/* Highlight*/
+/* ==highlight== */
+mark,
+.content mark,
+.ls-block mark {
+  background-color: #a6e3a1 !important; /* Change to your preferred color */
+  color: #11111b !important;            /* Dark text */
+  padding: 0.05em 0.15em;
+  border-radius: 3px;
 }

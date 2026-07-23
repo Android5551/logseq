@@ -65,3 +65,14 @@
   color: #f4edd8 !important;
   font-weight: 700 !important;
 }
+
+/* Highlight*/
+/* ==highlight== */
+mark,
+.content mark,
+.ls-block mark {
+  background-color: #5f8f6b !important; /* Change to your preferred color */
+  color: #11111b !important;            /* Dark text */
+  padding: 0.05em 0.15em;
+  border-radius: 3px;
+}

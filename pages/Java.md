@@ -1,6 +1,7 @@
 - [[Pre-Post increment]]
 - [[Arrays]]
 - Classes
+  collapsed:: true
 	- [[Strings]]
 	- [[Date]]
 	- [[Object]]
@@ -20,6 +21,7 @@
 	- [[Constructor]]
 	- [[Data Abstraction]]
 	- [[Data Hiding]]
+	- [[Interface]]
 	-
 	-
 	-

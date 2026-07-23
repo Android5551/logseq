@@ -21,11 +21,11 @@
   color: #7aa8a1 !important;
 }
 
-/* H3 - Slate Blue */
+/* H3 - Dusty Mauve */
 .ls-block h3,
 .editor-inner h3,
 .markdown-rendered h3 {
-  color: #8fa8c7 !important;
+  color: #b08aa8 !important;
 }
 
 /* H4 - Muted Blue */
@@ -64,4 +64,15 @@
 .markdown-rendered b {
   color: #f4edd8 !important;
   font-weight: 700 !important;
+}
+
+/* Highlight*/
+/* ==highlight== */
+mark,
+.content mark,
+.ls-block mark {
+  background-color: #355c4b !important; /* Change to your preferred color */
+  color: #11111b !important;            /* Dark text */
+  padding: 0.05em 0.15em;
+  border-radius: 3px;
 }
