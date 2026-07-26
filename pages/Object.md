@@ -1,7 +1,8 @@
 - [[Mon, 06.07.2026]]
-- `Object` is the parent class of all classes in Java. Every class directly or indirectly inherits from `Object`, so every object can use the methods defined in the `Object` class.
+- `Object` is the parent class of all classes in Java. Every class directly or indirectly inherits from Object, so every object can use the methods defined in the `Object` class.
 	- Every Java class ultimately inherits from `Object`, either directly or through another class.
 	- Since every class extends `Object`, every object gets common methods such as:
+	  collapsed:: true
 		- Common methods: 
 		  | Method | Purpose |
 		  | ---- | ---- | ---- |
@@ -14,3 +15,6 @@
 		  | `notify()` | Wakes one waiting thread |
 		  | `notifyAll()` | Wakes all waiting threads |
 		- <!--EndFragment-->
+- Object class is part of `java.lang` package.
+- Object class will always be there.
+-

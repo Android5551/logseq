@@ -1,7 +1,47 @@
+- [[Wed, 22.07.2026]]
+  collapsed:: true
+	- # Collection Framework
+	  collapsed:: true
+		- set of elements/data/values is called collection
+		- Storing multiple different data
+		- manipulating data -> update , delete etc.
+		- ## Array vs collection
+		  collapsed:: true
+			- ### Array
+				- collection of same type datatypes
+				- for primitive datatypes
+				-
+			- ### collection
+				- collection of objects like Integer, Boolean etc.
+				- for objects
+		- Collection can be of duplicate elements or unique elements
+		- ### Ways to store data
+		  collapsed:: true
+			- #### stack memory
+				- LIFO -> Last Store First Searched
+				- book stacked upon each other ; book stored last is first searched
+			- #### Queue memory
+				- FIFO -> First Stored first Searched ;
+				- booking tickets in queue
+			- #### List memory
+				- If want to search from middle
+					- want to store in the middle then it is List memory
+					- storing duplicate data.
+			- #### Set memory
+				- storing unique data
+			- #### Map memory
+				- key,value pair
+				-
+		- ![image.png](../assets/image_1785070452086_0.png)
+		-
 - [[Thu, 23.07.2026]]
+  collapsed:: true
 	- Interfaces can inherit each other using _extends_ keyword
+	-
 	- Classes _implements_ interfaces
 	- # Collection (I)
+	  collapsed:: true
+		- Collection is array of objects
 		- Diagram:
 			- collapsed:: true
 				- ![ChatGPT Image Jul 23, 2026, 09_54_00 PM.png](../assets/ChatGPT_Image_Jul_23,_2026,_09_54_00_PM_1784823853532_0.png)
@@ -61,3 +101,27 @@
 				- It has overridden method of Collection.
 			-
 		-
+	- # Collection vs Arrays
+	  collapsed:: true
+		- ## Collection
+			- keep storing the elements and size gets automatically increased.
+		- ## Arrays
+			- It has fixed size
+	- # Methods
+		- `add(o)` -> adds new element/value/object
+		- `addAll(c)` -> adds collection.
+		- `clear()` ->removes all elements from collection
+		- `contains(o)` -> checks if object is present in collection
+		- `containsAll(c)` -> checks if more than one object is present in collection.
+		- `isEmpty()` -> Checks whether collection is empty or not
+		- `remove(o)` -> removes object
+		- `removeAll(c)` -> removes all objects from collection
+		- `retainAll(c)` -> keeps/store same/duplicate element from 2 collections
+		- `size()` -> checks how many elements are there in collection
+		- `iterator()`-> to remove each value from collection
+		- _methods having `All()` in their name is used wherever collections are more than 1_
+	- Allows only Integer class for using integers not to be confused with primitive datatypes.
+	- To print collection ; `system.out.println` c
+	- "Orange" has different ASCII than "orange"
+	-
+-

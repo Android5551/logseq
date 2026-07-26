@@ -1,7 +1,6 @@
 - [[Pre-Post increment]]
 - [[Arrays]]
 - Classes
-  collapsed:: true
 	- [[Strings]]
 	- [[Date]]
 	- [[Object]]
@@ -9,6 +8,7 @@
 	- [[Singleton]]
 	  collapsed:: true
 		- [[Final]]
+	- [[Object]]
 	-
 	-
 - [[OOP]]:
