@@ -22,6 +22,8 @@
 	- [[Data Abstraction]]
 	- [[Data Hiding]]
 	- [[Interface]]
+	- [[Exception]]
+	- [[Collection]]
 	-
 	-
 	-
