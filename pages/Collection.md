@@ -1,7 +1,6 @@
 - [[Wed, 22.07.2026]]
   collapsed:: true
 	- # Collection Framework
-	  collapsed:: true
 		- set of elements/data/values is called collection
 		- Storing multiple different data
 		- manipulating data -> update , delete etc.
@@ -16,7 +15,6 @@
 				- for objects
 		- Collection can be of duplicate elements or unique elements
 		- ### Ways to store data
-		  collapsed:: true
 			- #### stack memory
 				- LIFO -> Last Store First Searched
 				- book stacked upon each other ; book stored last is first searched
@@ -108,6 +106,7 @@
 		- ## Arrays
 			- It has fixed size
 	- # Methods
+	  collapsed:: true
 		- `add(o)` -> adds new element/value/object
 		- `addAll(c)` -> adds collection.
 		- `clear()` ->removes all elements from collection
@@ -124,4 +123,24 @@
 	- To print collection ; `system.out.println` c
 	- "Orange" has different ASCII than "orange"
 	-
+- [[Fri, 24.07.2026]]
+	- # List
+		- if we store first element on index 1 instead of 0 we get `IndexOutOfBoundException`
+			- `l.add(1,1);`
+			- `java.lang.IndexOutOfBoundsException: Index: 1, Size: 0`
+			- Accessing unavailable index cause this.
+		- In this we can add any object
+		- ```java
+		  l.add("Apple");
+		  l.add(1,"Mango");
+		  l.add(1,"Orange");
+		  
+		  // Output:
+		  [Apple, Orange, Mango]
+		  ```
+			- mango shifted to next available index and orange comes to 1st.
+		- List follows index sequence
+		- `l.subList(0, 2)` prints last index - 1
+		- upto ==18:07 map==
+		-
 -

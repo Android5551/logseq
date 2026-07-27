@@ -1,4 +1,5 @@
 - [[Tue, 21.07.2026]]
+  collapsed:: true
 	- DONE Exception
 	- # Exception Handling
 		- Can't handle error

@@ -1,4 +1,4 @@
-## Define:
+# Define:
 	- A class has different interfaces.
 	  collapsed:: true
 		- #+BEGIN_EXAMPLE
@@ -11,17 +11,20 @@
 		  
 		  - Businessman is a Person but he can be richman, social worker 
 		  #+END_EXAMPLE
+	- Can't create objects here.
 	- Interface has all methods abstract.
 	- All attributes are constant, value will be assigned once.
 	- As child can't have two parents.
+	  collapsed:: true
 		- there is a student who is person and is student of biology how can we define it.
 			- we can't do student with parent person and parent bio
 			- so we use interface.
 			- student extend person and implements bio
 				- so need to forcefully override
-- ### Difference between Interface and abstract class
+- # Difference between Interface and abstract class
+  collapsed:: true
 	- Abstract class can have both abstract and non abstract methods
 		- can have constants and non constants attributes
 	- Interface has all methods abstract.
 	- All attributes are constant
--
+- create object of interface but give reference of concrete class that overrides the methods of interface or take reference of class which implements it.
