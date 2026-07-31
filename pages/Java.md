@@ -13,6 +13,7 @@
 	-
 	-
 - [[OOP]]:
+  collapsed:: true
 	- [[Encapsulation]]
 	- [[Inheritance]]
 	- [[Method Overriding]]
@@ -24,7 +25,8 @@
 	- [[Data Hiding]]
 	- [[Interface]]
 	- [[Exception]]
-	- [[Collection]]
+- [[Collection]]
+- [[Streams]]
 	-
 	-
 	-

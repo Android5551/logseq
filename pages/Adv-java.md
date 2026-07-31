@@ -1,3 +1,221 @@
 - [[Fri, 24.07.2026]]
+  collapsed:: true
+	- DONE jdbcConnection
+	- JDBC -> Java Data Base Connectivity
+	  collapsed:: true
+		- queries will be run using java
+		- Need Driver to connect database and java
+		- java has all types of database driver found in maven repository
+		  collapsed:: true
+			- search _mysql connector/j_ and download 8.0.31 jar file.
+				- jar file is external library of java.
+				- to deploy an application we make a jar file
+					- to use its functionality we need to integrate this jar file into our project
+				- Inside the jar file _mysql connector/j_ there is mysql Driver
+					- When we connect with database we need to use driver manager of driver.
+					- driver manager and driver are of mysql. both should be of same database.
+				- if you are using mysql you need to download mysql jar file
+				-
+				-
+		- To connect to database java needs 2 lines of code
+			- 1st of all we need to load the Driver
+				- _Driver_ is a class in java
+				- the jar file has package called `com.mysql.cj.jdbc`
+					- that package has Driver class.
+					- now we need to load this class in JVM.
+						- so that java gets the driver of mysql so it can connect to database
+						- java has its own _classloader_ in jvm
+							- To load external class , so we use _classloader_ of java called `Class.forName()`
+								- `Class` is a class having `forName` as method
+								- pass the class you want to load inside classloader
+									- for example here `com.mysql.cj.jdbc.Driver` including its package name
+									-
+								-
+				- Now need to load the jar file in project
+					- In java project there is an option for _classpath_ option
+						- in _classpath_ we can add external library called jar file.
+						- Right-Click on project > build path > libraries > classpath > add external jars > select mysql.jar
+						- can see in _reference library_  `mysql-connector-j-8.0.31.jar`
+				- in database we use `st-tablename` because table names like `user`, `condition` etc are reserved so we use standard prefix like `st_`
+				- so to connect to database we need to go to _mysql_ , _demo database_, then in table.
+			- 2nd we need Driver Manager of mysql
+				- Driver Manager is also called **Factory of Connection**
+				- **Factory design pattern** which provides object for another class/interface.
+				  collapsed:: true
+					- Driver Manager provides object of _Connection_ interface.
+					- follows **Factory design pattern**
+				- need 3 things:
+					- port number of mysql
+					- database name
+					- username and password
+				- Driver manager is predefined
+					- imported from `java.sql`
+					- having method `.getConnection()`
+						- having 3 arguments -> _url_, *username*, *password*
+						- returns Connection object which provides connection
+						- the mysql is in localhost
+							- `jdbc:mysql://localhost:port_no/dbname, username, password`
+				- can print name of database which it connects `Connection.getCatalog()`
+					- ### Exceptions
+						- wrong database -> `UnknownDatabaseException` or `SQLSyntaxErrorException`
+						- mysql service is down or hosts and/or port number is wrong -> `CommunicationsException`: Communications link failure
+						- username or password is wrong -> `SQLException` access denied
+						- wrong Driver class name / wrong jar file/ jar file not there -> `ClassNotFoundException`
+						- wrong column names -> `UnknownColumnException`
+				- hence connection made.
+				- Now need to run queries
+			- 3rd to run queries like `INSERT, UPDATE, DELETE and SELECT or SEARCH` use *Statement Interface*.
+				- using it's method we can run queries
+				- _Connection_ will give object to *Statement Interface*.
+				- *Connection.createStatement()* provides object of Statement Interface and store it in Statement object. as its return type is Statement object
+					- Connection is **Factory of Statement**
+					- Statement has 2 methods:
+						- `executeUpdate()`
+							- It returns no. of rows
+							- to run CREATE, INSERT, UPDATE, DELETE queries.
+							- whatever query you run from it updates database
+							- its return type is int
+								- it returns integer values rows affected.
+							- date format -> `year-month-day`
+						- `executeQuery()`
+							- to run SELECT or search query.
+							- doesn't update databases.
+			- [[Mon, 27.07.2026]]
+				- DONE resultset
+				- we can change port no. of mysql but at time of creation in 3rd step
+				- 4th Result Set
+					- **result set** contains data we searched using *SELECT* from database.
+						- `st.executeQuery("select * from table_name")` returns result set
+					- `rs.next()` -> iterates through records until record in result set gets empty
+					- `result set.getInt()` for integer type
+					- `getString()` for String type
+					- `getDate()` for Date type
+					- for searching two records use limit(0,2)
+					-
+					-
+					-
 - [[Mon, 27.07.2026]]
-	-
+  collapsed:: true
+	- Connecting with _mysql_ database
+	- code:
+	  collapsed:: true
+		- ```java
+		  - package com.rays.jdbc.modules.college;
+		  - import java.sql.Connection;
+		  - import java.sql.DriverManager;
+		  - import java.sql.SQLException;
+		  - public class CollegeInsert {
+		  - public static void main(String[] args) throws ClassNotFoundException, SQLException{
+		  - // 1. class loader ;  Connector/J -> official MySQL JDBC driver
+		  - // throws a checked exception because Java cannot guarantee that the class exists at runtime.
+		  Class.*forName*("com.mysql.cj.jdbc.Driver");
+		  -
+		  - //2. get connection
+		  - // jdbc:mysql://localhost:3306/mydb
+		  - //	│    │        │         │      │
+		  - //	│    │        │         │      └── Database name
+		  - //	│    │        │         └───────── Port number (3306 is MySQL's default)
+		  - //	│    │        └─────────────────── Server/host
+		  - //	│    └──────────────────────────── Database type (MySQL)
+		  - //	└───────────────────────────────── JDBC protocol
+		  - // Database server is not running.
+		  - // Wrong username or password.
+		  - // Incorrect database URL.
+		  - // Database does not exist.
+		  - Connection c = DriverManager.*getConnection*("jdbc:mysql://localhost:3306/modules", "root", "root");
+		  ```
+		-
+- [[Tue, 28.07.2026]]
+  collapsed:: true
+	- # Transaction Handling
+	  collapsed:: true
+		- when we update, insert , delete then _transaction_ happens
+		- can run multiple transactions at once
+		- Having exception do rollback (revert)
+		- Having no exception commit (save)
+		- If we have done 4 transactions and one of them has exception and rest of them are committed then too rollback should occur and no change in database and no rows should be affected.
+		- If all 4 of transactions having no exception then there must be changes in database as well as rows should be affected and commit should be done
+		- ---
+		- ## Definition
+		  collapsed:: true
+			- changes of this set is either committed together or rollback together in single attempt.
+				- if no exception in that attempt occurs then commit data
+				- otherwise all transaction must be rollback
+			- Transaction Handling can only be done during update, delete and insert not in select.
+			- Transaction handling done in following steps:
+				- Made object of connection
+				- `setautocommit` -> false
+				- committed in try
+				- rollback in catch
+				- close connection in finally
+		- by default statement does commit and rollback for ex. out of 4 transaction , 3 has exception then it rollbacks 3 and commit 1.
+			- but manually we have to do rollback because if any one of the transaction got exception it must get rollback otherwise our data is not safe
+			- `c.setAutoCommit(false);` so set this to false so that it doesn't auto commit or rollback
+				- If exception occurs then rollback method will run otherwise commit method which will be done by us we should use these methods.
+				- | Mode                          | Exception occurs |
+				  | ----           | ----             | ----                   |
+				  | `autoCommit=true`           | Previous successful statements stay committed |
+				  | `autoCommit=false`   | You can catch the exception and call `rollback()` to undo all uncommitted statements |
+				- <!--EndFragment-->
+				-
+				-
+		- ### using try-catch
+			- try has transactions.
+				- committing done here
+				- if any of them has exception execution flow goes to catch
+			- catch has exceptions.
+				- so if transaction has exception it rollbacks in catch
+			- finally closes the connection
+		-
+		- #### Transaction Handling
+			- transaction begins here:
+				- `c.setAutoCommit(false);`
+			- transaction commit
+				- `conn.commit();` in try block
+			- transaction ends:
+				- `conn.close();`
+				- in finally block
+				- connection should always be closed otherwise mysql gets overloaded.
+		- if you skipped rollback commit and `setautocommit` to true then one row get inserted out of 3 because 2nd one is duplicate of first one with unique primary key so row before that will be inserted and rest won't but if we didn't skip then transactions won't commit and get rollback
+		- **3 transaction of insert should be written separately otherwise it won't work**
+			- ##### Statement
+				- for Statement every query is new query ; every query gets compiled every time you run it and values get changed
+				- it is slow
+			- ##### Prepared Statement
+				- in this if you write a query it gets compiled once and runs repeatedly and changes values.
+				-
+			-
+			-
+		-
+- [[Thu, 30.07.2026]]
+	- # Prepared Statement
+		- ### Statement
+		  collapsed:: true
+			- in Statement query gets compiled each and every time
+				- each query it takes as new query and gets compiled again and execute with new value
+				- Query execution time slow
+		- ### Prepared Statement
+		  collapsed:: true
+			- Query gets compiled once and run again and again with different values
+			- Change the values in query
+			- Fast execution time
+			-
+		- ### Code:
+			- Earlier we use to create different class for table like insert , update, delete , create etc.
+			- but now we will create a **model class** having all these as methods
+				- classes which communicates with database are called *model class*
+					- `public void add(int id, String firstname)` -> the id or firstname can be anything as they are obj.
+					- Class Name -> TableNameModel
+					- add queries of only one table otherwise it gets complicated
+				- in class UserModel the date is of type `java.util` and in database date is of type `java.sql` convert util date to sql date
+					- `new java.sql.Date(dob.getTime()))` converts to sql type
+				- `prepareStatement()` is connection's method and write query inside it and store in `PreparedStatement obj`
+					- import `java.sql.PreparedStatement`;
+					- in `prepareStatement()` don't give values
+					- Replace values with `?` as per no. of columns
+					- `obj.setInt(parameterIndex means ?1,value to be stored ie firstName)` or setString or setDate
+			- you can call add() using creating that class object and call using that obj function
+				- in model.add(the date should be converted to simple date format sdf. then parsed to date format
+				- ==32:03==
+				-
+				-
