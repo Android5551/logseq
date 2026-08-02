@@ -1,16 +1,16 @@
 @import url('https://logseq.catppuccin.com/ctp-oled.css');
 
-/* Inline code (`text`) */
+/* Inline code */
 :not(pre)>code {
-  color: #f38ba8 !important;
+  color: #fab387 !important;   /* Peach */
   background: #202020 !important;
   border-radius: 4px;
   padding: 2px 4px;
 }
-/* Change italic text color */
+/* Italics */
 em,
 i {
-  color: #ff6b6b !important; /* Replace with your preferred color */
+  color: #89dceb !important;   /* Sky */
 }
 
 /* ===== Elegant Logseq heading colors (black background) ===== */

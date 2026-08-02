@@ -1,19 +1,24 @@
 @import url('https://logseq.catppuccin.com/ctp-oled.css');
 
-/* Inline code (`text`) */
+/* Inline code */
 :not(pre)>code {
-  color: #f38ba8 !important;
+  color: #fab387 !important;   /* Peach */
   background: #202020 !important;
   border-radius: 4px;
   padding: 2px 4px;
 }
+/* Change italic text color */
+em,
+i {
+  color: #f38ba8 !important; /* Replace with your preferred color */
+}
 
 /* ===== Elegant Logseq heading colors (black background) ===== */
-/* H1 - Orangish Pastel Soft Color */
+/* H1 - Deepened Soft Apricot */
 .ls-block h1,
 .editor-inner h1,
 .markdown-rendered h1 {
-  color: #f7bda0 !important;
+  color: #c98e72 !important;
 }
 
 /* H2 - Dusty Champagne */
@@ -50,6 +55,7 @@
 .markdown-rendered h6 {
   color: #8d9b92 !important;
 }
+
   .markdown-rendered h1 {
     font-weight: 800 !important;
   }
@@ -71,7 +77,7 @@
   .editor-inner .inline b,
   .markdown-rendered strong,
   .markdown-rendered b {
-    color: #f4edd8 !important;
+    color: #f38ba8 !important;
     font-weight: 700 !important;
   }
 
