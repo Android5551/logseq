@@ -27,7 +27,7 @@
 	- [[Exception]]
 - [[Collection]]
 - [[Streams]]
-  collapsed:: true
+- [[IO]]
 	-
 	-
 	-

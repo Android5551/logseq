@@ -1,5 +1,4 @@
 - [[Thu, 30.07.2026]]
-  collapsed:: true
 	- # Streams feature of Java 8
 		- It filters and manipulates the data stored in data source
 		  collapsed:: true
@@ -114,4 +113,3 @@
 				- run from book
 				-
 			-
--
