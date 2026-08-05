@@ -1,4 +1,5 @@
 - [[Mon, 03.08.2026]]
+  collapsed:: true
 	- # InputFromKeyboard
 	  collapsed:: true
 		- `PrintWriter` gets data from keyboard and write in text file set in the path
@@ -49,3 +50,5 @@
 	- # TestFileSplit
 		- if file has 10 line of text it will create 10 new files
 		-
+-
+	-
