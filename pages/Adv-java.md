@@ -437,6 +437,7 @@
 				-
 			-
 - [[Mon, 03.08.2026]]
+  collapsed:: true
 	- # search methods
 		- ## findByLogin
 			- return type `userbean`
