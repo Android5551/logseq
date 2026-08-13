@@ -1,6 +1,7 @@
 - ((6a638dfb-062e-4b99-8e22-84eccd8369ad))
 - ## Cases:
 	- ### Case 1: Start from an existing remote repository (use `clone`)
+	  collapsed:: true
 		- Suppose GitHub already has a repository.
 		  
 		  ```bash
@@ -21,6 +22,7 @@
 			- Checks out the default branch (`main`).
 			  Running `git init` before `git clone` would be unnecessary.
 	- ### Case 2: Merging a Local  existing Git Repository with an Existing Remote Repository
+	  collapsed:: true
 		- ```bash
 		  git init
 		  git add .
@@ -301,6 +303,11 @@
 	- ### Case 6:
 	  collapsed:: true
 		- # Git Rebase Workflow (Two PCs)
+	- ###  Case 7: Asking for password , username
+		- ```bash
+		  git@github.com:Android5551/Java.git
+		  ```
+		-
 - ## Scenario
   collapsed:: true
     
