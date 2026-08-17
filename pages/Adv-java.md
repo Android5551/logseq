@@ -594,6 +594,7 @@
 					-
 			-
 - [[Wed, 05-08-2026]]
+  collapsed:: true
 	- # Resource Bundle
 	  collapsed:: true
 		- Supports multi-language applications ( ((6a802abc-5fd5-4f2c-9003-380a3c9b38cf)) )
@@ -650,3 +651,90 @@
 		- [[Servlet]]
 		-
 		-
+- [[Mon, 17-08-2026]]
+  collapsed:: true
+	- # DCP
+		- store in util and make JDBCDataConnection singleton
+		- Data connection pool
+		- It is a class which handles database connectivity of web app
+		  collapsed:: true
+			- In every web app we make , need to create dcp in that
+			- Multiple users use a web app
+				- hence multiple connection will be made that results in increased load on database.
+				- at a time mysql can bear 150 connections
+					- after that it crashes
+					- so to avoid that we use DCP
+		- It can stop unusable connection
+		- gives connection to usable connection
+		-
+		- ## Why we need it
+		  collapsed:: true
+			- Makes database connectivity(jdbc) reusable
+			- Sets connection limitation
+			- manages database connectivity
+		- ## To make this we need design pattern
+		  collapsed:: true
+			- ### Singleton design pattern
+				- we create singleton class
+					- In a lifetime can create only one copy or memory
+				- 4 steps:
+				  collapsed:: true
+					- make the class `final` so child can not be created.
+						- No other class can be made like this one
+					- create an attribute of same type as class name make it `static`
+						- static attributes are constant and in a lifetime it gets memory only one time.
+					- make default constructor `private`
+						- so no other class can make its object
+							- if we don't then calling constructor again n again gives more than max connection or double
+						- because when we create new object using `new` keyword we call class's default constructor
+					- Since no other class can create an object of this class, it must create and return its own object.
+						- the class creates its own object and provides it through `getInstance()` which is user-defined
+						- Make the method return the same class type so it can return that class's object.
+						- If `jdbc` is `null`, a new `JDBCDataSource` object is created, memory is allocated to it, and the same object is returned.
+				- these 4 steps make a singleton class
+				  collapsed:: true
+					- Once the Singleton object is created, it stays in memory and the same object is returned every time instead of creating a new one.
+					- now we make a connection and set around 30.
+						- now only 30 people at a time get connection
+						- minimum 5
+						- initially you can get this much connection opened
+						- if incremented at a time 5 gets incremented like 5 people come then 5 connection can be available to them
+						- 31st connection needs to wait for any openings or if any connection become unusable
+						- this results in no overloading on database.
+						- for giving these properties we need jar file named `c3-p0` add in `lib` folder. it has class named `ComboPooledDataSource` -> it gets created so that we can give database connectivity parameters.
+							- The `ComboPooledDataSource` object gets memory only when the `JDBCDataSource` constructor is called, and since the constructor is executed only once, only one `ComboPooledDataSource` object is created.
+							- this class will do all driver manager, driver load etc need not to be done, it will internally manage all those
+							- This object should be created within the Singleton instance and reused throughout the application.
+								- the values inside that will be set once and reused many times.
+								- ```java
+								  cpds.setDriverClass(rb.getString("driver"));
+								  			cpds.setJdbcUrl(rb.getString("url"));
+								  			cpds.setUser(rb.getString("username"));
+								  			cpds.setPassword(rb.getString("password"));
+								  ```
+									- this provides connectivity and after that need to give limitations
+									  collapsed:: true
+										- `minpoolsize` this must remain there
+										- `acquireIncrement` specifies how many new connections should be created at a time.
+											- if after 5 , i need 1 more connection then
+												- it creates 5 new connections, even if only 1 was requested.
+											- this should be greater than or equal to `minpoolsize` otherwise it gets exception.
+										- `initialpool` gives you this much connection when you run web app
+							-
+						-
+				- `getConnection()`
+					- this will be public returns connection object
+					- we only call this method
+					- `return getInstance().cpds.getConnection();`
+					  collapsed:: true
+						- first of all getInstance() will be called which in return gives jdbc object, its object can get only when constructor is called
+						- that constructor has `ComboPooledDataSource`'s object
+						- and using this object's methods and given the connection's parameter
+						- called 4 methods for connection and 4 for limitations.
+						- returns connection. otherwise returns null or no connection
+					- we call this using `JDBCDataSource.getConnection()`
+					-
+		- book 34 to 36
+		- we used `c3p0` library having `ComboPooledDataSource` class.
+		-
+-
