@@ -427,5 +427,80 @@
 						- Comparator won't implement in class where we are giving attirbutes
 							- those will implemented in another class filters
 						- so in main we can pass both collection object as well as comparator object in collections sorting
+							-
 						- ==52:17==
+					- **Rephrased Note**
+						- Comparator
+							- Most commonly used
+							- At a time, one attribute can be used for sorting
+							- One class can have multiple comparators
+								- The number of comparators depends on the attributes used for sorting
+								- For example
+									- 3 attributes can have 6 comparators
+										- name → order by name ascending, order by name descending
+							- Contains the `compare` abstract method
+								- `public interface Comparator`
+									- `int compare(T o1, T o2);`
+										- Used to compare two objects of a class
+							- Code
+								- Make the attribute public
+									- If the attribute is private, getter methods are needed
+									- For example, in another class we need to use `o1.getProductPrice`
+									- The comparator is created in another class
+										- Because one class can have multiple comparators
+										- So the attribute is made public to access it
+								- Comparator is not implemented in the class where the attributes are defined
+									- It is implemented in another class, such as a filter class
+								- In `main`, we can pass both the collection object and the comparator object to collection sorting
+						- **Notes Enhancement**
+							- A `Comparator` is used to define custom sorting logic for objects.
+							- A comparator can be used to sort the same class in different ways.
+							- The `compare()` method compares two objects and decides their order.
+								- Negative value → first object comes before second object
+								- Zero → both objects are considered equal for sorting
+								- Positive value → first object comes after second object
+							- `Comparator` is useful when the class can have more than one possible sorting order.
+							- A comparator can be passed to sorting methods such as `Collections.sort()` and `List.sort()`.
+							- The attribute does not need to be public just because a comparator is in another class.
+								- A private attribute can be accessed through a getter method.
+								- Keeping fields private is generally better for encapsulation.
+						- **Explanation by GPT**
+							- Definition
+								- `Comparator` is an interface used to define custom sorting rules for objects.
+							- Syntax / Structure
+								- `public interface Comparator<T>`
+								- `int compare(T o1, T o2);`
+							- Layman Explanation
+								- Comparator tells Java how two objects should be compared when sorting.
+								- For example, products can be sorted by price, name, or id.
+							- Why We Use It
+								- We use it when we want different ways to sort objects of the same class.
+							- Where We Use It
+								- It is commonly used with collections such as `List`.
+								- It is useful when objects need custom sorting.
+							- When Not to Use It
+								- If the class already has one natural sorting order and `Comparable` is enough, a separate `Comparator` may not be needed.
+							- How It Works
+								- A comparator receives two objects.
+								- The `compare()` method compares them.
+								- The sorting method uses the result to arrange the objects.
+							- Example
+								- A `Product` class can have different comparators.
+									- One comparator can sort by name.
+									- Another can sort by price.
+									- Another can sort by id.
+							- Real World Example
+								- An online store can show products sorted by price, name, rating, or popularity.
+							- Interview Point
+								- `Comparator` allows multiple sorting orders for the same class.
+								- Its main method is `compare(T o1, T o2)`.
+							- Common Mistakes
+								- Confusing `Comparator` with `Comparable`.
+								- Thinking that fields must be public for a comparator to access them.
+									- Private fields can be accessed through getter methods.
+								- Forgetting to return the correct comparison result from `compare()`.
+							- GPT Summary
+								- `Comparator` is used when we need custom or multiple sorting orders for objects.
+								- It compares two objects using `compare()` and gives the sorting logic to the collection.
+					-
 						-

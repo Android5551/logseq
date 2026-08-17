@@ -1,0 +1,102 @@
+- [[Fri, 07-08-2026]]
+	- Servlet handles http's requests and responses.
+	- to create servlet
+		- extend this `javax.servlet.http.HttpServlet` class
+	- also called as controller
+	- # MVC architecture
+		- To create web application we need to understand an architecture called MVC
+		  collapsed:: true
+			- It divides application into 3 parts:
+			  collapsed:: true
+				- Model
+					- We write following logic in model:
+						- Data Access Logic
+						- Business Logic
+						- Use Integration logic (we don't write it)
+							- like integrating google's sign in in a website where website wanted to sign up or register the user using their google account, then they take information from google and save it to their database.
+					-
+				- View
+					- JSP
+					- Presentation logic
+						-
+				- Controller
+					- Control logic
+						- Taking data from database and give it to view; take data from view and give it to database
+					- Navigation logic
+						-
+			- Use of MVC
+			  collapsed:: true
+				- divides app into 3 parts.
+					- no code conflict
+					- less complexity
+					-
+				-
+		- ## Flow
+		  collapsed:: true
+			- Model
+				- communicates with database
+			- Bean
+				- for setting and getting
+				- set something in bean and send it to model method
+				- In test class we create bean object and set it in bean and send it to model
+			- Controller
+				- in controller create bean object and model's object , set the values in bean object and send it to model
+				- model goes to database after that
+				- if you search in model , after getting data from result set need to set in bean
+					- that bean can be found in controller
+			- ### The flow from view to database
+			  collapsed:: true
+				- for ex. i send `firstName` from view
+					- that data or request will go to Controller, Controller set that data to bean, bean send it to model and model send it to database.
+					- ### the flow from database to view
+						- then the data should be viewed in view after searching first name.
+							- view goes to controller for taking `firstName` data we searched for.
+							- controller goes to model
+							- Model sets it into bean
+							- then that goes to controller.
+							- controller sends that to view
+							-
+				- for ex. i searched `dell laptop` from view
+					- that request will go to controller
+					- controller knows data access logic is in model and user is asking for `dell laptop` , then controller goes to model
+					- model will then take data from database and set it to bean and then send the bean to controller
+					- controller sends it to view
+					- View will display it.
+					-
+			-
+		- ## 4 Guidelines
+		  collapsed:: true
+			- One screen has one view
+				- Index page, IndexView.jsp
+			- One view has one controller
+				- LoginView.jsp then LoginCtl.jsp
+			- View can not be accessed directly. Only accessed by its own controller
+				- because we can't view a feature which comes after logging in that web application.
+				- we first request from view and controller checks whether user has authorisation to do so
+				- **Pages that can be accessed directly**
+					- index page or welcome page can be accessed always.
+					- forget password page can be accessed directly
+					- header footer pages.
+					- sign up page
+					- login page
+			- View always submit request to its own controller
+				- for ex. in sign up view the data will be added.
+					- because in signUpCtl  we have called model's add method.
+					- in loginView we have Authenticate method for login and password to search whether user is found or not. as we need to follow mvc so all should be separated , we cant do things like in single controller we used add, authenticate etc. then it gets complicated.
+					-
+				-
+			-
+		- In advance java book
+			- pg 169 to 173 #imp
+			- project 4 follows this architecture.
+		- Later we will read:
+		  collapsed:: true
+			- based on `Http's session`
+				- Front controller -> if user hasn't login can't edit his data then the logic for that will be written here. To add security
+				- Http Session -> when we visit a site and get logged in for ex. irctc after a while of idleness it often says your session has expired please login again
+					- when you had login a session had generated now after sometime the session got expired, so we need login again.
+					- authentications done by session
+				- Managing Cookies
+				- etc.
+				-
+		-

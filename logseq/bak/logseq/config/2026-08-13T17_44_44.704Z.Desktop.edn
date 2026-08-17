@@ -10,7 +10,7 @@
  ;; Available options:
  ;; - :now for NOW/LATER style (default)
  ;; - :todo for TODO/DOING style
- :preferred-workflow :now
+ :preferred-workflow :todo
 
  ;; Exclude directories/files.
  ;; Example usage:
@@ -299,7 +299,7 @@
  ;;  :charge-range    600}   ; Default value: 600
 
  ;; Favorites to list on the left sidebar
- :favorites ["Index"]
+ :favorites ["git" "Project-04" "Index"]
 
  ;; Set flashcards interval.
  ;; Expected value:
@@ -421,4 +421,9 @@
  :file/name-format :triple-lowbar
  :graph/settings {:journal? true
  :orphan-pages? true}
- :journal/page-title-format "E, dd.MM.yyyy"}
+ :journal/page-title-format "E, dd.MM.yyyy"
+ :feature/enable-journals? true
+ :feature/enable-whiteboards? false
+ :default-home {:page "Index"}
+ :feature/enable-flashcards? false
+ :ui/show-brackets? false}

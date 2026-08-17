@@ -237,7 +237,6 @@
   collapsed:: true
 	- ## Code
 		- ### To avoid creating 16 columns in add method:
-		  collapsed:: true
 			- Create `bean` class with private attributes containing columns of table
 				- Add `getters` and `setters` for `id` `firstName` etc.
 				- `dob` will be of `java.util` type
@@ -379,17 +378,14 @@
 			-
 		- ### To avoid loading drivers, making connection etc again and again
 			- properties which do not change. Can be stored in a file
-			  collapsed:: true
 				- driver
 				- url
 				- password
 				- username
 				- ---
 				- To use these properties we need `ResourceBundle` class imported from `java.util`
-				  collapsed:: true
 					- *ResourceBundle* is a Java class used to store and read properties value from a *properties file (`.properties`)*.
 					- Create a bundle package
-					  collapsed:: true
 						- add `TestBundle.java` can be named anything
 							- ```java
 							  ResourceBundle rb = ResourceBundle.getBundle
@@ -412,12 +408,10 @@
 							-
 			- create a util package
 				- add `JDBCDataSource` class
-				  collapsed:: true
 					- Without *JDBCDataSource* Every method must create its own database connection
 					- we create this class to centralise database connection code so you don't have to repeat it in every method.
 						- Create a public static method named `getConnection` that returns a `Connection` object and can be called without creating an object of the class.
 							- **Why is Class.forName() not returned?**
-							  collapsed:: true
 								- `Class.forName("com.mysql.cj.jdbc.Driver");`
 									- This loads and registers the MySQL JDBC driver with Java.
 								- ```java
@@ -436,9 +430,11 @@
   collapsed:: true
 	- # search methods
 		- ## findByLogin
+		  collapsed:: true
 			- return type `userbean`
 			- search one record
 				- ### Code
+				  collapsed:: true
 					- same as pk
 					- can use in inserting data.
 					- you are going to add or insert a data where `loginId` is already present in database
@@ -463,6 +459,7 @@
 									  
 									  ```
 		- ## authenticate
+		  collapsed:: true
 			- return type `userbean`
 				- reason why we use return type userbean
 					- because it searches one record
@@ -581,18 +578,75 @@
 				- all values like first name etc are null and pageno. is 1 and pagesize is 5
 					- prints limit 0,5 and loop repeats for 5 times
 						- creates new object stores values and added in list
-- ## Task
-  collapsed:: true
-	- Diagram
+	- ## Task
 	  collapsed:: true
-		- ![image.png](../assets/image_1785901283334_0.png)
-	- in get give rollNo.
-		- get merit list
-			- merit marklist query p c m >=33 order by limit desc 0,10 search method return type list
-		- return type list
-			- no need to use stringbuffer because query is simple : order by limit desc 0,10
-				- no need to use search filter , nor pagination
-				- 10 records will come and loop will fetch record 10 times and reutrns list and print using iterator
-				- use add update delete too
-				-
+		- Diagram
+		  collapsed:: true
+			- ![image.png](../assets/image_1785901283334_0.png)
+		- in get give rollNo.
+			- get merit list
+				- merit marklist query p c m >=33 order by limit desc 0,10 search method return type list
+			- return type list
+				- no need to use stringbuffer because query is simple : order by limit desc 0,10
+					- no need to use search filter , nor pagination
+					- 10 records will come and loop will fetch record 10 times and reutrns list and print using iterator
+					- use add update delete too
+					-
+			-
+- [[Wed, 05-08-2026]]
+	- # Resource Bundle
+	  collapsed:: true
+		- Supports multi-language applications ( ((6a802abc-5fd5-4f2c-9003-380a3c9b38cf)) )
+		  collapsed:: true
+			- i18n
+			  id:: 6a802abc-5fd5-4f2c-9003-380a3c9b38cf
+				- i + 18 letters + n [nternalizatio]
+				- Enables multi-language support without code changes
+					- for ex. application language can be changed to hindi
+		- Removes hard-coded values using configuration files and read from resource bundle
+		- Stores configurable parameters as key=value pairs
+			- key value pairs is in `filename.properties`
+				- to read that file need to use resource bundle object.
+				- to make that
+				  collapsed:: true
+					- `ResourceBundle rb = ResourceBundle.getBundle("package_name.file_name");`
+						- Loads the `ResourceBundle` file named `file_name` from the package `com.rays.jdbc.bundle`.
+						- `getBundle()` searches for a properties file such as `system.properties`.
+				- to read value from property file
+					- `System.out.println(rb.getString("driver"));`
+						- Prints the value associated with the key `driver` from the ResourceBundle.
+						- It throws `MissingResourceException` if the key is not found.
+				- to support hindi language in webapp.
+					- `ResourceBundle rb = ResourceBundle.getBundle("com.rays.jdbc.bundle.app_hi", new Locale("hi"));`
+						- `Locale` is a Java class that represents a specific language, region, and cultural settings.
+						- if we don't pass `new locale` the default `en` will run.
+						- **Layman Explanation**
+						  collapsed:: true
+							- A `Locale` tells Java:
+								- Which language the user wants.
+								- Which region's rules should be used.
+						- `new Locale("hi")`
+							- Creates a `Locale` object representing the Hindi language.
+						- `rb.getString("greeting")` to get value of greeting
+						-
+		- **Where We Use It**
+		  collapsed:: true
+			- Database configuration.
+			- Application settings.
+			- Internationalization (i18n).
+			- Externalized configuration files.
+		- **Why We Use It**
+		  collapsed:: true
+			- To separate configuration from source code.
+			- To make maintenance easier.
+			- To support multiple languages and environments.
+		- **Common Mistakes**
+		  collapsed:: true
+			- Using the file extension in `getBundle()`.
+				- Wrong: `getBundle("system.properties")`
+				- Correct: `getBundle("system")`
+	- # JSP/Servlet
+		- [[JSP]]
+		- [[Servlet]]
+		-
 		-

@@ -200,7 +200,9 @@
 												- for admin access in ST_ROLES change to 1.
 				-
 - [[Sat, 18.07.2026]]
+  collapsed:: true
 	- ## Commands to run webapp on AWS
+	  collapsed:: true
 		- ### Create Docker Image on Docker Desktop
 		- ### Open Chrome Browser & log in to Docker Hub.
 		- ### Open Command Prompt & log in to Docker: docker login
@@ -361,3 +363,5 @@
 			  docker rmi username/tomcat:latest
 			  ```
 		- ### Stop Instance
+- [[Thu, 13-08-2026]]
+	-

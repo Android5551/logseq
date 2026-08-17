@@ -422,7 +422,7 @@
  :graph/settings {:journal? true
  :orphan-pages? true}
  :journal/page-title-format "E, dd.MM.yyyy"
- :feature/enable-journals? false
+ :feature/enable-journals? true
  :feature/enable-whiteboards? false
  :default-home {:page "Index"}
  :feature/enable-flashcards? false

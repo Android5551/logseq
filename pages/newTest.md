@@ -1,0 +1,68 @@
+- Notes Enhancement
+	- `Comparator` is a functional interface in Java because it contains one abstract method, `compare()`
+	- Comparator objects can be passed to sorting methods such as `Collections.sort()` and `List.sort()`
+	- The `compare()` method returns:
+		- Negative value → first object comes before second object
+		- Zero → both objects are considered equal for sorting
+		- Positive value → first object comes after second object
+	- Lambda expressions can be used to create comparators without creating a separate class
+		- Example:
+			- `Comparator<Product> byPrice = (o1, o2) -> o1.getPrice() - o2.getPrice();`
+	- Comparators can be combined for multi-level sorting
+		- Example:
+			- Sort by name first, then by price if names are equal
+			- `Comparator.comparing(Product::getName).thenComparing(Product::getPrice)`
+	- `Comparator.reversed()` can be used to reverse an existing comparator
+	- `Comparator.comparing()` is generally preferred over manually writing comparison logic when working with object attributes
+- Explanation by GPT
+	- Definition
+		- `Comparator` is an interface used to define custom sorting logic for objects
+		- It allows Java to compare two objects and decide their relative order
+	- Layman Explanation
+		- Think of `Comparator` as a rulebook for arranging objects
+		- For example, if you have many products, one rulebook can arrange them by price and another can arrange them by name
+	- Why We Use It
+		- We use `Comparator` when the required sorting order is not fixed inside the class
+		- It allows the same type of object to be sorted in different ways
+	- Where We Use It
+		- Collections of custom objects
+		- Sorting lists by different attributes
+		- Priority-based ordering
+		- APIs and applications where users can choose different sorting options
+	- How It Works
+		- Java sorting code takes two objects and gives them to `compare()`
+		- The comparator compares the required attribute of both objects
+		- It returns a negative, zero, or positive value
+		- Java uses these results to arrange the objects in the required order
+	- Example
+		- `Comparator<Integer> ascending = (a, b) -> a - b;`
+		- `Comparator<Integer> descending = (a, b) -> b - a;`
+		- `List<Integer> numbers = Arrays.asList(30, 10, 20);`
+		- `Collections.sort(numbers, ascending);`
+		- Result:
+			- `10, 20, 30`
+	- Real World Example
+		- An e-commerce application may display products according to different user choices
+			- Price: low to high
+			- Price: high to low
+			- Name: A to Z
+			- Name: Z to A
+			- Rating: highest first
+		- Each sorting requirement can be represented by a different comparator
+	- Interview Point
+		- `Comparable` defines natural/default ordering inside the class, while `Comparator` defines external/custom ordering
+		- `compare()` is the main method of `Comparator`
+		- A comparator should be consistent with the intended ordering
+		- `Comparator` is especially useful when multiple sorting strategies are required for the same class
+	- Common Mistakes
+		- Returning only `1` and `-1` without correctly handling equality
+		- Using subtraction for comparisons when values can cause integer overflow
+		- Writing inconsistent comparison logic
+		- Forgetting that `compare()` must compare the two objects according to the required ordering
+	- GPT Summary
+		- `Comparator` = custom sorting rule
+		- `compare(o1, o2)` = compares two objects
+		- Negative = `o1` before `o2`
+		- Zero = same ordering position
+		- Positive = `o1` after `o2`
+		- Multiple comparators can provide multiple sorting strategies for the same class
