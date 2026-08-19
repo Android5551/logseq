@@ -32,7 +32,6 @@
 					-
 				-
 		- ## Flow
-		  collapsed:: true
 			- Model
 				- communicates with database
 			- Bean
@@ -45,7 +44,6 @@
 				- if you search in model , after getting data from result set need to set in bean
 					- that bean can be found in controller
 			- ### The flow from view to database
-			  collapsed:: true
 				- for ex. i send `firstName` from view
 					- that data or request will go to Controller, Controller set that data to bean, bean send it to model and model send it to database.
 					- ### the flow from database to view
