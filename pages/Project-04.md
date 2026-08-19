@@ -364,4 +364,56 @@
 			  ```
 		- ### Stop Instance
 - [[Thu, 13-08-2026]]
-	-
+	- maven using dependencies downloaded jars.
+	  collapsed:: true
+		- 14 dependencies will be on maven repo. written in pom.xml
+		- maven projects downloads jar files on its own and configure.
+	- the ready made `web.xml` has older versions so use following
+		- ```xml
+		  <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+		  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		  	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+		  	version="6.0">
+		  ```
+		- from server's `web.xml` it gets index.jsp and runs by default
+			- ```xml
+			  <!-- on line 4752--> 
+			  <welcome-file-list>
+			          <welcome-file>index.html</welcome-file>
+			          <welcome-file>index.htm</welcome-file>
+			          <welcome-file>index.jsp</welcome-file>
+			      </welcome-file-list>
+			  ```
+		- put the following in WEB-INF's `web.xml`
+			- ```xml
+			  <welcome-file-list>
+			  		<welcome-file>index.jsp</welcome-file>
+			  	</welcome-file-list>
+			  ```
+			- then it will take `index.jsp` from there
+	- in webapp create css, img and jsp folder.
+	- you have two folders in Java Resources
+	- src/main/java and src/main/resources
+		- in src/main/java/
+			- in/co/rays/proj4 same as package written in artifact id.
+				- create bean package
+					- `BaseBean.java`
+						- `public abstract class BaseBean implements DropdownListBean interface,`
+				- controller
+					- create two controllers
+						- `BaseCtl.java`
+							- does not have wildcard mapping
+							- extend httpServlet
+							- provide doGet and doPOST
+							-
+						- `BaseListCtl.java`
+				- model
+					- `BaseModel.java`
+						- has nextPk()
+							- it autogen pk
+								- search max(id) for ex. 10 and return pk +1 ie. 11.
+					-
+		- in src/main/resources
+			- create in.co.rays.proj4.bundle
+				- in that create `System.properties`
+				-
