@@ -3,6 +3,11 @@
 @import url('https://logseq.catppuccin.com/ctp-macchiato.css');
 @import url('https://logseq.catppuccin.com/ctp-mocha.css');
 @import url('https://logseq.catppuccin.com/ctp-oled.css');
+/* bullet code */
+.bullet-container:not(.typed-list).bullet-closed .bullet {
+    background-color: #f5b505 !important;
+}
+
 /* Inline code */
 :not(pre)>code {
   color: #fab387 !important;   /* Peach */
@@ -80,7 +85,7 @@ i {
   .editor-inner .inline b,
   .markdown-rendered strong,
   .markdown-rendered b {
-    color: #f9e2af !important;
+    color: #89dceb !important;
     font-weight: 700 !important;
   }
 

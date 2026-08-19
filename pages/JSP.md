@@ -1,12 +1,11 @@
 - [[Wed, 05-08-2026]]
-  collapsed:: true
 	- java server page
 	  collapsed:: true
 		- can write `html` as well as `java` code in .jsp
 			- html has tags
 		- it can be seen on server
 		- to make ui we use `HTML`
-	- why we use JSP and Servlet
+	- ## why we use JSP and Servlet
 	  collapsed:: true
 		- to make web application in java
 			- web application
@@ -46,9 +45,8 @@
 			- wild-fly previously called JBOSE
 			- Apache tomcat
 	- ### Steps to create webProject
+	  collapsed:: true
 		- File
-		  collapsed:: true
-			-
 			- New
 				- Dynamic Web Project
 					- give project name
@@ -97,7 +95,6 @@
 		-
 	-
 - [[Fri, 07-08-2026]]
-  collapsed:: true
 	- if you run from project root folder it will run index.jsp on server
 		- because it is said so in ` <welcome-file>index.jsp</welcome-file>`
 	- to run new_page.jsp
