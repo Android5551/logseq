@@ -399,6 +399,12 @@
 				- create bean package
 					- `BaseBean.java`
 						- `public abstract class BaseBean implements DropdownListBean interface,`
+						- override getKey only
+						- make basebean abstract
+						- if basebean overrides both methods then no need to make BaseBean abstract, that is why it is abstract
+					- `RollBean.java`
+						- child of basebean that will override getvalue
+					- Total 8 beans are there.
 				- controller
 					- create two controllers
 						- `BaseCtl.java`
@@ -407,13 +413,124 @@
 							- provide doGet and doPOST
 							-
 						- `BaseListCtl.java`
+						- `ORSView.java` -> Interface
 				- model
 					- `BaseModel.java`
 						- has nextPk()
 							- it autogen pk
 								- search max(id) for ex. 10 and return pk +1 ie. 11.
+								- no need to give id again and again
+						- `public abstract class BaseModel<T extends BaseBean>`
+							- whenever you extend this BaseModel in childBean of it , in that we need to pass a generic T type which must be child of BaseBean
+								- if i remove `extends BaseBean` then T will be of any type
+							- `public abstract long add(T bean) throws ApplicationException, DuplicateRecordException;`
+								- need to create abstract method so that class too become abstract
+								- when we add record , the id on which it will be added , we return that id.
+									- first record will be added on id 1.
+								- this will be used in child where we override it.
+							- likewise update, getwhereclause, getTable
+						- we need to override the abstract methods of Basemodel in every child.
+					- `RoleModel.java`
+						- `public class RoleModel extends BaseModel<RoleBean>`
+							- generic will be child of BaseBean
+							- override all abstract methods of BaseModel
+							-
+				- util
+					- [[Tue, 18-08-2026]]
+						- 10 utility classes.
+						- `ServerUtility.java`
+							- we make `rd` object again n again to forward , so not to make it everywhere we need to use it in util package.
+						- `jdbcbdatasource`
+							- it is an utility class as well as singleton class.
+							- `resourceBundleNotFoundException` will come when system.properties not found or something is wrong
+							-
+				- exception
+					- extend `runtimeException`
+					-
 					-
 		- in src/main/resources
 			- create in.co.rays.proj4.bundle
 				- in that create `System.properties`
 				-
+- [[Tue, 18-08-2026]]
+	- js folder will have a file that can have calendar function
+	- jsp folder will have all the views.
+	- BaseBean
+	  collapsed:: true
+		- it will have all the attributes which will be common to all 8 tables.
+			- like id(Non Business primary key), createdby(Contains USER ID who created this database record), modifiedby(Contains Created Timestamp of database record), createddatetime, modifieddatetime. no need to make it in every table like college, student etc..
+			  collapsed:: true
+				- ```java
+				  /**
+				  	 * Non Business primary key इसमें नॉन बिज़नेस के स्टोर की जाती है
+				  	 */
+				  	protected long id;
+				  
+				  	/**
+				  	 * Contains USER ID who created this database record. इसमें रिकॉर्ड क्रिएट करने
+				  	 * वाले यूजर का ID स्टोर किया जाता है
+				  	 */
+				  	protected String createdBy;
+				  
+				  	/**
+				  	 * Contains USER ID who modified this database record
+				  	 */
+				  	protected String modifiedBy;
+				  
+				  	/**
+				  	 * Contains Created Timestamp of database record
+				  	 */
+				  	protected Timestamp createdDatetime;
+				  
+				  	/**
+				  	 * Contains Modified Timestamp of database record
+				  	 */
+				  	protected Timestamp modifiedDatetime;
+				  ```
+				- ### Why we did that?
+				  collapsed:: true
+					- they store table's metadata
+						- like who modified the table at what time
+						- it's for developers.
+						- timestamp has date time minutes seconds and milliseconds.
+				- once these are created in parent no need to create in child, just make their getters setters.
+				- `id` #[[Questions By sahu sir]]
+					- non-business primary key
+					- auto increment column
+					- does not contain business information of user
+					- just uniquely identify user.
+				- to auto increment id use `nextPk()` , max id then return + 1
+			- every table bean will be created but common ones will be created in basebean
+		- it has one more method `public void setResultset(ResultSet rs) {`
+			- when we search records and set in resultset and then we set to bean , no need to do it repeatedly.
+			- so we use that method , just need to pass that resultset here and store in respective attributes using `this.setId(rs.getLong("ID"));`
+			- now this method will be overridden by other child
+		- create 8 tables from database.txt
+	- RoleBean
+		- only name and description will there and rest will come from BaseBean
+		- override `setResultset` method
+			- gets parent data from `super.setResultset(rs);`
+			- rest will be set here.
+			- column name must be same as tables like "NAME"
+		-
+	- Follow the sequence given in `database.txt`
+		- st_role, st_user follow these sequence to make modules
+		- database.txt is an ER diagram
+	- ### Why we have created BaseModel
+	  collapsed:: true
+		- whichever model/table we create have add, update, delete, search, nextPk
+			- so to avoid that create a baseModel once so no need to create that for child model
+			- ==add and update are different for every model so we use abstract for them==; every model has different columns so that when child overrides it then they add or update their own columns or have their own special behavior.
+			- #### Complete method
+				- we make nextpk(searches max id) as complete method
+				- we delete by id so make it here as complete method
+				- search as complete method because we created `setResultset` method in bean so it will take values from there
+				- these get fetched from base model.
+			- #### Abstract method
+				- add, update, getWhereClause, getTable, getBean
+				- these will get overridden by children
+				-
+		-
+	- RoleModel
+		-
+	-
