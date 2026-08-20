@@ -1,10 +1,12 @@
 - [[Fri, 07-08-2026]]
+  collapsed:: true
 	- Servlet handles http's requests and responses.
 	- to create servlet
 	  collapsed:: true
 		- extend this `javax.servlet.http.HttpServlet` class
 	- also called as controller
 	- # MVC architecture
+	  collapsed:: true
 		- To create web application we need to understand an architecture called MVC
 		  collapsed:: true
 			- It divides application into 3 parts:
@@ -45,6 +47,7 @@
 				- if you search in model , after getting data from result set need to set in bean
 					- that bean can be found in controller
 			- ### The flow from view to database
+			  collapsed:: true
 				- for ex. i send `firstName` from view
 					- that data or request will go to Controller, Controller set that data to bean, bean send it to model and model send it to database.
 					- ### the flow from database to view
@@ -102,7 +105,6 @@
 		- [[Mon, 10-08-2026]]
 			- Following 4 guidelines we will make a webapp
 				- One screen has one view.
-				  collapsed:: true
 					- welcome screen
 						- need one view for that like `welcomeView.jsp`
 							- following is the presentation logic
@@ -132,7 +134,6 @@
 							-
 					- can run the viewjsp directly but according to protocol or guidelines it shouldn't be done.
 				- One view has one controller
-				  collapsed:: true
 					- following will be made in `src/main/java` package `com.rays.ctl`, need to follow a standard like LoginView LoginCtl
 						- `LoginCtl.java`
 						- `UserRegistrationCtl.java`
@@ -164,7 +165,6 @@
 								-
 							-
 				- View can only be accessed using its own controller by using `RequestDispatcher` forward()
-				  collapsed:: true
 					- Request comes on controller and controller forwards to view for that we need a method named as `forward()` predefined.
 					  collapsed:: true
 						- It is a method of `RequestDispatcher` Interface.(predefined)
@@ -203,3 +203,206 @@
 										  ```
 										- In doPost() you can create userbean object
 											- bean.setFirstName(firstName) and model's add method send the bean object. then db got entry
+- [[Tue, 18-08-2026]]
+  collapsed:: true
+	- in userregistration.ctl
+	  collapsed:: true
+		- when user submits doPost runs
+			- request.getparameter takes all the parameters one by one from form.
+			- set all in bean and pass to model
+			- `request.setAttribute("successMsg", "user registration successfully");
+				- request has this predefined method
+				- has key named `successmsg` and value as `user registrat...`
+					- value is string type.
+				- `ServletUtility.forward("UserRegistrationView.jsp", request, response);`
+					- forwards or sends the request, response to userreg....view
+					- setAttribute -> sets key and value
+					- getAttribute -> gets key only
+						- as value of setAttribute is String type
+						- request.getAttribute("successMsg") and return type of this is Object we need to typecast it to string and save in string obj
+						- then in `userregistrationview.jsp`
+							- ### Ternary operator
+								- ternary operator `?`
+									- `<h3 style="color: green"><%=succ != null ? succ : ""%></h3>`
+										- if succ is not null and having msg then print it otherwise nothing will print.
+								- if add's bean is null or login already exists then flow goes to catch and errormsg will print.
+									- `style="color: green"` in heading tag to make it color red or green
+							- So **whether registration succeeds or fails, the forward to view runs**.
+							- `response` → gives the JSP the **response object** that it will use to send the final output to the browser.
+	- `loginCtl`
+		- once you entered login and password
+		  collapsed:: true
+			- check whether this login password has record in database.
+			- if it is there then login and session should be generated.
+			- And in that session store user information
+			- The user will remain logged in as long as their information is stored in the session.
+				- once the session gets destroyed the user will be logged out.
+		- if user is logged in , its state will be stored in `session`
+		- request, response and session are http
+		- ### why http request is stateless.
+		  collapsed:: true
+			- when we signup and added the user, got message user register successfully , this we set in request, we forward the request and got in view .
+			- similarly when we click on login page , request got changed and message got disappeared from previous request
+			- not permanent because new request gets generated. when new one generated http forgets older ones. if it doesnt do that then no website will run because it gets billions of requests.
+		- so this caused new problem for ex if user has logged in and accessed new page hence new request gets generated and forgots the previous request and he gets logged out.
+		  collapsed:: true
+			- for this issue http gave ~session~
+			- ### Session
+				- it is not stateless
+				- gets stored in user's browser
+					- user's state got stored in session
+				- http go on checking if session is in browser or not, if session got removed from browser user gets logged out.
+			- user messages like error or success or a temporary value is for a particular event so can be stored in request attribute. this is for certain amount of time once user gives new request the older one gets removed.
+		- so when we use login and password , searched user record will be saved to session
+			- submit the form with login and password in view and the request goes to its own controller.
+			- action -> loginCtl, method -> post
+			- now it gets the login and password and take it to doPost
+			- create objects of bean,session and model
+				- `HttpSession session = request.getSession();`
+					- HttpSession is an interface.
+					- request.getSession() gives HttpSession's object.
+			- call model's authenticate method
+				- checks if login exists and the database password and user input's password match then save it to bean
+				- bean is not null if it is right
+					- set the bean to session attribute using `setAtrribute` and key value pair of user and bean
+					- else otherwise bean will be null then set attribute of request to errormsg.
+						- forward to loginview
+						- get it in loginview using
+						  collapsed:: true
+							- `<h3 style="color: red"><%=err != null ? err : ""%></h3>
+							  			<h3 style="color: green"><%=succ != null ? succ : ""%></h3>`
+								- as per the null values get the message if login or password is correct.
+					- if we put login and password correct.
+						- bean will store in session as this session is not stateless, No matter how many times you change on requests, session won't change.`
+							- `session.getAtribute` gets the bean of type userbean.
+							- whatever the value type is cast to that in getAttribute in header as it will be common to all.
+								- `UserBean user = (UserBean) session.getAttribute("user");`
+						- if user gets logged in then what we want it its firstname get displayed in welcome page in brackets.
+							- include header.jsp in welcomeview.
+							- `Welcome To Online Result System<%=user != null ? "(" + user.getFirstName() + ")" : ""%></h1>`
+							- if you close the server. browser's session got expired and need to login again
+								- to check if session expired or not or whether he is guest. in header.jsp
+									- ```jsp
+									  <%
+									  	if (user != null) {
+									  	%>
+									  	<h2><%="Hii, " + user.getFirstName()%></h2>
+									  	<a href="LoginCtl?operation=logout">logout</a> |
+									  	<%
+									  	} else {
+									  	%>
+									  	<h2>Hi, Guest</h2>
+									  <a href="LoginCtl">Login</a> |
+									  	<a href="UserRegistrationCtl">SignUp</a> |
+									  	<%
+									  	}
+									  	%>
+									  ```
+									- after logging in we wont show in header the signup and login instead we will show `logout` link having following
+										- ### Query String
+										  collapsed:: true
+											- `?` -> we can send parameters in url using this.
+											- parameter=value.
+										- session destroyer:
+											- remove user from session
+												- send it to loginctl and in query string use operation=logout.
+												- loginCtl's do get will run because it is link.
+												- in loginctl
+													- `String op = request.getParameter("operation");`
+													- if it is not null then invalidate the session
+														- session.invalidate();// invalidate method use to destroy session attribute
+															- destroys the session attributed named user.
+															- then session where ever you used getsession it gets false
+												- forward to loginview.jsp that user logged out successfully
+									- is user is null then guest otherwise username.
+									- if user clicked on `login` flow goes to LoginCtl but as we didnt pass parameter in url it doesnt get op and doesnot go to condition. only forwards to loginview.
+									- after logout we will show
+						-
+						-
+						- user gets logged in then redirect him to welcome page.
+							- now the new request will be sent from login ctl to welcomectl which in turn goes to welcomeview using forward in doget.
+							- `redirect`
+								- when we send request from one controller to another.
+			-
+			- get the parameter from form in view to controller using `.getParameter`
+			-
+- [[Wed, 19-08-2026]]
+	- if i put existing user in signup page with all his details
+	  collapsed:: true
+		- this will throw`throw new RuntimeException("loginId already exists");`
+		- then it will go to catch block of userregctl  and print error msg and forward it to view of userreg.
+		- ### Execution Flow when user gives details in signup which already exists
+		  collapsed:: true
+			- doPost method will run of userregctl,
+			- get all parameters from request.getparameter
+			- set in bean
+			- add bean in model's add method
+			- in model's add method `findbylogin` will run and existbean != null throws error
+			- then comes in controller userregctl goes to catch block and sets the attribute of error msg , forwards to userregview
+			- gets on view using getAttribute and ternary operator print the error msg.
+	- ## Business validation
+	  collapsed:: true
+		- checks if data exists or not in database.
+		- Login already exists. this message is called validation message. comes from business logic this is called `business validation.`
+		  collapsed:: true
+			- can't give same login id.
+			- checks in database whether loginId already exist running findbylogin()
+				- Business logic checks whether data is already present or not
+					- findbylogin
+					- authenticate
+					- findbypk
+					- These are business validations.
+			- if someone ask have you applied business validations in signup?
+				- i have applied it on login field using findbylogin() if login details already exist then runtime exception otherwise adding the login details in db
+				-
+		- if i give wrong details in login then it checks from authenticate()
+		  collapsed:: true
+			- clicked on signin ; then flow goes to loginctl's dopost
+			- `bean = model.authenticate(login, password);`
+				- bean gets null because record not found then it goes to else and sets error msg
+				- this is also a business validation
+		- another example is once a role is added cant add same role again
+			- findbyrolename()
+		- marksheet cant add same rollno again.
+			- findbyrollno()
+	- ## Input validation
+		- take right input from user.
+			- for ex. i write integer in firstname lastname which is invalid.
+		- input Data should be checked before going to doPost to check whether input given by user is correct or not before setting it to bean as it gets to add method.
+			- Now we need `httpservlet's service()`
+				- gets called in every request.
+				- after that whether doget runs or dopost.
+				- so here we can write out input validation logic
+				- it is a lifecycle method , it gets called on its own once a request happens
+		- `InputValidatorUtility`
+			- checks input data
+			- it will validate 2 parameters in login and 5 parameters in signup
+			- returns true or false in boolean
+			- default value in pass is true. and returning pass which will be boolean type
+			- if a word is "" means length is 0 but if nothing taken in word its length is not defined. and gives null pointer exception
+				- if login behaves like that then pass turns to false.
+				- and set msg attribute to login is required.
+			- we can go for same in password
+			- can add same for password's length like not less than 8 and not more than 12; for or use || go to loginctl
+		- `LoginCtl`
+			- override service method
+			- print method of request whether it is post or get
+			- the following code should only run when `request.getMethod` is post i.e. ==`.equalsIgnoreCase("POST")` -> this is case insensitve whether its post or POST== or when user submits because when you submit then only data will be sent. if we click link then doGet runs then this should not run eg. if `request.getMethod` is GET. It should not run ie. the below code.
+				- check if `InputValidatorUtility.loginValidator(request) == false` then forward the request to loginview
+				- after that write return so code wont run after that.
+				- when user submits after the usual flow it gets to service method if either of the login or password gets false then returns false
+					- if false forward it to view and
+						- `<td style="color: red"><%=request.getAttribute("login") != null ? request.getAttribute("login") : ""%></td>`
+						- gives login is required.
+						- request.getAttribute("login") prints directly in expression tag without typecasting it.
+						-
+			-
+	- ## Task
+		- create a class `UserValidator`
+			- firstname, lastname, dob , login, password
+				- userreg fname and lname give 2 validation one is null one and it should not have number. create a method in uservalidator
+			- `userregctl` overrides service method
+				- in forward userreg.
+			- print attribute below firstname etc. in `userregview`
+				-
+				-

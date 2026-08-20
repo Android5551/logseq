@@ -364,6 +364,7 @@
 			  ```
 		- ### Stop Instance
 - [[Thu, 13-08-2026]]
+  collapsed:: true
 	- maven using dependencies downloaded jars.
 	  collapsed:: true
 		- 14 dependencies will be on maven repo. written in pom.xml
@@ -507,6 +508,7 @@
 			- now this method will be overridden by other child
 		- create 8 tables from database.txt
 	- RoleBean
+	  collapsed:: true
 		- only name and description will there and rest will come from BaseBean
 		- override `setResultset` method
 			- gets parent data from `super.setResultset(rs);`
@@ -514,6 +516,7 @@
 			- column name must be same as tables like "NAME"
 		-
 	- Follow the sequence given in `database.txt`
+	  collapsed:: true
 		- st_role, st_user follow these sequence to make modules
 		- database.txt is an ER diagram
 	- ### Why we have created BaseModel
@@ -522,15 +525,26 @@
 			- so to avoid that create a baseModel once so no need to create that for child model
 			- ==add and update are different for every model so we use abstract for them==; every model has different columns so that when child overrides it then they add or update their own columns or have their own special behavior.
 			- #### Complete method
+			  collapsed:: true
 				- we make nextpk(searches max id) as complete method
 				- we delete by id so make it here as complete method
 				- search as complete method because we created `setResultset` method in bean so it will take values from there
 				- these get fetched from base model.
 			- #### Abstract method
+			  collapsed:: true
 				- add, update, getWhereClause, getTable, getBean
 				- these will get overridden by children
-				-
-		-
 	- RoleModel
-		-
-	-
+		- getTable override it from BaseModel and return same model's table name which you want to get data.
+			- we use getTable so that if spelling is wrong or not to see the table name again and again.
+			- its project standard
+	- BaseModel
+		- `nextPk()`
+			- having getTable() overridden by child class of basemodel
+			- query will be run with current table
+		- # Task
+			- update method in rolebean
+			- userbean extra attributes
+				- extend basemodel generic userbean
+				- code will auto generated
+				- in add return bean.getid

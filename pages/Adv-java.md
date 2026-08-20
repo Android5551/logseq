@@ -594,6 +594,7 @@
 					-
 			-
 - [[Wed, 05-08-2026]]
+  collapsed:: true
 	- # Resource Bundle
 	  collapsed:: true
 		- Supports multi-language applications ( ((6a802abc-5fd5-4f2c-9003-380a3c9b38cf)) )
@@ -652,6 +653,7 @@
 		-
 - [[Fri, 14-08-2026]]
 	- JSP/Servlet code
+	  collapsed:: true
 		-
 - [[Mon, 17-08-2026]]
   collapsed:: true
