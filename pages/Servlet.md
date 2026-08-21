@@ -327,6 +327,7 @@
 			- get the parameter from form in view to controller using `.getParameter`
 			-
 - [[Wed, 19-08-2026]]
+  collapsed:: true
 	- if i put existing user in signup page with all his details
 	  collapsed:: true
 		- this will throw`throw new RuntimeException("loginId already exists");`
@@ -366,6 +367,7 @@
 		- marksheet cant add same rollno again.
 			- findbyrollno()
 	- ## Input validation
+	  collapsed:: true
 		- take right input from user.
 			- for ex. i write integer in firstname lastname which is invalid.
 		- input Data should be checked before going to doPost to check whether input given by user is correct or not before setting it to bean as it gets to add method.
@@ -406,3 +408,144 @@
 			- print attribute below firstname etc. in `userregview`
 				-
 				-
+- [[Thu, 20-08-2026]]
+	- when we click login without filling anything
+	  collapsed:: true
+		- in `LoginView.jsp`
+		  collapsed:: true
+			- according to guideline 4 the request will go to view's own controller after submitting form
+			- action -> its own controller, method -> post
+		- in `LoginCtl`
+		  collapsed:: true
+			- in loginctl we have overridden `service` method , whatever the request is first of all service method will run;
+			- 3 life-cycle methods
+			  collapsed:: true
+				- init -> when httpservlet made then it runs
+				- service method keep on running whatever the request type is.
+				- destroy -> when server gets stopped.
+			- request having login and password parameters.
+			  collapsed:: true
+				- as request method is post this condition gets true
+					- `if (request.getMethod().equalsIgnoreCase("POST")) {`
+						- `loginValidator` has same request i.e. login and password parameters.
+						- it checks whether login and password is correct or not.
+						- in `InputValidatorUtility`
+							- empty login and password saved in String login and password
+							- as for login the condition is true
+								- pass gets false
+								- and we set attribute of login to `login is required.`
+								- we did not permit it to go to `doPost` instead we forward it from here to View.
+							- similarly for password
+						- if not correct return false then it forwards to view and the code ends.
+					- if returns true then doPost will run and data gets checked from database using `authenticate`
+		- in `LoginView`
+		  collapsed:: true
+			- `<td style="color: red"><%=request.getAttribute("login") != null ? request.getAttribute("login") : ""%></td>`
+				- using this in view we can print the value of login and similarly for password that *login is required*
+				- we can shorten the above command too so that no need to type cast if we use a variable etc.
+					- go to `ServletUtility`
+					  collapsed:: true
+						- create `getErrorMessage()`
+							- 2 parameters -> String key and HttpservletGetRequest request
+							- `String val = (String) request.getAttribute(key);`
+								- gets the key from login or password from `setAttribute`
+								- we need to typecast here because `request.getAttribute(key)` returns Object type value
+								- if value is not null return val otherwise "" string.
+					- and in Loginview inside `<%=ServletUtility.getErrorMessage(key,request)%>`
+					- this will be stored in util package to centralise the code, no need to run it repeatedly.
+				-
+					-
+	- ## User List
+	  collapsed:: true
+		-
+		- if i am admin and want to see `UserList` how many users we have in our webapp
+		  collapsed:: true
+			- in header we should have a User list link on clicking it , searches the database and prints the list in admin's login
+			- need to create view and controller.
+		- the code
+			- can create servlet directly
+				- new > Servlet > Next x2 > checkboxes inheritance, doget and dopost
+			- in `UserListCtl`
+			  collapsed:: true
+				- no need to override service method
+					- because we get list ; we are not sending the data so no need to check or use input validation
+				- call doget
+					- create objects of model and bean
+					- call model object's search method with parameters bean object as search filter, page no. and no. of rows
+						- search gives a list of bean objects store it in List of type userbean
+						- total records or rows according to parameter set in no. of rows
+						- send it to view and using iterator display on view
+						- use `setAttribute` to send values of key from controller to view.
+							- key is "list" and value is List object having search records in list form
+							- set the list in request.
+						- get from view and iterate
+					- forward to `UserListView.jsp`
+				-
+			- In `header.jsp`
+			  collapsed:: true
+				- if `user` is not null or logged in
+				- add userListctl link in header. named as User List
+				- if we click it userlistctl will run and using doget forwards to userlistview i.e. on userlist page
+			- in `UserListView`
+			  collapsed:: true
+				- using include directory in header and footer.
+				- when using `request.getAttribute` to get the key we need to typecast it to list
+				- use iterator object to display list one by one.
+				- in table tag use border to give border to table like 1px and width to enlarge or increase width of the table in %
+					- use table row 1
+					- with style tag for giving bgcolor of table's heading
+						- a table heading like as per table's column name
+					- use table row 2 inside while loop
+						- use while loop like we do in iterator, while loop will run as per no. of rows given in model's search parameter.
+						- table row use properties like `align=center` to get contents aligned at center and `background-color` . the heading comes at center by default.
+							- tr with td will be inside while loop
+							- in td use `bean.usegettermethodofallcolumnname`
+							- one by one for each row.
+							- here we have use expression tag instead of `syso`
+							-
+							-
+				-
+			- later we will create
+			  collapsed:: true
+				- following in doPost()
+					- next/previous button
+						- if page is 1 then changed to 2 once we use next button
+						- (2 - 1) * 5 = 5 -> 5,5 limit
+						- click on next and it gives value page no. and increment the page value.
+					- checkbox to delete a row.
+						- in delete we give id.
+			-
+		-
+		-
+		-
+	- ## Add user
+	  collapsed:: true
+		- using signup user gets added but the user who wants to be added to get to use login
+		- admin can add new user on this view. Only admin can do this so set the role if you want.(Optional for now)
+		- `UserView`
+			- userview.jsp will be same as userregistration just change the userctl i.e. controller name
+			- button value save from signup
+			- change heading to add user.
+			- add a header page link
+		- `UserCtl`
+			- change forward to `userview.jsp` in both dopost and doGet
+		- `header.jsp`
+			- after logging in
+				- `<a href="UserCtl">Add User</a> |`
+		-
+			-
+	- **Task**
+	  collapsed:: true
+		- for ex. Product module follow the following
+			- create bean, add update delete etc.
+			- create product list and add product for admin after logging in only
+				- while adding the product do both *business validation* and *input validation*
+					- business validation
+						- same product id should not be added in database. use `findbyproductid`
+					- input validation
+						- when user don't give input ; error msg should print like `this field required`
+				- add the product from view
+				- view to controller
+				- set in controller as bean and send to model and added to product list.
+			- instead of creating test for testing methods of model.
+				- use controller and jsp

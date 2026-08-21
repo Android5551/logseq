@@ -301,7 +301,7 @@
  ;;  :charge-range    600}   ; Default value: 600
 
  ;; Favorites to list on the left sidebar
- :favorites ["notes Instruction" "git" "Project-04" "Index"]
+ :favorites ["Servlet" "notes Instruction" "git" "Project-04" "Index"]
 
  ;; Set flashcards interval.
  ;; Expected value:
@@ -424,7 +424,7 @@
  :graph/settings {:journal? true
  :orphan-pages? true}
  :journal/page-title-format "EEE, dd-MM-yyyy"
- :feature/enable-journals? false
+ :feature/enable-journals? true
  :feature/enable-whiteboards? false
  :default-home {:page "Index"}
  :feature/enable-flashcards? false

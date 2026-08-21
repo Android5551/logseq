@@ -652,6 +652,7 @@
 		-
 		-
 - [[Fri, 14-08-2026]]
+  collapsed:: true
 	- JSP/Servlet code
 	  collapsed:: true
 		-
