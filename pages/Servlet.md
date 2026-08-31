@@ -105,6 +105,7 @@
 		- [[Mon, 10-08-2026]]
 			- Following 4 guidelines we will make a webapp
 				- One screen has one view.
+				  collapsed:: true
 					- welcome screen
 						- need one view for that like `welcomeView.jsp`
 							- following is the presentation logic
@@ -134,6 +135,7 @@
 							-
 					- can run the viewjsp directly but according to protocol or guidelines it shouldn't be done.
 				- One view has one controller
+				  collapsed:: true
 					- following will be made in `src/main/java` package `com.rays.ctl`, need to follow a standard like LoginView LoginCtl
 						- `LoginCtl.java`
 						- `UserRegistrationCtl.java`
@@ -409,6 +411,7 @@
 				-
 				-
 - [[Thu, 20-08-2026]]
+  collapsed:: true
 	- when we click login without filling anything
 	  collapsed:: true
 		- in `LoginView.jsp`

@@ -1,2 +1,3 @@
 - [[Mon, 13.07.2026]]
-	-
+- [[usefulCommands]]
+-
