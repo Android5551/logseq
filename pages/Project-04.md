@@ -454,6 +454,7 @@
 				- in that create `System.properties`
 				-
 - [[Tue, 18-08-2026]]
+  collapsed:: true
 	- js folder will have a file that can have calendar function
 	- jsp folder will have all the views.
 	- BaseBean
@@ -548,3 +549,103 @@
 				- extend basemodel generic userbean
 				- code will auto generated
 				- in add return bean.getid
+- [[Wed, 26-08-2026]]
+	- Business validations in code
+		- `findByLogin` -> in UserModel
+		- `Authenticate` -> in UserModel
+		  id:: 6a94c315-2fa6-41f8-a067-81dbd08ac75d
+			- authenticate(String password, String login)
+			- call findByLogin to get bean
+			- bean != null and bean.getPassword.equal(password)
+		- `findByPk` -> in all TestModels, searches record based on primary key.; made only once in BaseModel.
+		  collapsed:: true
+			- all models have primary key common
+				- so `findByPk` will be created in basemodel
+			- `findByPk` having argument `long pk`
+			  collapsed:: true
+				- return type `bean` for `Authenticate` too
+				- `long pk` send as an argument from `TestRoleModel`
+				- `pstmt.setLong(1, pk);` here pk contains the argument passed from test class.
+				- in while loop bean's object will be formed from
+					- ```java
+					  @Override
+					  	public RoleBean getBean() {
+					  		return new RoleBean();
+					  	}
+					  ```
+					- here child has overridden `getBean()` that returns new RoleBean object.
+					- `bean.setResultset(rs);`
+						- in BaseBean we had created:
+							- ```java
+							  public void setResultset(ResultSet rs) {
+							  		try {
+							  			this.setId(rs.getLong("ID"));
+							  			this.setCreatedBy(rs.getString("CREATED_BY"));
+							  			this.setModifiedBy(rs.getString("MODIFIED_BY"));
+							  			this.setCreatedDatetime(rs.getTimestamp("CREATED_DATETIME"));
+							  			this.setModifiedDatetime(rs.getTimestamp("MODIFIED_DATETIME"));
+							  		} catch (SQLException e) {
+							  			e.printStackTrace();
+							  		}
+							  	}
+							  // rolebean has overridden it
+							  
+							  	@Override
+							  	public void setResultset(ResultSet rs) {
+							  		super.setResultset(rs);
+							  		try {
+							  			this.setName(rs.getString("NAME"));
+							  			this.setDescription(rs.getString("DESCRIPTION"));
+							  		} catch (SQLException e) {
+							  			e.printStackTrace();
+							  		}
+							  	}
+							  ```
+							- When data comes in resultset it will be set to current bean `this`
+							-
+						- setResultSet will get all values from `rs` and set it to bean.
+						- return the bean.
+						-
+			- T -> bean type
+				- `userModel` has UserBean type
+				- `roleModel` has RoleBean type
+			-
+		- `findByUniqueColumn`
+			- pass column like `login` and value like `ram@gmail.com`
+		- `findByName`
+		  collapsed:: true
+			- made only in RoleModel
+				- if student name is already added in `st_role` so new student role should not be added again.
+			- make an object of `RoleBean`
+			- call method of BaseModel named as `findByUniqueColumn`
+				- `	RoleBean bean = findByUniqueColumn("name", name);` name value can be `admin`
+				- `"select * from " + getTable() + " where " + column + "='" + value + "'");`
+					- `select * from st_role where name = student;`
+					- if student record is there then bean gets returned. that means student already exists.
+						- otherwise null pointer exception
+					-
+		- `findByLogin` -> UserModel
+		  id:: 6a94dde3-7a01-4e21-9ab7-b1ae2ad84150
+			- String login
+			- call findByUniqueColumn having attribute login and its value
+		- similarly `findByLoginId`
+		- call `findByName` in add method of RoleModel.
+			- if for ex. searched admin and it gets the admin then the record already exists so no need to add again. as it will throw duplicate record exception
+		- call `findByName` in update method
+			- if for ex. you are trying to update admin to student and student role already exists with id 2, throws exception. here existing id will be 1 and input id will be 2. Trying to make admin as student.
+			- student can update student, existing id should be equal to input id otherwise record / role name already exists.
+		-
+	- ## Task
+		- `findByPk`
+			- test in every model
+		- `findByUniqueColumn`
+			- test in every model
+		- `findByLogin`
+			- can be made using ((6a94dde3-7a01-4e21-9ab7-b1ae2ad84150))
+			- in add and update of UserModel use concept of RoleModel to throw duplicate record exception.
+			- similarly for `findByCollegeName` in college
+			- `findByRollNo` in student
+			- `findBySubjectName`
+		- `authenticate`
+			- ((6a94c315-2fa6-41f8-a067-81dbd08ac75d))
+			-
