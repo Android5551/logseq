@@ -1,7 +1,5 @@
 - `37:00` [[Thu, 16.07.2026]]
-  collapsed:: true
 	- This is java based web application.
-	  collapsed:: true
 		- Web apps -> can be accessed using web browsers.
 		- runs on server apache tomcat
 		- project will be in `webapps` as war file ==after creating project== and run on apache.
@@ -58,7 +56,6 @@
 			-
 			-
 - [[Fri, 17.07.2026]]
-  collapsed:: true
 	- java project sends request to db; url is in `system.properties`
 		- its in /ORSProject04/src/main/resources/com/sunilos/p4/bundle/system.properties
 		- replace
@@ -66,6 +63,7 @@
 			- `url=jdbc:mysql://db:3306/p04` -> this is for docker
 			- Whenever you made changes here update the project
 	- ## Steps to run
+	  collapsed:: true
 		- right click on project in `eclipse`
 			- go to `Maven`
 				- `Update Project...`
@@ -175,34 +173,10 @@
 						- go to localhost:8080 in browser
 							- run `localhost:8080/ORSProject04`
 							- Login using username password
-								- ### Troubleshooting
-									- Docker is case_sensitive
-										- in sql query tables are written in CAPS
-										  collapsed:: true
-											- In docker its in small hence the error
-												- go to `/ORSProject04/src/main/java/com/sunilos/p4/model/RoleModel.java`
-													- change the caps to small
-										- For outside docker port of sql is `3308`
-										  collapsed:: true
-											- so sqlworkbench is outside docker ; its a client
-												- one server is running on local machine at 3306 with that workbench is connected
-													- create another in workbench named `docker` with port 3308; username root ; test connection
-													  connects with docker
-													  now it will show the db present in docker
-														- Now change the name of tables using wrench icon; apply and execute
-												- another one on docker at same port
-									- Now run on `exec`
-										- `show databases;`
-										- `use p04;`
-										- `show tables;`
-											- now all the tables are in CAPS.
-											- Sign in, now everything works.
-												- for admin access in ST_ROLES change to 1.
 				-
 - [[Sat, 18.07.2026]]
   collapsed:: true
 	- ## Commands to run webapp on AWS
-	  collapsed:: true
 		- ### Create Docker Image on Docker Desktop
 		- ### Open Chrome Browser & log in to Docker Hub.
 		- ### Open Command Prompt & log in to Docker: docker login
@@ -328,6 +302,7 @@
 		  collapsed:: true
 			- `http://13.50.111.244:8080/ORSProject04/LoginCtl`
 			- #### Troubleshooting
+			  id:: 6a742931-8eee-4bc4-a74b-5f3cb16fb92c
 			  collapsed:: true
 				- Expose the port of sql container
 					- Edit inbound rules par click karo.
@@ -347,7 +322,6 @@
 						- Capitalize table names
 		- ---
 		- ### Stop and Remove Specific Docker Container
-		  collapsed:: true
 			- ```bash
 			  docker stop tomcat-container
 			  docker rm tomcat-container
@@ -454,14 +428,11 @@
 				- in that create `System.properties`
 				-
 - [[Tue, 18-08-2026]]
-  collapsed:: true
 	- js folder will have a file that can have calendar function
 	- jsp folder will have all the views.
 	- BaseBean
-	  collapsed:: true
 		- it will have all the attributes which will be common to all 8 tables.
 			- like id(Non Business primary key), createdby(Contains USER ID who created this database record), modifiedby(Contains Created Timestamp of database record), createddatetime, modifieddatetime. no need to make it in every table like college, student etc..
-			  collapsed:: true
 				- ```java
 				  /**
 				  	 * Non Business primary key इसमें नॉन बिज़नेस के स्टोर की जाती है
@@ -558,11 +529,9 @@
 			- call findByLogin to get bean
 			- bean != null and bean.getPassword.equal(password)
 		- `findByPk` -> in all TestModels, searches record based on primary key.; made only once in BaseModel.
-		  collapsed:: true
 			- all models have primary key common
 				- so `findByPk` will be created in basemodel
 			- `findByPk` having argument `long pk`
-			  collapsed:: true
 				- return type `bean` for `Authenticate` too
 				- `long pk` send as an argument from `TestRoleModel`
 				- `pstmt.setLong(1, pk);` here pk contains the argument passed from test class.
@@ -613,7 +582,6 @@
 		- `findByUniqueColumn`
 			- pass column like `login` and value like `ram@gmail.com`
 		- `findByName`
-		  collapsed:: true
 			- made only in RoleModel
 				- if student name is already added in `st_role` so new student role should not be added again.
 			- make an object of `RoleBean`
@@ -649,3 +617,139 @@
 		- `authenticate`
 			- ((6a94c315-2fa6-41f8-a067-81dbd08ac75d))
 			-
+- [[Mon, 07-09-2026]]
+	- new Project > database.txt for tables in project 04
+	- `Index.jsp`
+		- now we don't give path instead `ORSView.WELCOME_CTL` where ORSView is interface and having attributes like `public String ***APP_CONTEXT*** = "/ORSProject-04";` and `public String ***WELCOME_CTL*** = ***APP_CONTEXT*** + "/WelcomeCtl";`
+		- for paths; declare it in *ORSView*
+		- On clicking *Online Result System* request goes to *WelcomeCtl*
+			- *WelcomeCtl* extends *BaseCtl*
+			- *BaseCtl*'s `doGet()` will run; `service` will run too but as method is not post (since we clicked a link.)
+			- forwards to `getView()`
+				- `getView()` is in BaseCtl and method is abstract
+				- `BaseCtl` child is `WelcomeCtl`
+					- `WelcomeCtl` returns `ORSView.***WELCOME_VIEW***`;
+					- `public String ***WELCOME_VIEW*** = ***PAGE_FOLDER*** + "/Welcome.jsp";`
+					  `***PAGE_FOLDER*** = "/jsp";`
+					- Welcome.jsp will be displayed.
+		- `BaseCtl`
+		  collapsed:: true
+			- `protected abstract String getView();`
+				- returns view of all the controllers in children of BaseCtl. for example if request goes from `WelcomeCtl` then `ServletUtility` forwards to WelcomeView.
+				- return type is String.
+			- `protected abstract M getModel();`
+				- returns object of models of all the controllers.
+		- `Header.jsp`
+		  collapsed:: true
+			- `boolean isLogin = userBean != null;` if userBean is not null that means `True`
+			- `<**h3**><**b**><%=welcomeMsg + userBean.getFirst_name() + "(" + roleName + ")"%></**b**></**h3**>` in header it will show user's first name as well as role name.
+			- When we click on Login ; request goes to `LoginCtl`
+				- `BaseCtl`'s `doGet` won't run as it is overridden by `LoginCtl` and forwards to getView() (LoginView); service method of `BaseCtl`will run first but as it is get method then validate won't run.
+				-
+		- `LoginCtl`
+		  collapsed:: true
+			- here BaseCtl's doGet wont run.
+				- because user gets logged out so need to override the default doGet of parent.
+				- if it gets operation, then session will invalidate and user gets logged out. Otherwise it forwards to view
+			- ==This is the only Ctl where doGet will be overridden.==
+		- `UserRegistrationCtl`
+		  collapsed:: true
+			- won't have `doGet` but has `doPost`
+			- here `BaseCtl`'s doGet will run and forward to view.
+			- because we won't do any new operation just forward to view.
+			- ==This is the only Ctl where doPost will be overridden==
+				- Here we register the user; in other places message is record added succesfully
+				- and we don't update too when user gets signed up. User only gets added here.
+				- parent's doPost have both add and update.
+		- `Welcome.jsp`
+		  collapsed:: true
+			- if `isLogin` True then show first name otherwise blank
+		- Why have you called from `ORSView` #buildQ
+			- Because this is project standard
+			- all paths are set in the interface named `ORSView`
+			- Due to this View and Controller are loosely-coupled so that no need to write the path repeatedly.
+		-
+		-
+	- ## Login's flow
+		- ### Input Validation #buildQ
+		  collapsed:: true
+			- Click on `SignIn` no inputs in login and password
+			- request goes to **Following guideline 4: submitting from view(LoginView) ; request goes to its own controller(LoginCtl).** LoginCtl
+			- method will be "post" ( in form)
+			- now in loginCtl ; baseCtl has service method and getMethod is post hence `validate()` will run; which is defined in baseCtl ;by default return type true
+			- loginCtl has overridden validate
+			- datavalidator's `isNull()` will check login value is null ; as we didn't give any input in login hence it is true.  pass value is false ; in request set error message `login is required`
+			- same in password ; return false ; hence this condition of `service` of baseCtl `if (validate(request) == false) {` is true. hence it forwards to view and doPost won't run
+			- getView is overridden by child "jsp/LoginView.jsp"
+				- in loginView we have `ServletUtility.getErrorMessage` with which we print error message using `key` and `request`
+			- ---
+			- Summary:
+			  collapsed:: true
+				- **Input validation flow:** ( common to all only  child class will change)
+					- Clicked on SignIn with no inputs in login and password
+					- request goes to LoginCtl
+					- method will be post
+					- baseCtl service method will run; condition will be true [ request.getMethod is post]
+					- in another condition inside that validate method will run but of LoginCtl.
+					- LoginCtl's validate method has DataValidator.isNull with which we check whether login and password are null and if yes pass value will be null; in request.setAttribute we set error message in form of key value pair
+					- in baseCtl `if (validate(request) == false) {` condition will be true from there it forwards to view.
+					- In view using `ServletUtility.getErrorMessage` we print the errror message using key and request
+			-
+			-
+		- ### Business Validation
+		  collapsed:: true
+			- don't go in input validation flow when explaining this one.
+			- give wrong login and password
+			- click on SignIn
+			- request will go to LoginCtl
+			- Service method of baseCtl will run
+			- method is post ; validate will run but pass value is True hence condition gets false
+			- doPost will run of Child ie. LoginCtl not BaseCtl because it has authenticate method
+			- using `request.getParameter` we get login and password and will send it to authenticate method.
+			- in baseCtl we made `populateBean()`
+				- it gets request parameter from view or gets data from view and set it to bean
+				- To get data from view we use `request.getParameter()` and set using bean.set
+					- `request.getParameter("login")`
+					- `bean.setLogin(DataUtility.*getString*(request.getParameter("login")));`
+				- in baseCtl populateBean return type will be `B` -> generic Bean
+					- when `populateBean` gets overridden by child then return type will be `UserBean`
+					- it gets login and password using request.getParameter ;using bean.setlogin and bean.setpassword set those in bean.
+					- and returns bean as now it has both login and password we will send it to authenticate method of model
+					- DataUtility.*getString* -> will trim loginid whitespaces when it gets set in bean.
+					- we gave wrong login password hence bean will be null ; else's `setErrorMessage` will run
+					- `ServletUtility.*setErrorMessage*("Invalid login or password", request);`
+						- it already has key named error in baseCtl
+						- `*setMessage*(BaseCtl.***MSG_ERROR***, msg, request);`
+						- ```java
+						  public static void setMessage(String key, String msg, HttpServletRequest request) {
+						  		if (DataValidator.isNotNull(key) && DataValidator.isNotNull(msg)) {
+						  			request.setAttribute(key, msg); // key is error and msg is Invalid login pass
+						  		}
+						  	}
+						  ```
+						- The error message will be set to request Attribute.
+						- forwards to loginview
+						- in loginview `String _err = ServletUtility.getErrorMessage(request);` this will get error key usng `request.getAttribute` having message ` msg is Invalid login pass` it will be stored in geterrormessage and return
+		- ### When user gets logged in successfully
+			- in loginctl if bean is correct then it will set in session;
+				- the user who gets searched with his role id search the role as given in `RoleBean rbean = rmodel.findByPk(bean.getRole_id());`
+				- and made key in session named role as given in `session.setAttribute("role", rbean.getName());` and get the role name
+					- for ex. the user who gets searched is `admin` and his role id is 1 and ` rmodel.findByPk(bean.getRole_id());` the id will be 1 and it searched admin
+					- and admin's name will be set here `session.setAttribute("role", rbean.getName());` in role named key.
+					- now role has user as well as role name. and redirect it to welcomectl
+						- response's sendredirect method will get called.
+						- redirected to WelcomeCtl; doget will run and welcomeview get displayed
+						- `header.jsp` condition gets true that is isLogin will be true hence firstname and rolename can be displayed
+						- `welcome.jsp` condition get true too. ==36:08==
+						-
+					-
+				-
+		-
+	-
+- [[P04Questions]]
+- [[Tue, 08-09-2026]]
+	- When user clicked `SignUp` the method which gets the data from view and sets it to bean -> populateBean (BaseModel)
+	- In view
+		- `<select>` and `<options>` give dropdown
+	- when we click Admin in dropdown , role id will be 1
+	-

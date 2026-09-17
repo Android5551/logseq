@@ -32,9 +32,7 @@
 			- **`protected`** → Accessible **within the same package and by subclasses (even in other packages)**.
 		-
 	- ### Static keyword
-	  collapsed:: true
 		- #### Attributes
-		  collapsed:: true
 			- `Math.PI`
 				- `PI` is static if only final then need to create Math class object to call Pi
 			- >_The attributes which don't need to allocate memory that attribute assigned as static_
@@ -42,5 +40,4 @@
 				- called directly by class name
 					- use it with final only; if final then only static
 		- #### Methods
-		  collapsed:: true
 			- can be called using class directly

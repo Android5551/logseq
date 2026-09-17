@@ -1,4 +1,5 @@
 - [[Wed, 05-08-2026]]
+  collapsed:: true
 	- java server page
 	  collapsed:: true
 		- can write `html` as well as `java` code in .jsp
@@ -36,16 +37,17 @@
 						- request sent from browser is http request
 						- response from server is http response
 	- servlet handles http request and response
+	  collapsed:: true
 		- servlets are java classes
 		- when we create web application we need to integrate server like tomcat
 		-
 	- in jsp we make views
 	- Servers developed and maintained by java from oracle
+	  collapsed:: true
 		- Ex
 			- wild-fly previously called JBOSE
 			- Apache tomcat
 	- ### Steps to create webProject
-	  collapsed:: true
 		- File
 			- New
 				- Dynamic Web Project
@@ -62,9 +64,10 @@
 					- Must click checkbox `Generate web.xml deployment descriptor`
 						- *web app won't run without this*
 						- Finish
-			-
+		-
 			-
 	- After creating project
+	  collapsed:: true
 		- go to webapp
 			- WEB-INF
 			  collapsed:: true
@@ -95,6 +98,7 @@
 		-
 	-
 - [[Fri, 07-08-2026]]
+  collapsed:: true
 	- if you run from project root folder it will run index.jsp on server
 		- because it is said so in ` <welcome-file>index.jsp</welcome-file>`
 	- to run new_page.jsp
@@ -132,3 +136,4 @@
 				- `<!--  -- >`
 		-
 			-
+-

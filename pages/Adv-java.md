@@ -237,6 +237,7 @@
   collapsed:: true
 	- ## Code
 		- ### To avoid creating 16 columns in add method:
+		  collapsed:: true
 			- Create `bean` class with private attributes containing columns of table
 				- Add `getters` and `setters` for `id` `firstName` etc.
 				- `dob` will be of `java.util` type
@@ -378,6 +379,7 @@
 			-
 		- ### To avoid loading drivers, making connection etc again and again
 			- properties which do not change. Can be stored in a file
+			  collapsed:: true
 				- driver
 				- url
 				- password
@@ -386,6 +388,7 @@
 				- To use these properties we need `ResourceBundle` class imported from `java.util`
 					- *ResourceBundle* is a Java class used to store and read properties value from a *properties file (`.properties`)*.
 					- Create a bundle package
+					  collapsed:: true
 						- add `TestBundle.java` can be named anything
 							- ```java
 							  ResourceBundle rb = ResourceBundle.getBundle
@@ -408,10 +411,12 @@
 							-
 			- create a util package
 				- add `JDBCDataSource` class
+				  collapsed:: true
 					- Without *JDBCDataSource* Every method must create its own database connection
 					- we create this class to centralise database connection code so you don't have to repeat it in every method.
 						- Create a public static method named `getConnection` that returns a `Connection` object and can be called without creating an object of the class.
 							- **Why is Class.forName() not returned?**
+							  collapsed:: true
 								- `Class.forName("com.mysql.cj.jdbc.Driver");`
 									- This loads and registers the MySQL JDBC driver with Java.
 								- ```java
@@ -548,6 +553,7 @@
 				- `1=1` is _SQL Injection_
 					- when we append multiple queries like pagination queries at runtime then we need to give sql injection in form of 1=1 or it should be `true`
 					- if we don't give _SQL Injection_ or it is like `1=2` the queries got appended because we used `StringBuffer` and it changed the value and appended pagination queries but won't run queries,
+				-
 			- appending query
 				- with condition `bean.getFirstName() != null && bean.getFirstName().length() > 0`
 					- if bean is null then search will search full records
