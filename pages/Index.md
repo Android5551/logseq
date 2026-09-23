@@ -9,7 +9,6 @@
 	- [[Trouble Shooting]]
 	-
 - Playground
-  collapsed:: true
 	- [[Testing]]
 	- [[newTest]]
 	-

@@ -1,4 +1,5 @@
 - `37:00` [[Thu, 16.07.2026]]
+  collapsed:: true
 	- This is java based web application.
 		- Web apps -> can be accessed using web browsers.
 		- runs on server apache tomcat
@@ -56,6 +57,7 @@
 			-
 			-
 - [[Fri, 17.07.2026]]
+  collapsed:: true
 	- java project sends request to db; url is in `system.properties`
 		- its in /ORSProject04/src/main/resources/com/sunilos/p4/bundle/system.properties
 		- replace
@@ -63,7 +65,6 @@
 			- `url=jdbc:mysql://db:3306/p04` -> this is for docker
 			- Whenever you made changes here update the project
 	- ## Steps to run
-	  collapsed:: true
 		- right click on project in `eclipse`
 			- go to `Maven`
 				- `Update Project...`
@@ -428,11 +429,14 @@
 				- in that create `System.properties`
 				-
 - [[Tue, 18-08-2026]]
+  collapsed:: true
 	- js folder will have a file that can have calendar function
 	- jsp folder will have all the views.
 	- BaseBean
+	  collapsed:: true
 		- it will have all the attributes which will be common to all 8 tables.
 			- like id(Non Business primary key), createdby(Contains USER ID who created this database record), modifiedby(Contains Created Timestamp of database record), createddatetime, modifieddatetime. no need to make it in every table like college, student etc..
+			  collapsed:: true
 				- ```java
 				  /**
 				  	 * Non Business primary key इसमें नॉन बिज़नेस के स्टोर की जाती है
@@ -521,6 +525,7 @@
 				- code will auto generated
 				- in add return bean.getid
 - [[Wed, 26-08-2026]]
+  collapsed:: true
 	- Business validations in code
 		- `findByLogin` -> in UserModel
 		- `Authenticate` -> in UserModel
@@ -618,8 +623,10 @@
 			- ((6a94c315-2fa6-41f8-a067-81dbd08ac75d))
 			-
 - [[Mon, 07-09-2026]]
+  collapsed:: true
 	- new Project > database.txt for tables in project 04
 	- `Index.jsp`
+	  collapsed:: true
 		- now we don't give path instead `ORSView.WELCOME_CTL` where ORSView is interface and having attributes like `public String ***APP_CONTEXT*** = "/ORSProject-04";` and `public String ***WELCOME_CTL*** = ***APP_CONTEXT*** + "/WelcomeCtl";`
 		- for paths; declare it in *ORSView*
 		- On clicking *Online Result System* request goes to *WelcomeCtl*
@@ -665,6 +672,7 @@
 		  collapsed:: true
 			- if `isLogin` True then show first name otherwise blank
 		- Why have you called from `ORSView` #buildQ
+		  collapsed:: true
 			- Because this is project standard
 			- all paths are set in the interface named `ORSView`
 			- Due to this View and Controller are loosely-coupled so that no need to write the path repeatedly.

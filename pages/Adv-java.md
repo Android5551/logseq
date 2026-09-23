@@ -6,7 +6,6 @@
 		- queries will be run using java
 		- Need Driver to connect database and java
 		- java has all types of database driver found in maven repository
-		  collapsed:: true
 			- search _mysql connector/j_ and download 8.0.31 jar file.
 				- jar file is external library of java.
 				- to deploy an application we make a jar file

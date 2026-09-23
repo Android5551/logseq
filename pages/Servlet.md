@@ -47,7 +47,6 @@
 				- if you search in model , after getting data from result set need to set in bean
 					- that bean can be found in controller
 			- ### The flow from view to database
-			  collapsed:: true
 				- for ex. i send `firstName` from view
 					- that data or request will go to Controller, Controller set that data to bean, bean send it to model and model send it to database.
 					- ### the flow from database to view
@@ -552,3 +551,46 @@
 				- set in controller as bean and send to model and added to product list.
 			- instead of creating test for testing methods of model.
 				- use controller and jsp
+- [[Fri, 18-09-2026]]
+  collapsed:: true
+	- ### Session's flow
+		- ```java
+		  @Override
+		  	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		  		UserBean b = new UserBean();
+		  		UserModel u = new UserModel();
+		  		HttpSession s = req.getSession();
+		  		
+		  		String login = req.getParameter("login");
+		  		String pass = req.getParameter("password");
+		  		try {
+		  			b = u.authenticate(login, pass);
+		  			if(b!=null) {
+		  				/* req.setAttribute("succ", "Logged In Succesfully!"); // no time to see this as welcome
+		  				 * comes instantly*/ 
+		  				s.setAttribute("user", b); /* here the bean is getting set to session.
+		  				* as session is stored in browser we can get it from anywhere like from header.
+		  				*/
+		  				
+		  				resp.sendRedirect("WelcomeCtl"); /* the older request was LoginCtl's; 
+		  				* here new 
+		  				* request will get created as we are going from current ctl to welcomeCtl once user
+		  				* gets logged in */
+		  				return; /* now we don't want to create another request on line no. 63 otherwise these 2 get
+		  				* conflicted and we get 500 error */ 
+		  				
+		  			} else {
+		  				req.setAttribute("err", "Invalid Login Credentials!");
+		  			}
+		  			
+		  		} catch (Exception e) {
+		  			e.getStackTrace();
+		  		}
+		  		/* if request has set attribute; to get attribute we run the following line 
+		  		* and it gets forwarded to LoginView from there we get attribute
+		  		*/
+		  		RequestDispatcher rd = req.getRequestDispatcher("LoginView.jsp");
+		  		rd.forward(req, resp);
+		  	}
+		  }
+		  ```
