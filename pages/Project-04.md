@@ -760,4 +760,15 @@
 	- In view
 		- `<select>` and `<options>` give dropdown
 	- when we click Admin in dropdown , role id will be 1
-	-
+- ### Foreign key relations to access common columns in another table
+  collapsed:: true
+	- ```
+	  college studetn
+	  college facutly
+	  faculty ke college name me set
+	  
+	  
+	  college id se college ko search karega agar ni hogi to nullpointer exception aaygi; id ke bhejne se college ka name v leke aata h aur khud set kar leta h
+	  pehle college id v de rhe aur college name ab college name ni dena padega apne aap lelega testAdd aur testUpdate me
+	  replace collegeName with cbean.name
+	  ```

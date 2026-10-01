@@ -1,4 +1,5 @@
 - [[Mon, 28-09-2026]]
+  collapsed:: true
 	- On clicking the link, how is this form came?
 		- The link of `SignUp` is on `Header.jsp`
 		- On clicking it the request goes to `UserRegistrationCtl`
@@ -71,4 +72,43 @@
 	- What are these red star(asterisk)
 	  collapsed:: true
 		- These are mandatory fields
+	-
+- [[Thu, 29-10-2026]]
+	- On `Welcome.jsp` we made link of `Users`
+	- on clicking that link request goes to `userlistctl`
+	- `doGet()` gets called; as user list will be displayed we make `UserModel`'s object
+	- to filter the data or getting the data we use Usermodel's search method
+	- we will pass 3 arguments in search -> bean , pageNo and pageSize.
+		- here bean is null and user's bean, pageNo->1 and pageSize->5
+		- when we need to search or filter the data we set some data in bean for now we don't want that
+	- search method returns list; so we hold returned list in list type variable.
+	  collapsed:: true
+		- ```java
+		  public static void setList(List list, HttpServletRequest request) {
+		  		request.setAttribute("list", list);
+		  	}
+		  
+		  public static List getList(HttpServletRequest request) {
+		  		return (List) request.getAttribute("list");
+		  	}
+		  
+		  // userlistCtl
+		  ServletUtility.setList(list, request);
+		  // userlistview
+		  int pageNo = ServletUtility.getPageNo(request);
+		  int pageSize = ServletUtility.getPageSize(request);
+		  int index = ((pageNo - 1) * pageSize) + 1;
+		  List list = ServletUtility.getList(request);
+		  Iterator<UserBean> it = list.iterator();
+		  String _err = ServletUtility.getErrorMessage(request);
+		  ```
+		- we are doing hard-coding like in both set/get need to give its key
+		- request is implicit object in jsp ; no need to create request object in jsp
+			- 9 objects which are implicit in jsp
+	- we pass list and request in `ServletUtility.setList(list, request)`
+	- similarly for pageNo and pageSize
+	- we forward the list on userlistview.jsp
+	- we get the list using `ServletUtility.getList(request)` similarly all 3
+	- On list we apply iterator ; use while loop iterate data using iterator; in expression tag `bean.getFirstName()` .. we print it
+		- for each loop one row gets printed
 	-

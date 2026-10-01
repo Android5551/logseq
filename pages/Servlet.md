@@ -594,3 +594,60 @@
 		  	}
 		  }
 		  ```
+- [[Thu, 01-10-2026]]
+	- ## Servlet Utility
+		- `getBean()` typecast to bean
+		- `getList()` typecast to list
+		- `getErrorMessage()` typecast to String
+			- give a key to it, returns value
+		- On controller we set in form of key , value pair and get the request in form of key and request.
+		- ### No need to typecast multiple times.
+			- for every view no need to typecast error messages repeatedly, for 10+ views doing typecasting repeatedly is not a practical approach
+				- in `getErrorMsg` we typecast to String on every view.
+					- `String err = (String) request.getAttribute("errMsg");`
+			- Create a `getErrorMessage()`
+				- ```java
+				  public static String getErrorMessage(HttpServletRequest request) {
+				  
+				  		String errorMsg = (String) request.getAttribute("errorMsg");
+				  		// the following we used to do in `<%=err != null ? err : ""`
+				  		if (errorMsg != null) {
+				  			return errorMsg;	//returns value of the key
+				  		}
+				  		return "";
+				  	}
+				  // from request the key's value will be returned in getAttribute.
+				  ```
+				- this replaces following:
+					- `<%=err != null ? err : ""%>`
+					- `String err = (String) request.getAttribute("errMsg");`
+					- Instead of passing key in `getErrorMessage` just pass request because for error message method as it is pretty obvious that key will be `errMsg` and similarly `succMsg`, the request has value of the key; using getAttribute it will get key's value and typecast it to String
+					-
+		- ### Making forward() succinct
+			- no need to create `requestDispatcher()` object multiple times.
+			- Create a `forward()` in Servlet Utility class
+			  collapsed:: true
+				- ```java
+				  public static void forward(String page, HttpServletRequest request, HttpServletResponse response) {
+				  		RequestDispatcher rd = request.getRequestDispatcher(page);
+				  		try {
+				  			rd.forward(request, response);
+				  		} catch (Exception e) {
+				  			e.printStackTrace();
+				  		}
+				  
+				  	} //page is view.jsp
+				  ```
+				-
+			- That will replace the following 2 lines
+			  collapsed:: true
+				- ```java
+				  RequestDispatcher rd = request.getRequestDispatcher("UserRegistrationView.jsp");
+				  		rd.forward(request, response); // forward method used to forward same request to it's own view
+				  
+				  ```
+				- With following:
+				  collapsed:: true
+					- ```java
+					  ServletUtility.forward("UserView.jsp", request, response);
+					  ```
