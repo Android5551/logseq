@@ -68,7 +68,6 @@
 		- here bean is null and user's bean, pageNo->1 and pageSize->5
 		- when we need to search or filter the data we set some data in bean for now we don't want that
 	- search method returns list; so we hold returned list in list type variable.
-	  collapsed:: true
 		- ```java
 		  public static void setList(List list, HttpServletRequest request) {
 		  		request.setAttribute("list", list);
