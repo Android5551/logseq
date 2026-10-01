@@ -6,6 +6,7 @@
 		- queries will be run using java
 		- Need Driver to connect database and java
 		- java has all types of database driver found in maven repository
+		  collapsed:: true
 			- search _mysql connector/j_ and download 8.0.31 jar file.
 				- jar file is external library of java.
 				- to deploy an application we make a jar file
@@ -667,28 +668,26 @@
 		- store in util and make JDBCDataConnection singleton
 		- Data connection pool
 		- It is a class which handles database connectivity of web app
-		  collapsed:: true
 			- In every web app we make , need to create dcp in that
-			- Multiple users use a web app
-				- hence multiple connection will be made that results in increased load on database.
-				- at a time mysql can bear 150 connections
-					- after that it crashes
-					- so to avoid that we use DCP
 		- It can stop unusable connection
 		- gives connection to usable connection
 		-
 		- ## Why we need it
-		  collapsed:: true
 			- Makes database connectivity(jdbc) reusable
+			- increasing reliability
 			- Sets connection limitation
 			- manages database connectivity
+			- ### Example
+				- Multiple users use a web app
+					- hence multiple connection will be made that results in increased load on database.
+					- at a time mysql can bear 150 connections
+						- after that it crashes
+						- so to avoid that we use DCP
 		- ## To make this we need design pattern
-		  collapsed:: true
 			- ### Singleton design pattern
 				- we create singleton class
 					- In a lifetime can create only one copy or memory
 				- 4 steps:
-				  collapsed:: true
 					- make the class `final` so child can not be created.
 						- No other class can be made like this one
 					- create an attribute of same type as class name make it `static`
@@ -702,7 +701,6 @@
 						- Make the method return the same class type so it can return that class's object.
 						- If `jdbc` is `null`, a new `JDBCDataSource` object is created, memory is allocated to it, and the same object is returned.
 				- these 4 steps make a singleton class
-				  collapsed:: true
 					- Once the Singleton object is created, it stays in memory and the same object is returned every time instead of creating a new one.
 					- now we make a connection and set around 30.
 						- now only 30 people at a time get connection
@@ -723,7 +721,6 @@
 								  			cpds.setPassword(rb.getString("password"));
 								  ```
 									- this provides connectivity and after that need to give limitations
-									  collapsed:: true
 										- `minpoolsize` this must remain there
 										- `acquireIncrement` specifies how many new connections should be created at a time.
 											- if after 5 , i need 1 more connection then
@@ -736,7 +733,6 @@
 					- this will be public returns connection object
 					- we only call this method
 					- `return getInstance().cpds.getConnection();`
-					  collapsed:: true
 						- first of all getInstance() will be called which in return gives jdbc object, its object can get only when constructor is called
 						- that constructor has `ComboPooledDataSource`'s object
 						- and using this object's methods and given the connection's parameter

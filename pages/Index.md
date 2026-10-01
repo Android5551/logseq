@@ -5,8 +5,6 @@
 	- Questions
 		- [[Questions By sahu sir]]
 		- [[Saawan sir]]
-		-
-	-
 	- [[DevOps]]
 	- [[Sql]]
 	- [[UI UX]]
