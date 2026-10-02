@@ -60,6 +60,7 @@
 		- These are mandatory fields
 	-
 - [[Thu, 29-10-2026]]
+  collapsed:: true
 	- On `Welcome.jsp` we made link of `Users`
 	- on clicking that link request goes to `userlistctl`
 	- `doGet()` gets called; as user list will be displayed we make `UserModel`'s object
@@ -97,3 +98,98 @@
 	- On list we apply iterator ; use while loop iterate data using iterator; in expression tag `bean.getFirstName()` .. we print it
 		- for each loop one row gets printed
 	-
+- [[Thu, 01-10-2026]]
+	- # next
+		- ## UserListCtl
+			- if page no. is 1 then limit will be (0,10) initially 10 records will be shown( 0 to 9)
+			- similarly following the formula `(pageNo - 1) * pageSize`
+			  collapsed:: true
+				- | Page | Limit |
+				  |------|-------|
+				  | 1    | `limit(0,10)` |
+				  | 2    | `limit(10,10)` |
+				  | 3    | `limit(20,10)` |
+				  | 4    | `limit(30,10)` |
+			- On clicking `next` it should display next 10 records.
+			- so it should be like , on clicking `next` the pageNo should increase from 1 to 2
+			- ### Why we have sent pageNo and pageSize on view from UserListCtl
+			  collapsed:: true
+				- PageSize is needed to disable `Next`
+				- PageNo is needed to get  current pageNo's value on controller.
+				- Suppose we have clicked `Next` button and we didn't sent pageNo and pageSize from UserCtl
+					- Method `doPOST` will be called; operation is `next` then we increment pageNo by 1 and we get next 10 records; currently pageNo is 2
+					- on clicking next button again the pageNo should change to 3 but if we don't exchange the pageNo values among controller and view the pageNo will remain 2
+						- the controller don't know what was the last pageNo ; it knows only about the pageNo value is 1
+						- so we need to exchange the pageNo from Controller to view then View to Controller.
+							- ### How it can be done
+								- When we clicked `Next` first time ; 1 will be stored in pageNo
+								- when we clicked `Next` again ; we get the older 1 and increment it.
+								- take the updated value and store
+						-
+				-
+				-
+			- We need current pageNo to do both `previous` and `next`
+			- when we send the request it gets the pageNo. and updated one we get on controller.
+			- ### Use of PageNo
+				- to get current page no.
+					- page no. exchange
+				- for serial no.
+					- index = (pageNo -1 )* pageSize +1
+				- To disable/enable previous
+					- we applied condition if pageNo = = 1 to disable previous
+				- To disable next
+					- if list size < page size
+				-
+			- ### Flow
+				- **We have passed the page number and page size to the view**
+				- We made a hidden field and in that we stored/hold pageNo
+					- `ServletUtility.getPageNo` from this we stored in hidden field
+					- How we made hidden field ( don't tell in flow)
+					  collapsed:: true
+						- By giving input type as hidden; name -> pageNo, value=`<%=PageNo%>`
+						- Similarly for pageSize(but don't tell in flow)
+				- We made a button for `next` and clicked it.
+				  collapsed:: true
+					- If asked How we have made it
+						- input type = submit, name = operation , value= `<%=UserListCtl.OP_Next%>`
+				- Request goes to `UserListCtl`, method will be Post. hence `UserListCtl`'s doPost will be called
+				- get operation in `UserListCtl` ; the operation is `Next`
+				- get pageNo
+				- increment the pageNo or ++
+				- Same for Previous. just decrement the pageNo and operation is `Previous`
+					- Sql query `SELECT st_user WHERE 1=1 LIMIT(0,10)` on clicking next limit will be (10,10) -> 10 to 19
+					- for page 4 limit(30,10) record displayed 30 to 39
+			- ### When next and previous got disabled
+				- Previous -> pageNo == 1
+				- Next -> Size of List < PageSize
+					- | List |<| Pg |T/F
+					  |------|----|----|
+					  | 6 |<    |10|   T    |
+					  | 10 | <  |10|  F     |
+					- if 6 < 10 then next will be disabled.
+					- if 10 records are there on page 1 and no 11th one on the next page. Then 10<10 is false. Next will be enabled.
+					  collapsed:: true
+						- To fix this bug
+							- we used nextListSize
+							- For that we need to search the current page records as well as next page record and find its size ; if it's size is 0 it means no records on the next page.
+								- In first search we used `model.search(bean, 1, 10)`
+								- use one more search below that add pageNo+1 and name it nextList and get its size; if size is 0; then no record is on page 2 and forward it to view if nextListSize is 0 then make `Next` disable
+					-
+			- Populate
+			  id:: 6abf2f50-99b1-470a-ad24-538055a6b39c
+				- getting the data from the request and setting it  to the bean.
+			- ### How have you applied these search filters / How can we add a new search filter?
+				- We made a field on view.
+				- We made a search button; clicked on it ; the request goes to Controller  we ((6abf2f50-99b1-470a-ad24-538055a6b39c)) the data on controller
+				  collapsed:: true
+					- get request' data ; set in bean; make object's model; call add method in model; pass the bean in add. in Model we get bean's data and pass in `preparedStatement` and data goes to db.
+				- In Model we give condition in `getwhereClause` for Strings only 2 conditions: bean.getFirstName()!=null && bean.getFirstName().length>0 *for dob it is `bean.getDob().getTime()>0`*
+				  collapsed:: true
+					- why !null must be before length
+						- if the bean.getFirstName is null and we checked it's length first then we can get `NullPointerException`
+				- `Sql.append(" and FirstName like '"+bean.getFirstName"+"%');`
+				-
+				- For Gender we can't make input field ; need to make preload for that
+				-
+				-
+-
