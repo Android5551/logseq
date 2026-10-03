@@ -410,7 +410,6 @@
 				-
 				-
 - [[Thu, 20-08-2026]]
-  collapsed:: true
 	- when we click login without filling anything
 	  collapsed:: true
 		- in `LoginView.jsp`
@@ -458,7 +457,6 @@
 				-
 					-
 	- ## User List
-	  collapsed:: true
 		-
 		- if i am admin and want to see `UserList` how many users we have in our webapp
 		  collapsed:: true
@@ -489,7 +487,6 @@
 				- add userListctl link in header. named as User List
 				- if we click it userlistctl will run and using doget forwards to userlistview i.e. on userlist page
 			- in `UserListView`
-			  collapsed:: true
 				- using include directory in header and footer.
 				- when using `request.getAttribute` to get the key we need to typecast it to list
 				- use iterator object to display list one by one.
@@ -508,7 +505,6 @@
 							-
 				-
 			- later we will create
-			  collapsed:: true
 				- following in doPost()
 					- next/previous button
 						- if page is 1 then changed to 2 once we use next button
@@ -521,7 +517,6 @@
 		-
 		-
 	- ## Add user
-	  collapsed:: true
 		- using signup user gets added but the user who wants to be added to get to use login
 		- admin can add new user on this view. Only admin can do this so set the role if you want.(Optional for now)
 		- `UserView`
@@ -537,7 +532,6 @@
 		-
 			-
 	- **Task**
-	  collapsed:: true
 		- for ex. Product module follow the following
 			- create bean, add update delete etc.
 			- create product list and add product for admin after logging in only
@@ -552,7 +546,6 @@
 			- instead of creating test for testing methods of model.
 				- use controller and jsp
 - [[Fri, 18-09-2026]]
-  collapsed:: true
 	- ### Session's flow
 		- ```java
 		  @Override

@@ -103,7 +103,6 @@
 		- ## UserListCtl
 			- if page no. is 1 then limit will be (0,10) initially 10 records will be shown( 0 to 9)
 			- similarly following the formula `(pageNo - 1) * pageSize`
-			  collapsed:: true
 				- | Page | Limit |
 				  |------|-------|
 				  | 1    | `limit(0,10)` |
@@ -113,7 +112,6 @@
 			- On clicking `next` it should display next 10 records.
 			- so it should be like , on clicking `next` the pageNo should increase from 1 to 2
 			- ### Why we have sent pageNo and pageSize on view from UserListCtl
-			  collapsed:: true
 				- PageSize is needed to disable `Next`
 				- PageNo is needed to get  current pageNo's value on controller.
 				- Suppose we have clicked `Next` button and we didn't sent pageNo and pageSize from UserCtl
@@ -142,14 +140,13 @@
 				-
 			- ### Flow
 				- **We have passed the page number and page size to the view**
-				- We made a hidden field and in that we stored/hold pageNo
+				- We made a hidden field and in that we stored/hold pageNo in expression tag
+				  collapsed:: true
 					- `ServletUtility.getPageNo` from this we stored in hidden field
 					- How we made hidden field ( don't tell in flow)
-					  collapsed:: true
 						- By giving input type as hidden; name -> pageNo, value=`<%=PageNo%>`
 						- Similarly for pageSize(but don't tell in flow)
 				- We made a button for `next` and clicked it.
-				  collapsed:: true
 					- If asked How we have made it
 						- input type = submit, name = operation , value= `<%=UserListCtl.OP_Next%>`
 				- Request goes to `UserListCtl`, method will be Post. hence `UserListCtl`'s doPost will be called
@@ -160,6 +157,7 @@
 					- Sql query `SELECT st_user WHERE 1=1 LIMIT(0,10)` on clicking next limit will be (10,10) -> 10 to 19
 					- for page 4 limit(30,10) record displayed 30 to 39
 			- ### When next and previous got disabled
+			  collapsed:: true
 				- Previous -> pageNo == 1
 				- Next -> Size of List < PageSize
 					- | List |<| Pg |T/F
@@ -168,7 +166,6 @@
 					  | 10 | <  |10|  F     |
 					- if 6 < 10 then next will be disabled.
 					- if 10 records are there on page 1 and no 11th one on the next page. Then 10<10 is false. Next will be enabled.
-					  collapsed:: true
 						- To fix this bug
 							- we used nextListSize
 							- For that we need to search the current page records as well as next page record and find its size ; if it's size is 0 it means no records on the next page.
@@ -177,15 +174,58 @@
 					-
 			- Populate
 			  id:: 6abf2f50-99b1-470a-ad24-538055a6b39c
+			  collapsed:: true
 				- getting the data from the request and setting it  to the bean.
+				- ```java
+				  @Override
+				  	protected UserBean populateBean(HttpServletRequest request) {
+				  
+				  		UserBean bean = new UserBean();
+				  
+				  		bean.setId(DataUtility.getLong(request.getParameter("id")));
+				        return bean;
+				  	}
+				  ```
+				- bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));`
 			- ### How have you applied these search filters / How can we add a new search filter?
+			  collapsed:: true
+				- Flow Hinglish
+				  collapsed:: true
+					- ```
+					  1. User List View me input field banai, jisme `input` type `text` aur `name="firstName"` diya.
+					  
+					  2. Ek `input` type me `submit` banaya jiska `name="operation"` rakha aur `value="UserListCtl.OP_SEARCH"` diya.
+					  
+					  3. Request `UserListCtl` ki `doPost` method pr gai.
+					  
+					  4. Request parameters ko UserBean me `populateBean` method se populate karwaya.
+					  
+					  5. `operation` ko get kiya, aur `operation` mila `search`.
+					  
+					  6. Agar `operation == search` ho, to `pageNo` ko 1 set kiya.
+					  
+					  7. User Model ka object banaya.
+					  
+					  8. Model ki `search` method ko call kiya, jisme `UserBean`, `pageNo`, aur `pageSize` ko pass kiya.
+					  
+					  9. `search` method ne list return ki, jise list object me hold kiya.
+					  
+					  10. Servlet utility ki `setList` method ka use karke list ko request object me set kiya.
+					  
+					  11. Servlet utility ki `setPageNo` method se `pageNo` ko request object me set kiya.
+					  
+					  12. Servlet utility ki `setPageSize` method ka use karke `pageSize` ko request object me set kiya.
+					  
+					  13. Finally, Servlet utility ki `forward` method ka use karke request aur response ko `UserListView` pr forward kiya.
+					  ```
+				- ---
 				- We made a field on view.
-				- We made a search button; clicked on it ; the request goes to Controller  we ((6abf2f50-99b1-470a-ad24-538055a6b39c)) the data on controller
+				- We made a search button; clicked on it ; the request goes to Controller (UserListCtl) ; doPost() will run; we ((6abf2f50-99b1-470a-ad24-538055a6b39c)) the data on controller
 				  collapsed:: true
 					- get request' data ; set in bean; make object's model; call add method in model; pass the bean in add. in Model we get bean's data and pass in `preparedStatement` and data goes to db.
 				- In Model we give condition in `getwhereClause` for Strings only 2 conditions: bean.getFirstName()!=null && bean.getFirstName().length>0 *for dob it is `bean.getDob().getTime()>0`*
-				  collapsed:: true
 					- why !null must be before length
+					  collapsed:: true
 						- if the bean.getFirstName is null and we checked it's length first then we can get `NullPointerException`
 				- `Sql.append(" and FirstName like '"+bean.getFirstName"+"%');`
 				-
