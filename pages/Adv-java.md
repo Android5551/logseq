@@ -41,7 +41,6 @@
 			- 2nd we need Driver Manager of mysql
 				- Driver Manager is also called **Factory of Connection**
 				- **Factory design pattern** which provides object for another class/interface.
-				  collapsed:: true
 					- Driver Manager provides object of _Connection_ interface.
 					- follows **Factory design pattern**
 				- need 3 things:
@@ -57,6 +56,7 @@
 							- `jdbc:mysql://localhost:port_no/dbname, username, password`
 				- can print name of database which it connects `Connection.getCatalog()`
 					- ### Exceptions
+					  id:: 6a742930-b24f-4fae-b85d-f7cae80b14cf
 						- wrong database -> `UnknownDatabaseException` or `SQLSyntaxErrorException`
 						- mysql service is down or hosts and/or port number is wrong -> `CommunicationsException`: Communications link failure
 						- username or password is wrong -> `SQLException` access denied

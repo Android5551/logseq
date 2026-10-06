@@ -12,12 +12,10 @@
 	  collapsed:: true
 		- We have written `input type` as text and in `name` its field name.
 	- How did you make password fields?
-	  collapsed:: true
 		- `input` type as password and `name` as password
 	- How many dropdowns are here and which one?
 		- One dropdown and type is static.
 	- How did you apply this dropdown? (Gender)
-	  collapsed:: true
 		- In `UserRegistationView.jsp` we have used `Script let` tag
 			- we have created `Map's` object in following way:
 				- `HashMap map = new HashMap`
@@ -31,44 +29,33 @@
 					- in selected value -> `bean.getGender()`
 					- in value -> passed the map's object.
 	- How did you make DOB field?
-	  collapsed:: true
 		- `input` type as date and `name` as DOB
 	- How did you make the button?
-	  collapsed:: true
 		- In `UserregistrationView.jsp` i have given input type -> `Submit` , name -> operation and in value  we have used expression tag and written `UserRegistrationCtl.OP_SignUp`
 		-
 	- Perform the Input Validations
-	  collapsed:: true
 		- When the form's fields are empty click on `Signup`
 	- Why its color is red?
-	  collapsed:: true
 		- We have defined red color for error message.
 	- Why you have chosen red color for it?
-	  collapsed:: true
 		- It is standard
 	- Which scope does this belong to?
-	  collapsed:: true
 		- Request's scope
 	- How do you know it is in request's scope?
-	  collapsed:: true
 		- We have set it in request using `request.setAttribute()`
 	- How many scopes are there
 		- 4 ; request, application, page and session and by default it is page.
 	- When does the request's scope ends?
-	  collapsed:: true
 		- When generating new request the older one's scope get destroyed. OR when generating the response the older one get destroyed
 	- which type of messages are these?
-	  collapsed:: true
 		- Input error's messages
 	- How did you set/get these input messages
-	  collapsed:: true
 		- in Userregistrationctl we have set as `request.setAttribute` in form of key and value pair; and on view using `ServletUtility.getErrorMessage` we get it in form of key and request
 		- key has value which we type casted.
 	- How did you perform the input validations
 		- We have overridden validate method of BaseCtl in Userregistrationctl
 	- How did you make this box in userregistrationview.jsp
 		- using bootstrap
-		  collapsed:: true
 	- What are these red star(asterisk)
 		- These are mandatory fields
 	-
@@ -82,7 +69,6 @@
 		- here bean is null and user's bean, pageNo->1 and pageSize->5
 		- when we need to search or filter the data we set some data in bean for now we don't want that
 	- search method returns list; so we hold returned list in list type variable.
-	  collapsed:: true
 		- ```java
 		  public static void setList(List list, HttpServletRequest request) {
 		  		request.setAttribute("list", list);
@@ -113,7 +99,6 @@
 		- for each loop one row gets printed
 	-
 - [[Thu, 01-10-2026]]
-  collapsed:: true
 	- # next
 		- ## UserListCtl
 			- if page no. is 1 then limit will be (0,10) initially 10 records will be shown( 0 to 9)
@@ -142,62 +127,8 @@
 				-
 				-
 			- We need current pageNo to do both `previous` and `next`
-			- ### Exchange of PageNo.
-			  collapsed:: true
-				- When we clicked `Users` link on welcome.jsp doGet ran and we sent pageNo=1, pageSize and list to view.
-				- once we displayed `UserList`; we will create next button ; click it ; request goes to `UserListCtl` ; doPost get called;
-				- In doPost, pageNo and pageSize have given as 1.;
-				- if operation is next ; get pageNo from view , store it in `UserListCtl` and increment it.
-				- ```java
-				  if (op.equals("next")) {
-				  			pageNo = Integer.parseInt(request.getParameter("pageNo"));
-				  			// we get current page no. from here.
-				    			pageNo++;
-				  		}
-				  ```
-				- once pageNo is 2 after incrementing it;
-				- `List<UserBean> list = model.search(bean, pageNo, pageSize);` here we have called model's search method. we get next page's list.
-				- now we will set all 3 attributes and forward it to view.
-					- ```java
-					  request.setAttribute("list", list);
-					  		request.setAttribute("pageNo", pageNo);
-					  		request.setAttribute("pageSize", pageSize);
-					  
-					  		RequestDispatcher rd = request.getRequestDispatcher("UserListView.jsp");
-					  		rd.forward(request, response);
-					  
-					  ```
-				- the page 2 will be stored in hidden field in view.
-				- On clicking next again
-					- ```java
-					  <td align="right"><input type="submit" name="operation"
-					  						value="next" <%=list.size() < 5 ? "disabled" : ""%>></td>
-					  ```
-				- In following line we get page from view
-					- `pageNo = Integer.parseInt(request.getParameter("pageNo"));`
-					- we get 2 increment it to 3, search for next list if any and forward it to view along with all 3 attributes.
-			- ### What if we don't exchange PageNo
-			  collapsed:: true
-				- once we displayed `UserList`; we will create next button ; click it ; request goes to `UserListCtl` ; doPost get called;
-				- In doPost, pageNo and pageSize have given;
-				- `List<UserBean> list = model.search(bean, pageNo, pageSize);` here we have called model's search method.
-				- if operation is next ; get pageNo from view , store it in `UserListCtl` and increment it.
-				- once pageNo got 2 after incrementing it; next page records will be displayed.
-				- *Again, we pressed next* doPost will run ; pageNo initial value is 1; after incrementing it will be 2; it means we can't go further to 3,4 etc.
-				- **The issue is we are not getting current page no.**
-				- doGet and doPost has initial page no. 1
-				- **it is like at first pageNo is 1 then it becomes 2 . on clicking next again ; the 2 becomes 1 and incremented to 2**
-				- similarly for previous
-				  collapsed:: true
-					- doPost ; initially pageNo 1; operation is previous; decrement pageNo. ; 1 decreased to 0 ; (0-1)*10= -10 so limit will be (-10,10)
-					- sql syntax error will come.
-				-
-			- ### Why we have exchanged PageNo. with view and ctl
-			  collapsed:: true
-				- to get current pageNo. using `pageNo = Integer.parseInt(request.getParameter("pageNo"));`
 			- when we send the request it gets the pageNo. and updated one we get on controller.
 			- ### Use of PageNo
-			  collapsed:: true
 				- to get current page no.
 					- page no. exchange
 				- for serial no.
@@ -208,7 +139,6 @@
 					- if list size < page size
 				-
 			- ### Flow
-			  collapsed:: true
 				- **We have passed the page number and page size to the view**
 				- We made a hidden field and in that we stored/hold pageNo in expression tag
 				  collapsed:: true
@@ -230,7 +160,7 @@
 			  collapsed:: true
 				- Previous -> pageNo == 1
 				- Next -> Size of List < PageSize
-					- | List |<| Pg |T/F|
+					- | List |<| Pg |T/F
 					  |------|----|----|
 					  | 6 |<    |10|   T    |
 					  | 10 | <  |10|  F     |
@@ -298,39 +228,8 @@
 					  collapsed:: true
 						- if the bean.getFirstName is null and we checked it's length first then we can get `NullPointerException`
 				- `Sql.append(" and FirstName like '"+bean.getFirstName"+"%');`
-				- For Gender we can make input field ;but need to make preload/dropdown for that; that will be much better than input field.
+				-
+				- For Gender we can't make input field ; need to make preload for that
 				-
 				-
-- [[Fri, 02-10-2026]]
-	- # Delete
-		- ## Create Checkbox
-			- In input type `checkbox`; name `ids`; value `<%=bean.getId()%>`
-				- name is one i.e. `ids` but values are 9
-				- so make `ids` as `String []`
-			- Create `Delete` button
-			- Request goes to `UserListCtl`; doPost will be called; get operation `delete`
-			- if op is delete ; from view get `ids` using `request.getParameterValues`
-				- if name has more than one values we will use `request.getParameterValues`
-			- check for this condition `		if (ids != null && ids.length > 0)`
-			- use for each loop and iterate ids in id.
-			- call model's delete and pass `id`
-			- if we select more than one checkbox then one by one those will get deleted.
-			- if done successfully give success message using ServletUtility otherwise errMsg and forward to view.
-			- ```java
-			  if (op.equals("delete")) {
-			  			String[] ids = request.getParameterValues("ids");
-			  			if (ids != null && ids.length > 0) {
-			  				for (String id : ids) {
-			  					try {
-			  						model.delete(Integer.parseInt(id));
-			  						request.setAttribute("succMsg", "record deleted successfully");
-			  					} catch (Exception e) {
-			  						e.printStackTrace();
-			  					}
-			  				}
-			  			} else {
-			  				request.setAttribute("errorMsg", "select at least one record to delete");
-			  			}
-			  		}
-			  ```
-				-
+			- From view if hidden page No is 3 on ctl dopost initial page nO 1 get overwritten by request.getparameter's 3 and increment.

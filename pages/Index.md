@@ -1,8 +1,10 @@
 - Programming Languages
+  collapsed:: true
 	- [[java]]
 	  collapsed:: true
 		- [[Adv-java]]
 	- Questions
+	  collapsed:: true
 		- [[Questions By sahu sir]]
 		- [[Saawan sir]]
 	- [[DevOps]]
@@ -11,12 +13,13 @@
 	- [[Trouble Shooting]]
 	-
 - Playground
+  collapsed:: true
 	- [[Testing]]
 	- [[newTest]]
 	-
 - GPT
-  collapsed:: true
 	- [[notes Instruction]]
+	- [[notes explanation]]
 	-
 -
 -
