@@ -56,6 +56,7 @@
 						- destroy
 					- To apply use pattern /ctl/* url pattern.
 					- `chain.doFilter(req, resp);` request goes to next controller if user has logged in succesfully.
+					- registration, login, forgetpassword, here we didnt apply 4th one idk
 					- ==32:50==
 - [[Fri, 11-09-2026]]
   collapsed:: true
