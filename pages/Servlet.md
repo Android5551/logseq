@@ -269,12 +269,11 @@
 					- else otherwise bean will be null then set attribute of request to errormsg.
 						- forward to loginview
 						- get it in loginview using
-						  collapsed:: true
 							- `<h3 style="color: red"><%=err != null ? err : ""%></h3>
 							  			<h3 style="color: green"><%=succ != null ? succ : ""%></h3>`
 								- as per the null values get the message if login or password is correct.
 					- if we put login and password correct.
-						- bean will store in session as this session is not stateless, No matter how many times you change on requests, session won't change.`
+						- bean will store in session as this session is not stateless, No matter how many times you change on requests, session won't change.
 							- `session.getAtribute` gets the bean of type userbean.
 							- whatever the value type is cast to that in getAttribute in header as it will be common to all.
 								- `UserBean user = (UserBean) session.getAttribute("user");`
@@ -301,7 +300,6 @@
 									  ```
 									- after logging in we wont show in header the signup and login instead we will show `logout` link having following
 										- ### Query String
-										  collapsed:: true
 											- `?` -> we can send parameters in url using this.
 											- parameter=value.
 										- session destroyer:
@@ -487,6 +485,7 @@
 				- add userListctl link in header. named as User List
 				- if we click it userlistctl will run and using doget forwards to userlistview i.e. on userlist page
 			- in `UserListView`
+			  collapsed:: true
 				- using include directory in header and footer.
 				- when using `request.getAttribute` to get the key we need to typecast it to list
 				- use iterator object to display list one by one.
@@ -546,6 +545,7 @@
 			- instead of creating test for testing methods of model.
 				- use controller and jsp
 - [[Fri, 18-09-2026]]
+  collapsed:: true
 	- ### Session's flow
 		- ```java
 		  @Override

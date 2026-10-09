@@ -1,12 +1,12 @@
 - [[Mon, 07-09-2026]] (kanak)
-  collapsed:: true
+  id:: 6abdc0f2-0a69-4d4c-8e64-36c58fdd3a7e
 	- ## Two Types of Validations
+	  id:: 6abdc0f2-6258-4be6-ab5e-0c41239606e9
 		- ### Server side
 			- #### Programmative
 				- We use this
 				- Because we are doing programs
 				- Ex
-				  collapsed:: true
 					- ```java
 					  if (age < 18) {
 					      throw new Error("Must be 18+");
@@ -14,7 +14,6 @@
 					  ```
 				- 2 Types:
 					- ##### Input Validation
-						-
 					- ##### Business Validation
 				-
 			- #### Declarative
@@ -64,7 +63,6 @@
 		- it is in request scope because when we set the messages it was like `request.setAttribute`
 		- if we refresh the page then request gets changed and messages will be removed
 	- ## Why Service method Runs?
-	  collapsed:: true
 		- Runs on every user request.
 	- #+BEGIN_TIP
 	  - the validate method and its conditions in `loginCtl` only say it when input validations message coming on `loginView`
@@ -89,11 +87,13 @@
 			- here we want is if login and password are correct and gets logged in redirect to `WelcomeCtl`
 			- to go from one controller to another.
 - [[Tue, 08-09-2026]] (K)
+  id:: 6abdc0f2-760f-4e0d-9646-ea078cb9ad19
+  collapsed:: true
 	- Localhost
 	  logseq.order-list-type:: number
 		- your computer acting as a server.
-	- When we click on login button which logic we used?
+	- When we click on login button which logic we use?
 	  logseq.order-list-type:: number
 		- Submit Logic
 	- logseq.order-list-type:: number
--
+- id:: 6abdc0f2-56bc-432e-a12c-69d334ac04ed

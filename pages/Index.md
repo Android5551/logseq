@@ -1,12 +1,11 @@
 - Programming Languages
-  collapsed:: true
 	- [[java]]
 	  collapsed:: true
 		- [[Adv-java]]
 	- Questions
-	  collapsed:: true
 		- [[Questions By sahu sir]]
 		- [[Saawan sir]]
+		- [[Kanak]]
 	- [[DevOps]]
 	- [[Sql]]
 	- [[UI UX]]
@@ -18,6 +17,7 @@
 	- [[newTest]]
 	-
 - GPT
+  collapsed:: true
 	- [[notes Instruction]]
 	- [[notes explanation]]
 	-

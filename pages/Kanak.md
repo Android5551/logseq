@@ -1,0 +1,25 @@
+- ((6abdc0f2-0a69-4d4c-8e64-36c58fdd3a7e))
+- ((6abdc0f2-760f-4e0d-9646-ea078cb9ad19))
+- [[Thu, 08-10-2026]]
+	- How many utility classes are there
+	- Why we followed MVC Architecture
+		- Definition of MVC Architecture; it is a standard.
+	- In Login's Input Validation, the messages are in which scope?
+		- request's
+			- How did you know?
+				- `request.setAttribute()`
+	- How can you get view's data on controller?
+		- `request.getParameter("firstName")`
+	- Types of validations?
+		- ((6abdc0f2-6258-4be6-ab5e-0c41239606e9))
+	- In header after sign in how it is showing `(student)`
+		- What you did to keep it in session's scope
+		- How to make Session's object
+	- Login's flow
+	- Which logic gets performed when clicking `submit` button?
+	- List name of methods you made in BaseCtl
+		- validate
+	- Why service is running?
+	- Session's scope?
+	- Design pattern.
+-
