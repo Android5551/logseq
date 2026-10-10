@@ -1,5 +1,4 @@
 - `37:00` [[Thu, 16.07.2026]]
-  collapsed:: true
 	- This is java based web application.
 		- Web apps -> can be accessed using web browsers.
 		- runs on server apache tomcat
@@ -17,7 +16,6 @@
 					- create WAR file
 					- copy paste it in webapp
 					- remove root after webapp
-					  collapsed:: true
 						- compose file
 							- container name
 							- image name
@@ -53,11 +51,7 @@
 								- We need to do all this before creating WAR file as WAR Files are static and cant be changed
 		- DONE server
 			-
-			-
-			-
-			-
 - [[Fri, 17.07.2026]]
-  collapsed:: true
 	- java project sends request to db; url is in `system.properties`
 		- its in /ORSProject04/src/main/resources/com/sunilos/p4/bundle/system.properties
 		- replace
@@ -176,7 +170,6 @@
 							- Login using username password
 				-
 - [[Sat, 18.07.2026]]
-  collapsed:: true
 	- ## Commands to run webapp on AWS
 		- ### Create Docker Image on Docker Desktop
 		- ### Open Chrome Browser & log in to Docker Hub.
@@ -339,7 +332,6 @@
 			  ```
 		- ### Stop Instance
 - [[Thu, 13-08-2026]]
-  collapsed:: true
 	- maven using dependencies downloaded jars.
 	  collapsed:: true
 		- 14 dependencies will be on maven repo. written in pom.xml
@@ -429,7 +421,6 @@
 				- in that create `System.properties`
 				-
 - [[Tue, 18-08-2026]]
-  collapsed:: true
 	- js folder will have a file that can have calendar function
 	- jsp folder will have all the views.
 	- BaseBean

@@ -254,13 +254,12 @@
 					- Sql query `SELECT st_user WHERE 1=1 LIMIT(0,10)` on clicking next limit will be (10,10) -> 10 to 19
 					- for page 4 limit(30,10) record displayed 30 to 39
 			- ### When next and previous got disabled
-			  collapsed:: true
 				- Previous -> pageNo == 1
 				- Next -> Size of List < PageSize
-					- | List |<| Pg |T/F
+					- | List |<| Pg |D/E|
 					  |------|----|----|
-					  | 6 |<    |10|   T    |
-					  | 10 | <  |10|  F     |
+					  | 6 |<    |10|   D    |
+					  | 10 | <  |10|  E     |
 					- if 6 < 10 then next will be disabled.
 					- if 10 records are there on page 1 and no 11th one on the next page. Then 10<10 is false. Next will be enabled.
 					  collapsed:: true
@@ -272,7 +271,6 @@
 					-
 			- Populate
 			  id:: 6abf2f50-99b1-470a-ad24-538055a6b39c
-			  collapsed:: true
 				- getting the data from the request and setting it  to the bean.
 				- ```java
 				  @Override
