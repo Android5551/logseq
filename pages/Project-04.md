@@ -770,5 +770,85 @@
 	  pehle college id v de rhe aur college name ab college name ni dena padega apne aap lelega testAdd aur testUpdate me
 	  replace collegeName with cbean.name
 	  ```
--
--
+- [[Fri, 09-10-2026]]
+	- # Front Controller
+	  collapsed:: true
+		- ### Definition
+		  collapsed:: true
+			- User mustn't access the controllers without login except those 4.
+			- otherwise user can access the user list
+			- we use it in between the controllers ; checks if user is set in session if yes then can access controllers otherwise send it to loginview.jsp
+			- It acts as interceptor.
+			- ---
+			- It used to prevent any user to access application without login.
+		- Implement Filter Interface to create front controller
+		- `@WebFilter("/ctl/*")`
+			- * means all
+			- means the filter applies to all matching URL paths in the application.
+		- 3 life cycle methods
+		  collapsed:: true
+			- init
+			- doFilter
+				- doFilter runs on every request just like servlet's service method runs on every request
+				- runs when a matching request passes through the filter.
+				- need to typecast `ServletRequest` to `HttpServletRequest` similarly with response
+			- destroy
+		- `chain.doFilter(arg1, arg2);`
+		  collapsed:: true
+			- calls next config filter or controller in chain
+			- chain means whatever the controller is there in place of * in `/ctl/` it calls that.
+			-
+		- whenever "user" gets set in session user gets logged in.
+			- what if user is not logged in and we try to open UserList then doFilter() we made it to run , checks if `session.getAttribute("user") == null` if true sets error and forward to loginview.jsp
+			- if user is logged in and `session.getAttribute("user") != null` then `chain.doFilter()` calls the controller.
+		- To apply the filter use `/ctl` before controller.
+		- Whenever you change the pattern of a ctl or rename the name of certain file ; clean the server and project. to re-configure.
+		- ### Where not to apply
+		  collapsed:: true
+			- `LoginCtl`
+			- `WelcomeCtl`
+			- `ForgetPasswordCtl`
+			- `UserRegistrationCtl`
+			- ---
+			- because we can access these without log in
+			-
+		- ### Flow
+			- On clicking `UserListCtl` request goes to `@WebFilter("/ctl/*")` and doFilter gets called.
+			- session user is null if we got logged out and try to access userlistctl
+			- forwarded to loginview.jsp and error will get printed.
+			- else if user is logged in then
+				- `chain.doFilter()` will run and call its next ctl here it is `userlistctl`
+	- # Factory design pattern
+	  collapsed:: true
+		- Connection is an interface but follows this design pattern
+		- it provides statement's object using the createStatement() method.
+		- `Statement stmt = con.createStatement();`
+		- JDBCDataSource provides a Connection object.
+		- Connection provides a Statement object using con.createStatement().
+		- Connection provides a PreparedStatement object using con.prepareStatement(sql).
+		- DriverManager.getConnection()
+		-
+	- # Edit
+		- we need id and the record we want to edit for that we need entire data.
+			- because `update table set f=?, l=? ... where id=?`
+		- we don't need to print id but for demo purpose and clarity we are doing it.
+			- on view add bean.getId() in while loop
+			- we need to update one at a time so we don't use update instead we use `findByPk` method
+			- `select * from st_user where id = ?` searches for record and return as bean.
+			- we create a `<td><a href="UserCtl.do?id=<%=b.getId()%>">Edit</a></td>` in userlistview.jsp [Actually this is for jsp/servlet]
+				- userctl par baseCtl ko extend kiya hai basectl ki service chalegi ;
+				- request method get hai. to post ki condition ni chalegi aur super.service call karegi doget ko basectl ki basectl me hi change karna hoga.
+				- get id using request.getparameter(id) pass karenge Datautility.getLong me.
+					- Integer.parseLong()
+					- if id > 0
+					- populateBean se bean me set kar denge.
+				- can get bean using `UserBean bean = (UserBean) request.getAttribute("bean");`
+				- as well as using `jsp:usebean` tag on view.
+					- request me jo v attribute hota hai use direct nikal leta hi without typecasting
+					- `<jsp:useBean id="obj" class="packageName.ClassName" scope="request" />`
+						- `<jsp:useBean id="bean" class="in.co.rays.proj4.bean.RoleBean"
+						  		scope="request"></jsp:useBean>`
+						- id me key -> bean
+						- TODO ==44:01==
+			- with this id we call doGet's UserModel's findbypk search record using this id; set in request and forward to view. and show on view as form with data filled. change the form field and save.
+			-
