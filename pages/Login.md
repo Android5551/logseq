@@ -2,7 +2,6 @@
 	- Common
 	  id:: 6ac9d196-4ff9-4525-9a26-3761131ba7a1
 		- LoginForm par Sign In button par click kiya.
-		  collapsed:: true
 			- ```jsp
 			  <tr>
 			  	<th></th>
@@ -12,7 +11,6 @@
 			  </tr>
 			  ```
 		- Form tag me:
-		  collapsed:: true
 		  `<form action="<%=ORSView.LOGIN_CTL%>" method="post">`
 			- `String APP_CONTEXT = "/ORSProject-04";`
 			- `String LOGIN_CTL = APP_CONTEXT + "/LoginCtl";`
@@ -24,11 +22,9 @@
 				- to `basectl` me service method me condition false ho jayegi
 				- `super.service(request, response);` ye chalegi aur basectl ki doPost chalegi par humne loginctl pe override kiya h
 		- `doPost()` method chali `doPost()` method me operation ko get kiya view se:
-		  collapsed:: true
 		  `String op = DataUtility.getString(request.getParameter("operation"));`
 			- `DataUtility.getString()` check karegi ki `SignIn` `isnonull` using DataValidator uske bad wo whitespace trim karke return kar degi par agar null hui to wo operation as it is return kar degi.
 		- `populateBean(request)` method call ki aur view se Login aur Password
-		  collapsed:: true
 		  get kiya or UserBean me set kiya. `request.getParameter()` method se
 			- ```java
 			  @Override
@@ -48,12 +44,10 @@
 				- `HttpSession s = req.getSession();`
 				-
 		- Condition check hui:
-		  collapsed:: true
 		  `if(OP_SIGN_IN.equalsIgnoreCase(op))`
 			- `SignIn` op ke barabar hai ki ni.
 			- `equalsIgnoreCase` case insensitive hota hai
 		- UserModel ki `authenticate()` method call hui:
-		  collapsed:: true
 		  `bean = m.authenticate(bean.getLogin(), bean.getPassword());`
 			- `bean.getLogin()` -> UserBean me `populateBean` se login aur password get kiya.
 			- ```java
@@ -79,7 +73,6 @@
 	  `ServletUtility.setErrorMessage("Invalid login or password", request)`
 	  se error message request me set kiya.
 		- ### ServletUtility
-		  collapsed:: true
 			- ```java
 			  
 			  	public static String getErrorMessage(HttpServletRequest request) {
@@ -112,7 +105,6 @@
 			  
 			  ```
 	- Uske baad:
-	  collapsed:: true
 	  `ServletUtility.forward(getView(), request, response)`
 	  se Login view par forward kiya.
 		- `getView()`
@@ -120,7 +112,6 @@
 			- `PAGE_FOLDER = "/jsp";`
 			- `LOGIN_VIEW = PAGE_FOLDER + "/LoginView.jsp";`
 	- View par:
-	  collapsed:: true
 	  `ServletUtility.getErrorMessage(request)`
 	  se "Invalid login or password" message get kiya aur
 	  expression tag me print kiya.
