@@ -69,6 +69,7 @@
 				- fir check karenge if condition se ki bean null ni hona chaiye aur `bean.getPassword` jo ki humne st_user se liya tha aur `password` jo humne view se liya tha wo same hona chaiye to bean return kar lenge. ni to null return hoga.
 				-
 	- authenticate() method ne null bean return kiya login or password galat tha isliye.
+	  collapsed:: true
 	  condtion chek hui `bean == null`  hua to:
 	  `ServletUtility.setErrorMessage("Invalid login or password", request)`
 	  se error message request me set kiya.
@@ -122,6 +123,7 @@
 	- Isse "Invalid login or password" ka business validation
 	  message show hota hai.
 - # Successful Login
+  collapsed:: true
 	- ((6ac9d196-4ff9-4525-9a26-3761131ba7a1))
 	- `authenticate()` method ne bean return kiya.
 	- Agar `bean != null` hua to
@@ -146,6 +148,7 @@
 				- `ServletUtility.forward()` se login view pe forward kar diya
 				-
 - # Input Validation
+  collapsed:: true
 	- LoginForm par Sign In button par click kiya.
 	  collapsed:: true
 		- ```jsp

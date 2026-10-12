@@ -1,6 +1,5 @@
 - Programming Languages
 	- [[java]]
-	  collapsed:: true
 		- [[Adv-java]]
 	- Questions
 		- [[Questions By sahu sir]]

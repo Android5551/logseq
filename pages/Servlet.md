@@ -408,6 +408,7 @@
 				-
 				-
 - [[Thu, 20-08-2026]]
+  collapsed:: true
 	- when we click login without filling anything
 	  collapsed:: true
 		- in `LoginView.jsp`
@@ -588,6 +589,7 @@
 		  }
 		  ```
 - [[Thu, 01-10-2026]]
+  collapsed:: true
 	- ## Servlet Utility
 		- `getBean()` typecast to bean
 		- `getList()` typecast to list
@@ -644,3 +646,4 @@
 					- ```java
 					  ServletUtility.forward("UserView.jsp", request, response);
 					  ```
+-
