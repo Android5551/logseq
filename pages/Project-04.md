@@ -830,25 +830,115 @@
 		-
 	- # Edit
 		- we need id and the record we want to edit for that we need entire data.
+		  collapsed:: true
 			- because `update table set f=?, l=? ... where id=?`
+			- if we update a table we need its id and whole data.
 		- we don't need to print id but for demo purpose and clarity we are doing it.
+		  collapsed:: true
 			- on view add bean.getId() in while loop
-			- we need to update one at a time so we don't use update instead we use `findByPk` method
+			- we need to update one at a time so we don't use update instead we use `findByPk` method; search the record which you want to update using `findByPk`
 			- `select * from st_user where id = ?` searches for record and return as bean.
 			- we create a `<td><a href="UserCtl.do?id=<%=b.getId()%>">Edit</a></td>` in userlistview.jsp [Actually this is for jsp/servlet]
+				- `<td><a href="<%=ORSView.USER_CTL+"?id="+b.getId()%>">Edit</a>`
+					- this if for project
+			- in link we are giving id  in `doGet` get the id; run findByPk() searches the record of this id; set in the request and forward to view.
 				- userctl par baseCtl ko extend kiya hai basectl ki service chalegi ;
-				- request method get hai. to post ki condition ni chalegi aur super.service call karegi doget ko basectl ki basectl me hi change karna hoga.
-				- get id using request.getparameter(id) pass karenge Datautility.getLong me.
-					- Integer.parseLong()
-					- if id > 0
-					- populateBean se bean me set kar denge.
-				- can get bean using `UserBean bean = (UserBean) request.getAttribute("bean");`
-				- as well as using `jsp:usebean` tag on view.
-					- request me jo v attribute hota hai use direct nikal leta hi without typecasting
-					- `<jsp:useBean id="obj" class="packageName.ClassName" scope="request" />`
-						- `<jsp:useBean id="bean" class="in.co.rays.proj4.bean.RoleBean"
-						  		scope="request"></jsp:useBean>`
-						- id me key -> bean
-						- TODO ==44:01==
+				- request method `get` hai. to post ki condition ni chalegi aur super.service chalegi aur doGet chaljaygi basectl ki.
+				- get id from query string from `UserListCtl` view using `request.getparameter(id)` pass it in Datautility.getLong.
+					- `DataUtility.getLong` parses the String to long.
+					- `M model = getModel();`
+						- M generic can have rolemodel, usermodel etc.
+					- `ServletUtility.forward(getView(), request, response);` in request it has bean.
+					- get the bean on `userview` using `UserBean bean = (UserBean) request.getAttribute("bean"); ` or `ServletUtility.getBean(request)`
+						- OR using `jsp:usebean` tag on view.
+							- request me jo v attribute hota hai use direct nikal leta hi without typecasting
+							- `<jsp:useBean id="obj" class="packageName.ClassName" scope="request" />`
+								- `<jsp:useBean id="bean" class="in.co.rays.proj4.bean.UserBean" scope="request"></jsp:useBean>`
+								- it finds key from request; id me key -> bean
+					-
+			- in `userView`
+				- fill the fields' empty value using
+					- `value="<%=DataUtility.getStringData(bean.getName())%>"></td>`
+					- if bean.getName is empty then blank otherwise in value it gets name.
 			- with this id we call doGet's UserModel's findbypk search record using this id; set in request and forward to view. and show on view as form with data filled. change the form field and save.
-			-
+		- Flow
+			- we made a link of edit in user list.
+			- clicked on edit link
+			- we are sending id using query string on `userCtl`
+			- request goes to `userctl` basectl's Doget will run
+				- get the id from query string
+				- if (id >0)
+					- use `findByPk` search the record using id
+					- set the bean in request and forward to view.
+					- get the bean on jsp.
+					- and in fields show the filled data.
+					- click the save button to save the updated fields.
+					  collapsed:: true
+						- but for that we need `id` because without that how it will update.
+						- so in hidden field we need to provide id
+							- `<input type="hidden" name="id" value="<%=DataUtility.getStringData(bean.getId())%>">`
+							-
+					- basectl's do post will run
+					- call the method `populateBean()`
+						- get the id from view's hidden input field `bean.setId(DataUtility.getLong(request.getParameter("id")));`
+					- in try catch
+						- ```java
+						  if (bean.getId() > 0) {
+						  	model.update(bean);
+						  	ServletUtility.setSuccessMessage("record updated successfully", request);
+						  } else {
+						  	model.add(bean);
+						  	ServletUtility.setSuccessMessage("record saved successfully", request);
+						  }
+						  ```
+						- in update we are passing bean which has id as well as whole data.
+						- the query will be `update st_user set firstname=?... where id=?`
+						- set success message using servlet utility's set success in form of message and request.
+						- *else*
+							- if bean does not have that id then add the record.
+							- `record saved successfully`
+					- One more thing you can do is on `UserView`
+						- ```jsp
+						  <h1>Add Role</h1> // replace this line with following.
+						  <h1><%=bean != null && bean.getId() > 0 ? 
+						    "Update Role" : "Add Role"%></h1>
+						  ```
+						- In add role we don't send id in query string ; doGet will run but `findByPk` won't ; so bean won't set the data... so bean will be empty then Add role will be shown.
+						-
+	- ## updated JDBCDataSource
+	  collapsed:: true
+		- don't make the static variable final
+		- JDBCDataSource instance was getting created every time.
+		- earlier we had a code
+			- ```java
+			  if (jdbc == null) {
+			  	return new JDBCDataSource();
+			  }
+			  ```
+				- we didn't store instance in jdbc attribute.
+				- the attribute's value is null here.
+				- when `getInstance()` ran again it gets jdbc = null then it created instance again. that created multiple connections.
+			- we need to store the `new JDBCDataSource()` into jdbc.
+				- ```java
+				  //updated code
+				  private static JDBCDataSource getInstance() {
+				  		if (jdbc == null) {
+				  			jdbc = new JDBCDataSource();
+				  			return jdbc;
+				  		}
+				  		return jdbc;
+				  	}
+				  
+				  	public static Connection getConnection() { // factory design pattern
+				  		try {
+				  			return getInstance().c.getConnection();
+				  		} catch (Exception e) {
+				  			// TODO Auto-generated catch block
+				  			e.printStackTrace();
+				  		}
+				  
+				  		return null;
+				  	}
+				  ```
+				- if `getInstance()` runs next time then it gets the value in jdbc. and it returns that and won't go inside if. and won't create new instance. thereby failing singleton design pattern.
+				-
