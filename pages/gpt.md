@@ -1,0 +1,2 @@
+- Why we have used 465 for smtp.port
+	- We use port 465 for sending emails through Gmail SMTP using SSL/TLS encryption, which secures the connection between the application and the mail server.

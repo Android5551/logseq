@@ -964,7 +964,7 @@
 					- `ChangePasswordMessage()`
 			- `Email Utility`
 				- It uses SMTP's 6 pre defined classes to send mail
-id:: 6ad0248f-836e-44a5-97c5-ab7c2cd9e567
+				  id:: 6ad0248f-836e-44a5-97c5-ab7c2cd9e567
 					- Session
 					  id:: 6ad0253c-0e7c-4e84-9cab-942fce43b6df
 					- Authenticator
@@ -988,108 +988,109 @@ id:: 6ad0248f-836e-44a5-97c5-ab7c2cd9e567
 						- email.pwd=PA$$1234 -> app password
 					-
 - [[Wed, 14-10-2026]]
-	- In `usermodel`
-	  collapsed:: true
-		- `register()`
-			- instead of calling add method we now use `register` method to add user in db and send registration mail.
-				- ```java
-				  public long register(UserBean bean) {
-				  		long pk = add(bean);
-				  ```
-				- passing bean in add ; adds in database.
-			- code to send email for new registration which we had used in testSmtp.java
-				- ```java
-				  HashMap<String, String> map = new HashMap<String, String>();
-				  		EmailMessage msg = new EmailMessage();
-				  
-				  		map.put("login", bean.getLogin());
-				  		map.put("password", bean.getPassword());
-				  
-				  		msg.setTo(map.get("login"));
-				  		msg.setSubject("User Rgistration Information");
-				  		msg.setMessage(EmailBuilder.getUserRegistrationMessage(map));
-				  		msg.setMessageType(EmailMessage.HTML_MSG);
-				  		// as messages in EmailBuilder are html type so we give html_msg 
-				  		EmailUtility.sendMail(msg); //to send email
-				  		System.out.println("mail send successfully");
-				  
-				  ```
-				-
-		- `forgotPassword()`
-			- we need a mail id for forgot password to work.
-			- `UserBean bean = findByLogin(login);`
-				- searches user using `findByLogin()`
-			- user gave `loginId` ; password gets searched using findByLogin and his data gets stored in bean.
-			- that password along with login, first name, last name  put it in map object.
-			- `EmailBuilder.getForgetPasswordMessage(map)` get the password from map object and creates a message using `msg.setMessageType(EmailMessage.HTML_MSG);` and sends the mail `EmailUtility.sendMail(msg);`
-		- `changePassword()`
-			- searches the database using login sets in bean
-			- checks bean !=null and bean's password must be equal to old password.
-				- set new password in bean `bean.setPassword(newPassword);`
-				- update the bean -> this will update the record and it sets new password.
-			- When we change password we must give old password; as it checks whether the old password exists in database.
-				- so that it searches whether the user is valid one or not.
-				-
-	- ctl for all  3
-	  collapsed:: true
-		- forget password view before login.
-			- it has only one input field `login` and a button
-			- validate has login.
-			- forgetPassword(bean.getLogin()
-			- if bean !=null forget else.
-			- get in doPost; send in model's `forgetPassword()`
-		- change password view after login. in header.
-			- password can only be changed when you know older password. so for that we need to log in
-			- It has 3 fields `Login` , `old password`, `new password`
-				- `bean = model.changePassword(request.getParameter("newPassword"), bean.getPassword(), bean.getLogin());`
-					- here `bean.getPassword()` is old password.
+	- ## Mail
+		- In `usermodel`
+			- `register()`
+				- instead of calling add method we now use `register` method to add user in db and send registration mail.
+					- ```java
+					  public long register(UserBean bean) {
+					  		long pk = add(bean);
+					  ```
+					- passing bean in add ; adds in database.
+				- code to send email for new registration which we had used in testSmtp.java
+					- ```java
+					  HashMap<String, String> map = new HashMap<String, String>();
+					  		EmailMessage msg = new EmailMessage();
+					  
+					  		map.put("login", bean.getLogin());
+					  		map.put("password", bean.getPassword());
+					  
+					  		msg.setTo(map.get("login"));
+					  		msg.setSubject("User Rgistration Information");
+					  		msg.setMessage(EmailBuilder.getUserRegistrationMessage(map));
+					  		msg.setMessageType(EmailMessage.HTML_MSG);
+					  		// as messages in EmailBuilder are html type so we give html_msg 
+					  		EmailUtility.sendMail(msg); //to send email
+					  		System.out.println("mail send successfully");
+					  
+					  ```
 					-
-			-
-	- Mail send Flow
-	  collapsed:: true
-		- we have used SMTP
-		- added dependency jakarta mail
-		- 3 custom and 6 predefined class
-		  id:: 6ad065c5-a002-46fc-8ea1-5cc33833d6ab
+			- `forgetPassword()`
+				- we need a mail id for forgot password to work.
+				- `UserBean bean = findByLogin(login);`
+					- searches user using `findByLogin()`
+				- user gave `loginId` ; password gets searched using findByLogin and his data gets stored in bean.
+				- that password along with login, first name, last name  put it in map object.
+				- `EmailBuilder.getForgetPasswordMessage(map)` get the password from map object and creates a message using `msg.setMessageType(EmailMessage.HTML_MSG);` and sends the mail `EmailUtility.sendMail(msg);`
+			- `changePassword()`
+				- searches the database using login sets in bean
+				- checks bean !=null and bean's password must be equal to old password.
+					- set new password in bean `bean.setPassword(newPassword);`
+					- update the bean -> this will update the record and it sets new password.
+				- When we change password we must give old password; as it checks whether the old password exists in database.
+					- so that it searches whether the user is valid one or not.
+					-
+		- ctl for all  3
 		  collapsed:: true
-			- 3 custom
-				- In `EmailMessage` to whomsoever the mail need to be sent ; need to make *to*, *subject* and other fields.
-				- `emailBuilder` generates messages
-					- has 3 methods ->change, register, forget password
-					- contains message to send in 3 ways using those 3 methods.
-					- used simple `StringBuilder` `msg` object keep on appending the messages step by step. finally return the build msg. in form of String. follows #builderDesignPattern
-				- send the mail using `EmailUtility.sendMail()` and in that method we used `Transport.send(msg);` to send email.
-					- ((6ad0248f-836e-44a5-97c5-ab7c2cd9e567))
+			- forget password view before login.
+				- it has only one input field `login` and a button
+				- validate has login.
+				- forgetPassword(bean.getLogin()
+				- if bean !=null forget else.
+				- get in doPost; send in model's `forgetPassword()`
+			- change password view after login. in header.
+				- password can only be changed when you know older password. so for that we need to log in
+				- It has 3 fields `Login` , `old password`, `new password`
+					- `bean = model.changePassword(request.getParameter("newPassword"), bean.getPassword(), bean.getLogin());`
+						- here `bean.getPassword()` is old password.
 						-
-		- We send mail in 3 cases: change password, user registration, forget password
-	- ### Integration logic
-	  collapsed:: true
-		- we have used `smtp.server=smtp.gmail.com` service to integrate email in our application. we have used it in model and made in utility class.
-	- we didn't receive emails
-	  collapsed:: true
-		- for receiving there are 2 protocols
-			- IMAP
-			- POP3
+				-
+		- Mail send Flow
+		  collapsed:: true
+			- we have used SMTP
+			- added dependency jakarta mail
+			- 3 custom and 6 predefined class
+			  id:: 6ad065c5-a002-46fc-8ea1-5cc33833d6ab
+			  collapsed:: true
+				- 3 custom
+					- In `EmailMessage` to whomsoever the mail need to be sent ; need to make *to*, *subject* and other fields.
+					- `emailBuilder` generates messages
+						- has 3 methods ->change, register, forget password
+						- contains message to send in 3 ways using those 3 methods.
+						- used simple `StringBuilder` `msg` object keep on appending the messages step by step. finally return the build msg. in form of String. follows #builderDesignPattern
+					- send the mail using `EmailUtility.sendMail()` and in that method we used `Transport.send(msg);` to send email.
+						- ((6ad0248f-836e-44a5-97c5-ab7c2cd9e567))
+							-
+			- We send mail in 3 cases: change password, user registration, forget password
+		- ### Integration logic
+		  collapsed:: true
+			- we have used `smtp.server=smtp.gmail.com` service to integrate email in our application. we have used it in model and made in utility class.
+		- we didn't receive emails
+		  collapsed:: true
+			- for receiving there are 2 protocols
+				- IMAP
+				- POP3
 	- ---
-	- `UserListCtl` search by firstname
-	  collapsed:: true
-		- we clicked on search button
-		- request goes to `userListCtl` extends `BaseListCtl` extends `BaseCtl`
-			- `BaseCtl's` service method will run and its validate will run and returns true because we have not overridden `validate` in `BaseListCtl`
-			- `doPost` will run.
-				- `populateBean` gets overridden by `UserListCtl`
-				- `b.setFirstName(DataUtility.getString(request.getParameter("firstName")));` gives `C`
-				- send this returned bean in model's search method.
-					- query `select * from "+st_user+" where 1=1`
-					- `s.append(" limit "+pageNo+","+pageSize);`
-					- `s.append(getWhereClause(bean));` overridden by `userModel`
-					- `s.append(" and first_name like '"+b.getFirstName()+"%'");`
-				- if op is search
-					- by default page No = 1
-						- we are giving pageNo = 1 for ex. if searched by firstName and we get 6 person named Rahul then 6th rahul will be on next page; but for ex in role admin is only 1 so it will be shown on 1 pg.
-						- if we set pageNo=2 so according to formula `(pageNo - 1) * pageSize` -> 5,5 but the record of admin is on 0,5 so it won't be shown
-							- `sql -->select * from st_user where 1=1 and first_name like 'Rahul%' limit 5,5` returns empty list as rahul was on 0,5
-								-
-					- apply in all the tables.
-					-
-	- ==50:29==
+	- ## Search filters
+		- `UserListCtl` search by firstname
+		  collapsed:: true
+			- we clicked on search button
+			- request goes to `userListCtl` extends `BaseListCtl` extends `BaseCtl`
+				- `BaseCtl's` service method will run and its validate will run and returns true because we have not overridden `validate` in `BaseListCtl`
+				- `doPost` will run.
+					- `populateBean` gets overridden by `UserListCtl`
+					- `b.setFirstName(DataUtility.getString(request.getParameter("firstName")));` gives `C`
+					- send this returned bean in model's search method.
+						- query `select * from "+st_user+" where 1=1`
+						- `s.append(" limit "+pageNo+","+pageSize);`
+						- `s.append(getWhereClause(bean));` overridden by `userModel`
+						- `s.append(" and first_name like '"+b.getFirstName()+"%'");`
+					- if op is search
+						- by default page No = 1
+							- we are giving pageNo = 1 for ex. if searched by firstName and we get 6 person named Rahul then 6th rahul will be on next page; but for ex in role admin is only 1 so it will be shown on 1 pg.
+							- if we set pageNo=2 so according to formula `(pageNo - 1) * pageSize` > 5,5 but the record of admin is on 0,5 so it won't be shown
+								- `sql -->select * from st_user where 1=1 and first_name like 'Rahul%' limit 5,5` returns empty list as rahul was on 0,5
+									-
+						- apply in all the tables.
+						-
+		- ==50:29==

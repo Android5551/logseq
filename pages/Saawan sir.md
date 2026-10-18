@@ -1,6 +1,8 @@
 - [[10-09-2026]]
+  collapsed:: true
 	-
 	- ==42:00==
+	  collapsed:: true
 		- # Design Patterns
 			- These are industry's best coding practices
 			- These are followed in order to provide standard solutions for standard problems while developing an application
@@ -9,7 +11,6 @@
 					- `JDBCDataSource` follows Singleton design pattern
 					- returns single object no matter how many times you have called it.
 					- A class which has only one instance in their ((6ac892da-4125-49c2-add8-eb4a3ded8b19)) is called singleton class.
-					  collapsed:: true
 						- lifetime
 						  id:: 6ac892da-4125-49c2-add8-eb4a3ded8b19
 							- When we run the project/server; its instance gets created;
@@ -330,4 +331,40 @@
 				-
 				-
 			- From view if hidden page No is 3 on ctl dopost initial page nO 1 get overwritten by request.getparameter's 3 and increment.
--
+- [[Wed, 16-09-2026]]
+	- ## Email
+		- ### To integrate/use/configure email :
+			- We added `jakarta-mail` dependancy in pom.xml  which has version 2.0.1
+			- define properties in  system.properties in key value pair
+				- ```
+				  smtp.server=smtp.gmail.com (email host; server's host is ip address)
+				  smtp.port=465 (server's port)
+				  email.login=encode3983@gmail.com
+				  email.pwd=ahda gtgb bxiy oxlx (generated token from app password in gmail)
+				  ```
+				- A host is the address used to locate a server on a network #gpt
+			- we made 6 predefined and 3 custom classes
+				- custom classes
+					- Email Builder
+					- Email Utility
+					- Email Message
+				- predefined classes
+					- transport
+					- message
+					- MIME message
+					- password authentication
+					- internet address
+					- session
+			- We have used `EmailUtility.sendMail()` in that we used `transport class's send method` and sent the mail
+			-
+- [[Thu, 17-09-2026]]
+	- Utility Class
+	  collapsed:: true
+		- has reusable methods all are static methods so that they can be called directly by classname.
+		- Data Validator has input validation methods
+		- Data Utility has methods which converts data from one format to another.
+		- Property reader which reads properties from system.properties.
+		- JDBCDataSource is DCP , creates one instance
+		- Html Utility has methods for dropdown
+		- Message Source has internationalization method
+	-
