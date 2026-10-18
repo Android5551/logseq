@@ -758,18 +758,18 @@
 	- In view
 		- `<select>` and `<options>` give dropdown
 	- when we click Admin in dropdown , role id will be 1
-- ### Foreign key relations to access common columns in another table
-  collapsed:: true
-	- ```
-	  college studetn
-	  college facutly
-	  faculty ke college name me set
-	  
-	  
-	  college id se college ko search karega agar ni hogi to nullpointer exception aaygi; id ke bhejne se college ka name v leke aata h aur khud set kar leta h
-	  pehle college id v de rhe aur college name ab college name ni dena padega apne aap lelega testAdd aur testUpdate me
-	  replace collegeName with cbean.name
-	  ```
+	- ### Foreign key relations to access common columns in another table
+	  collapsed:: true
+		- ```
+		  college studetn
+		  college facutly
+		  faculty ke college name me set
+		  
+		  
+		  college id se college ko search karega agar ni hogi to nullpointer exception aaygi; id ke bhejne se college ka name v leke aata h aur khud set kar leta h
+		  pehle college id v de rhe aur college name ab college name ni dena padega apne aap lelega testAdd aur testUpdate me
+		  replace collegeName with cbean.name
+		  ```
 - [[Fri, 09-10-2026]]
   collapsed:: true
 	- # Front Controller
@@ -944,6 +944,7 @@
 				- if `getInstance()` runs next time then it gets the value in jdbc. and it returns that and won't go inside if. and won't create new instance. thereby failing singleton design pattern.
 				-
 - [[Mon, 12-10-2026]]
+  collapsed:: true
 	- which query will run when model's add method runs
 	  collapsed:: true
 		- `insert into st_user value()`
@@ -991,6 +992,7 @@
 	- ## Mail
 		- In `usermodel`
 			- `register()`
+			  collapsed:: true
 				- instead of calling add method we now use `register` method to add user in db and send registration mail.
 					- ```java
 					  public long register(UserBean bean) {
@@ -1016,6 +1018,7 @@
 					  ```
 					-
 			- `forgetPassword()`
+			  collapsed:: true
 				- we need a mail id for forgot password to work.
 				- `UserBean bean = findByLogin(login);`
 					- searches user using `findByLogin()`
@@ -1023,6 +1026,7 @@
 				- that password along with login, first name, last name  put it in map object.
 				- `EmailBuilder.getForgetPasswordMessage(map)` get the password from map object and creates a message using `msg.setMessageType(EmailMessage.HTML_MSG);` and sends the mail `EmailUtility.sendMail(msg);`
 			- `changePassword()`
+			  collapsed:: true
 				- searches the database using login sets in bean
 				- checks bean !=null and bean's password must be equal to old password.
 					- set new password in bean `bean.setPassword(newPassword);`
@@ -1031,7 +1035,6 @@
 					- so that it searches whether the user is valid one or not.
 					-
 		- ctl for all  3
-		  collapsed:: true
 			- forget password view before login.
 				- it has only one input field `login` and a button
 				- validate has login.
@@ -1051,7 +1054,6 @@
 			- added dependency jakarta mail
 			- 3 custom and 6 predefined class
 			  id:: 6ad065c5-a002-46fc-8ea1-5cc33833d6ab
-			  collapsed:: true
 				- 3 custom
 					- In `EmailMessage` to whomsoever the mail need to be sent ; need to make *to*, *subject* and other fields.
 					- `emailBuilder` generates messages
