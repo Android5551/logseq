@@ -989,6 +989,7 @@
 						- email.pwd=PA$$1234 -> app password
 					-
 - [[Wed, 14-10-2026]]
+  collapsed:: true
 	- ## Mail
 		- In `usermodel`
 			- `register()`
@@ -1096,3 +1097,112 @@
 						- apply in all the tables.
 						-
 		- ==50:29==
+- [[Thu, 15-10-2026]]
+	- # Internationalization
+		- we will use resource bundle
+		  collapsed:: true
+			- Resource Bundle
+			  collapsed:: true
+				- ```java
+				  ResourceBundle r = 
+				    ResourceBundle.getBundle
+				    ("in.co.rays.proj4.bundle.message",new Locale("hi"));
+				  // here "" gives message and new Locale hi gives _hi.properties
+				  ```
+		- we make properties file where both should have same keys in `Java resource | src/main/resources`
+		  collapsed:: true
+			- message_en.properties
+			- message_hi.properties
+		- Need to create a dropdown for hi/en; we already made a utility class for that
+		  collapsed:: true
+			- `Message Source`
+			  collapsed:: true
+				- It follows `SingleTon Design pattern`
+					- It's instance will be created once using `MessageSource ms = MessageSource.getInstance();`
+					- once it's instance gets created; it keeps on loaded whatever the lang value is.
+					- In the following if we pass lang in `ms.setLocale()`as en/hi it prints as per language login's id.
+						- ```java
+						  public static void main(String[] args) {
+						  		MessageSource ms = MessageSource.getInstance();
+						  		// ms.setLocale("hi"); -> yields hindi user id.
+						  		String val = ms.get("login.userid");
+						  		System.out.println("-->" + val);
+						  	}
+						  ```
+						- `ms.setLocale("hi");` called `setLocale()` ; creates rb object and loads message_hi.properties.
+						- `ms.get("login.userid");` gets value of the key.
+						  collapsed:: true
+							- ```java
+							  public String get(String key) {
+							  		String val = "";
+							  		try {
+							  			val = rb.getString(key);
+							  		} catch (Exception e) {
+							  			e.printStackTrace();
+							  		}
+							  		return val;
+							  	}
+							  ```
+							- `rb.getString()` here the key "login.userid" went and gets the value from properties file.
+				- if we pass `""` then it gets default language's value
+				- It has 3 attributes
+				  collapsed:: true
+					- *ENGLISH_LANG_CODE*
+					- *HINDI_LANG_CODE*
+					- *DEFAULT_LANGUAGE*
+					- ```java
+					  private MessageSource() {
+					  		this(DEFAULT_LANGUAGE);
+					  	}
+					  // here this is calling parameterized constructor and passing en in 6.
+					  	private MessageSource(String lang) {
+					  		rb = ResourceBundle.getBundle("message", new Locale(lang));
+					  	}
+					  ```
+		- Create `MessageSource` object in `Header.jsp` so that its object is accessible in any jsp.
+		- Now to get on every controller we can make an object of it in `BaseCtl's` service method.
+		  collapsed:: true
+			- Whenever service method runs `MessageSource's getInstance()` will run.
+			- It will be created once but keep on getting instance whenever service runs
+		- Create a dropdown in header.
+		  collapsed:: true
+			- ```jsp
+			  <select name="lang" onchange="this.form.submit()">
+			  					
+			  	<option value="en" <%=("en".equals(locale)) ? "selected" : ""%>>English</option>
+			  	<option value="hi" <%=("hi".equals(locale)) ? "selected" : ""%>>Hindi</option>
+			  
+			  ```
+			- it has `name` as parameter name and `value` to select whether en or hi. in form of key-value.
+			- ` onchange="this.form.submit()`
+				- it will run in form
+				- it runs on dropdown function.
+					- whenever option changes; this form will be submitted; we have not given action/method. So it won't go to any controller.
+					- request method is get.
+					- if we submit using `GET` it goes in form of URL using query string
+						- it will look like `?lang=hi` in URL `http://localhost:8080/ORSProject-04/LoginCtl?lang=hi` comes when clicking en or hi.
+				- as `LanguageFilter` is running on every request it takes `lang` value from here; setLocale will get hi/en from here. File loads according to lang value.
+			- if we have selected `hi` ; lang will be `hi`; the `languageFilter` running on every request gets lang; setLocale lang and prints on `LoginView`.
+		- Create `LanguageFilter` Controller
+		  collapsed:: true
+			- `@WebFilter("/*")` -> * here means runs on every request. ; it gets `lang` from url and passes in setLocale
+			- `String lang = DataUtility.getString(req.getParameter("lang"));`
+				- takes lang from header.
+				- it can be `hi` or `en`
+				- `ms.setLocale(lang);` it loads file according to lang.
+				- this will take parameter from  dropdown made in header.
+		- ## Flow
+			- for hindi/english we have used `resourceBundle`
+			- we made 2 properties file `message_en.properties`
+			- we have used `MessageSource` class to get the value from key.
+				- made it singleton
+				- has resource bundle's object
+			- On header.jsp we made a form tag ; in that we made dropdown in which we gave options for en / hi
+			- whenever dropdown has changes `onchange` runs and `this.form.submit()` runs.
+			- `MessageFilter` will run on every request.
+				- get the `lang` from request.getParameter() which header submitted using `GET` in form of query string
+				- whatever the `lang` value is , it will get passed in `setLocale()`
+					- made rb object in setLocale and load the property file
+					- in view messageSource pass the key in get() ; returns value in expression tag.
+					-
+-

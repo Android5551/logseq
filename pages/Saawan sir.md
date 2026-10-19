@@ -1,3 +1,5 @@
+- [[Wed, 09-09-2026]]
+	-
 - [[10-09-2026]]
   collapsed:: true
 	-
@@ -11,6 +13,7 @@
 					- `JDBCDataSource` follows Singleton design pattern
 					- returns single object no matter how many times you have called it.
 					- A class which has only one instance in their ((6ac892da-4125-49c2-add8-eb4a3ded8b19)) is called singleton class.
+					  collapsed:: true
 						- lifetime
 						  id:: 6ac892da-4125-49c2-add8-eb4a3ded8b19
 							- When we run the project/server; its instance gets created;
@@ -75,6 +78,45 @@
 		- ### why we are creating single instance of `JDBCDataSource`
 		  collapsed:: true
 			- if we created 10 instances of this class then max pool size gets to 1000 if initially for a single instance it was 100.
+- [[Wed, 16-09-2026]]
+  collapsed:: true
+	- ## Email
+		- ### To integrate/use/configure email :
+			- We added `jakarta-mail` dependancy in pom.xml  which has version 2.0.1
+			- define properties in  system.properties in key value pair
+				- ```
+				  smtp.server=smtp.gmail.com (email host; server's host is ip address)
+				  smtp.port=465 (server's port)
+				  email.login=encode3983@gmail.com
+				  email.pwd=ahda gtgb bxiy oxlx (generated token from app password in gmail)
+				  ```
+				- A host is the address used to locate a server on a network #gpt
+			- we made 6 predefined and 3 custom classes
+				- custom classes
+					- Email Builder
+					- Email Utility
+					- Email Message
+				- predefined classes
+					- transport
+					- message
+					- MIME message
+					- password authentication
+					- internet address
+					- session
+			- We have used `EmailUtility.sendMail()` in that we used `transport class's send method` and sent the mail
+			-
+- [[Thu, 17-09-2026]]
+  collapsed:: true
+	- Utility Class
+	  collapsed:: true
+		- has reusable methods all are static methods so that they can be called directly by classname.
+		- Data Validator has input validation methods
+		- Data Utility has methods which converts data from one format to another.
+		- Property reader which reads properties from system.properties.
+		- JDBCDataSource is DCP , creates one instance
+		- Html Utility has methods for dropdown
+		- Message Source has internationalization method
+	-
 - [[Mon, 28-09-2026]]
   collapsed:: true
 	- On clicking the link, how is this form came?
@@ -149,46 +191,6 @@
 	- What are these red star(asterisk)
 		- These are mandatory fields
 	-
-- [[Thu, 29-10-2026]]
-  collapsed:: true
-	- On `Welcome.jsp` we made link of `Users`
-	- on clicking that link request goes to `userlistctl`
-	- `doGet()` gets called; as user list will be displayed we make `UserModel`'s object
-	- to filter the data or getting the data we use Usermodel's search method
-	- we will pass 3 arguments in search -> bean , pageNo and pageSize.
-		- here bean is null and user's bean, pageNo->1 and pageSize->5
-		- when we need to search or filter the data we set some data in bean for now we don't want that
-	- search method returns list; so we hold returned list in list type variable.
-	  collapsed:: true
-		- ```java
-		  public static void setList(List list, HttpServletRequest request) {
-		  		request.setAttribute("list", list);
-		  	}
-		  
-		  public static List getList(HttpServletRequest request) {
-		  		return (List) request.getAttribute("list");
-		  	}
-		  
-		  // userlistCtl
-		  ServletUtility.setList(list, request);
-		  // userlistview
-		  int pageNo = ServletUtility.getPageNo(request);
-		  int pageSize = ServletUtility.getPageSize(request);
-		  int index = ((pageNo - 1) * pageSize) + 1;
-		  List list = ServletUtility.getList(request);
-		  Iterator<UserBean> it = list.iterator();
-		  String _err = ServletUtility.getErrorMessage(request);
-		  ```
-		- we are doing hard-coding like in both set/get need to give its key
-		- request is implicit object in jsp ; no need to create request object in jsp
-			- 9 objects which are implicit in jsp
-	- we pass list and request in `ServletUtility.setList(list, request)`
-	- similarly for pageNo and pageSize
-	- we forward the list on userlistview.jsp
-	- we get the list using `ServletUtility.getList(request)` similarly all 3
-	- On list we apply iterator ; use while loop iterate data using iterator; in expression tag `bean.getFirstName()` .. we print it
-		- for each loop one row gets printed
-	-
 - [[Thu, 01-10-2026]]
   collapsed:: true
 	- # next
@@ -255,6 +257,7 @@
 					- Sql query `SELECT st_user WHERE 1=1 LIMIT(0,10)` on clicking next limit will be (10,10) -> 10 to 19
 					- for page 4 limit(30,10) record displayed 30 to 39
 			- ### When next and previous got disabled
+			  collapsed:: true
 				- Previous -> pageNo == 1
 				- Next -> Size of List < PageSize
 					- | List |<| Pg |D/E|
@@ -272,6 +275,7 @@
 					-
 			- Populate
 			  id:: 6abf2f50-99b1-470a-ad24-538055a6b39c
+			  collapsed:: true
 				- getting the data from the request and setting it  to the bean.
 				- ```java
 				  @Override
@@ -331,40 +335,44 @@
 				-
 				-
 			- From view if hidden page No is 3 on ctl dopost initial page nO 1 get overwritten by request.getparameter's 3 and increment.
-- [[Wed, 16-09-2026]]
-	- ## Email
-		- ### To integrate/use/configure email :
-			- We added `jakarta-mail` dependancy in pom.xml  which has version 2.0.1
-			- define properties in  system.properties in key value pair
-				- ```
-				  smtp.server=smtp.gmail.com (email host; server's host is ip address)
-				  smtp.port=465 (server's port)
-				  email.login=encode3983@gmail.com
-				  email.pwd=ahda gtgb bxiy oxlx (generated token from app password in gmail)
-				  ```
-				- A host is the address used to locate a server on a network #gpt
-			- we made 6 predefined and 3 custom classes
-				- custom classes
-					- Email Builder
-					- Email Utility
-					- Email Message
-				- predefined classes
-					- transport
-					- message
-					- MIME message
-					- password authentication
-					- internet address
-					- session
-			- We have used `EmailUtility.sendMail()` in that we used `transport class's send method` and sent the mail
-			-
-- [[Thu, 17-09-2026]]
-	- Utility Class
+- [[Thu, 29-10-2026]]
+  collapsed:: true
+	- On `Welcome.jsp` we made link of `Users`
+	- on clicking that link request goes to `userlistctl`
+	- `doGet()` gets called; as user list will be displayed we make `UserModel`'s object
+	- to filter the data or getting the data we use Usermodel's search method
+	- we will pass 3 arguments in search -> bean , pageNo and pageSize.
+		- here bean is null and user's bean, pageNo->1 and pageSize->5
+		- when we need to search or filter the data we set some data in bean for now we don't want that
+	- search method returns list; so we hold returned list in list type variable.
 	  collapsed:: true
-		- has reusable methods all are static methods so that they can be called directly by classname.
-		- Data Validator has input validation methods
-		- Data Utility has methods which converts data from one format to another.
-		- Property reader which reads properties from system.properties.
-		- JDBCDataSource is DCP , creates one instance
-		- Html Utility has methods for dropdown
-		- Message Source has internationalization method
+		- ```java
+		  public static void setList(List list, HttpServletRequest request) {
+		  		request.setAttribute("list", list);
+		  	}
+		  
+		  public static List getList(HttpServletRequest request) {
+		  		return (List) request.getAttribute("list");
+		  	}
+		  
+		  // userlistCtl
+		  ServletUtility.setList(list, request);
+		  // userlistview
+		  int pageNo = ServletUtility.getPageNo(request);
+		  int pageSize = ServletUtility.getPageSize(request);
+		  int index = ((pageNo - 1) * pageSize) + 1;
+		  List list = ServletUtility.getList(request);
+		  Iterator<UserBean> it = list.iterator();
+		  String _err = ServletUtility.getErrorMessage(request);
+		  ```
+		- we are doing hard-coding like in both set/get need to give its key
+		- request is implicit object in jsp ; no need to create request object in jsp
+			- 9 objects which are implicit in jsp
+	- we pass list and request in `ServletUtility.setList(list, request)`
+	- similarly for pageNo and pageSize
+	- we forward the list on userlistview.jsp
+	- we get the list using `ServletUtility.getList(request)` similarly all 3
+	- On list we apply iterator ; use while loop iterate data using iterator; in expression tag `bean.getFirstName()` .. we print it
+		- for each loop one row gets printed
 	-
+-
