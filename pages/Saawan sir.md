@@ -1,4 +1,24 @@
 - [[Wed, 09-09-2026]]
+	- # Denormalization
+		- Example
+			- `st_user` does not have `role_name` column; it has `role_id`
+			- if we run `roleModel's` `findByPk(bean.roleId)` we get `rolebean`. from it we print `role_name`
+			- the problem is based on the list we get ; if it has 4 records ; findbypk will run 4 times; response time is increasing
+		- So to reduce join queries we use Denormalization
+		- we denormalize `st_student` using `college_name`
+			- in `st_student` we need `college_name` so we have recreated it here.
+			- so we don't need to run `findByPk()` like we did in st_user again and again.
+			- Examples:
+				- college_id college_name in `student`
+				- `student_id` `name` in `st_marksheet`
+				- `faculty` having `college_id` `college_name` both N and D happening.
+				-
+	- # Normalization
+		- it removes duplicate entries
+		- In `st_student` we used `College_id` to normalize
+		- Increment in `JOIN` queries
+			- in st_user we have seen; it does not have rolename, so for that we need to pass role_id in rolemodel's findbypk to get rolename
+		-
 	-
 - [[10-09-2026]]
   collapsed:: true
