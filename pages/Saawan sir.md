@@ -308,11 +308,20 @@
 			- Email Utility
 			- Email Message -> to, from , cc , subject attributes and its setter and getter methods.
 		- Data
-		  collapsed:: true
 			- Data Utility
+			  collapsed:: true
 				- converts data from one format to another format #def
 				- ![image.png](../assets/image_1792477003022_0.png)
-				- getString's input -> String ; returns String. and so on..
+				- getString's input -> String ; returns String.
+					- getString trims whitespaces.
+				- getStringData converts object to string otherwise blank
+				- getInt : if no. is int like for ex 12 then it converts string to int otherwise 0
+				- getDate: `formatter.parse(val);` String to date (`private static final SimpleDateFormat formatter = new SimpleDateFormat(APP_DATE_FORMAT);`)
+				- getDateString: date to string
+				- getTimestamp : long to timestamp
+				-
+				-
+				-
 				-
 			- Data Validator
 			  collapsed:: true
@@ -320,24 +329,71 @@
 				- all methods are static here.
 				- returns boolean
 				- isNull
+				  collapsed:: true
 					- Input data is null then return true otherwise false
-				- ![image.png](../assets/image_1792476592928_0.png)
-					-
-					-
+					- Likewise others.
+					- ![image.png](../assets/image_1792476592928_0.png)
+						-
+						-
+				- isInteger
+					- if val in String is no. type like 123 then `Integer.parseInt(val);` converts it to integer but if it is like 12a then `NumberFormatException` will be thrown
+				- isEmail
+					- `val.matches(emailreg)` matches pattern in emailreg which is of type regex.
 		- JDBCDataSource
 		- ServletUtility
 		- Property Reader
-		  collapsed:: true
 			- to read data from .properties file
-		- HtmlUtilty
+			- need to create resource bundle object to read properties
+			- `getValue` method overloading concept going on
+			- `getValue` returns key's value.
+			- `getValue` with 2 args
+				- if key value is `error.require={0} is required`
+				- ```java
+				  public static String getValue(String key, String param) { // param is login forex
+				  		String msg = getValue(key);  //sets value  {0} is required in msg
+				  		msg = msg.replace("{0}", param); //and replace {0} with param for ex. login
+				  		return msg;
+				  	}
+				  ```
+		- Html Utility
+			- to avoid hardcoding we use dropdown's utility
 			- for making dropdowns.
 			- we have 2 types of dropdowns
-				- static
+				- ### static
+				  collapsed:: true
+					- every input is given by us.
 					- data displayed here does not change generally
 						- ex. gender, states
 					- at runtime data does not add or change.
 					- `public static String getList(String name, String selectedVal, HashMap<String, String> map)`
 						- map has key value pair
+							- `val = map.get(key);` get the key's value afind store in value.
+							- on `UserView`
+								- ```jsp
+								  HashMap genderMap = new HashMap();
+								  genderMap.put("M", "Male");
+								  genderMap.put("F", "Female");
+								  ```
+								- `<%=HTMLUtility.getList("gender", bean.getGender(), genderMap)%>`
+								- genderMap has `genderMap.put("M", "Male");`
+								  `genderMap.put("F", "Female");`
+								- `map.keySet();` it will get all the keys of map (all keys are unique) return type is Set.
+								- used `for (String key : keys) ` for each loop; one by one keys go into key.
+								- `val = map.get(key);` this returns value. map.get(M) gives Male
+								- 2nd for loop gives Female.
+								- `	sb.append("</select>");` select tag closed.
+							- How `selectedVal` works
+								- if we give `male` in selected value it will be pre-selected.
+								- for ex in user registration we didn't give firstname lastname etc. just gave gender then validations run and errors come in empty fields as the new response came ; selected male get removed as new response generated
+								- if we put male in selected value
+									- ```java
+									  if (key.trim().equals(selectedVal)) {
+									    sb.append("<option selected value='" + key + "'>" + val + "</option>");
+									  			}
+									  ```
+									- selected value is male; before value `selected` will be shown
+									- if we give selectValue as male
+										- `selected value='male'` will be shown and it gets preselected as male.
 						- name is for gender parameter
 						- selected value
 							- after selecting male/female , pressing the button ; in response it gets selected what we sent before pressing the button
@@ -350,7 +406,7 @@
 									  ```
 									- if condition will be true and that value gets selected.
 								-
-				- dynamic
+				- ### dynamic
 					- data can be changed at runtime
 						- if database has new entry then it will also be shown on dropdown
 					- data shown on dropdown gets loaded from database.
@@ -366,7 +422,7 @@
 									- all the 8 child classes need to override these methods.
 									- In each bean we have overridden these methods. In every bean we have returned `id+""` in getKey
 									- in getValue whatever we need to return for ex name, login id, first name , last name.
-									- this solved
+									- this solved ==29:39==
 		- Message Source
 		  collapsed:: true
 			- for internationalization
@@ -374,6 +430,10 @@
 		  collapsed:: true
 			- Servlet related methods
 	-
+- [[Fri, 18-09-2026]]
+	- to get parameter like name from input field from view to controller we user `request.getParameter("name")`
+	- dropdown has fixed options can't change it.
+		- here we give parameter gender
 - [[Mon, 21-09-2026]]
 	-
 - [[Mon, 28-09-2026]]
