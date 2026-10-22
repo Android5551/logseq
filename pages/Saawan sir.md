@@ -294,6 +294,7 @@
 				- Controller calls model to check if login id already exist ; we raise exception that it exists already then exception propagate from model to controller and controller display error on view
 				-
 - [[Thu, 17-09-2026]]
+  collapsed:: true
 	- # Utility Class
 		- has reusable methods all are static methods so that they can be called directly by classname.
 			- Data Validator has input validation methods
@@ -308,6 +309,7 @@
 			- Email Utility
 			- Email Message -> to, from , cc , subject attributes and its setter and getter methods.
 		- Data
+		  collapsed:: true
 			- Data Utility
 			  collapsed:: true
 				- converts data from one format to another format #def
@@ -342,6 +344,7 @@
 		- JDBCDataSource
 		- ServletUtility
 		- Property Reader
+		  collapsed:: true
 			- to read data from .properties file
 			- need to create resource bundle object to read properties
 			- `getValue` method overloading concept going on
@@ -431,11 +434,11 @@
 			- Servlet related methods
 	-
 - [[Fri, 18-09-2026]]
+  collapsed:: true
 	- to get parameter like name from input field from view to controller we user `request.getParameter("name")`
 	- dropdown has fixed options can't change it.
 		- here we give parameter gender
 - [[Mon, 21-09-2026]]
-	-
 - [[Mon, 28-09-2026]]
   collapsed:: true
 	- On clicking the link, how is this form came?
