@@ -1,0 +1,19 @@
+- SMTP ka use karke humne mail send kiya
+- pom.xml me jakarta-mail ki dependency add ki hai jiska version 2.0.1 hai
+- system.properties me SMTP ke parameters likhe hain
+	- smtp.server smtp.gmail.com
+	- smtp.port=465
+	- email.login=gmail address
+	- email.password=gmail app password token
+- email ki 3 custom classes banai hain
+	- emailMessage isme mail ka data hold kiya hai ; yaha attributes banaye jate hain
+		- to jiksko mail send karna hai
+		- subject
+		- message ; email builder se jo laya gya
+		- message type html
+	- emailBuilder mail ka content banaya jata hai
+		- isme humne 3 messages banaye hain
+			- getUserRegistrationMessage, getforgetpasswordmessage, getchangepasswordmessage
+	- emailUtility yaha se mail send karte hain
+		- emailutility ki sendmail me Transport ki send() me msg pass karke email send kiya jata hai
+		-

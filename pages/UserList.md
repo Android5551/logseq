@@ -1,14 +1,15 @@
 - 01. Sabse pehle Header.jsp me User List ka link bana hota hai:
   `<a href="UserListCtl">User List</a>`
+  `<a href="<%=ORSView.USER_LIST_CTL%>">User List</a>`
 - 02. Jab user is link par click karta hai, tab request `UserListCtl` par jati hai.
 - 03. userlistctl ne baselistctl ko extend kiya hai
   aur baselistctl ne basectl ko `BaseCtl` ki service() method call hoti hai.
 - 04. service() ke baad direct doGet() method call hoti hai `baselistctl` ki.
 - 05. doGet() method me default pageNo = 1 aur pageSize set kiya jata hai.
-- 06. populateBean(request) call hota hai jisme search parameters (firstName, login, roleId) set hote hain.
+- 06. populateBean(request) `UserListCtl` ki. call hota hai jisme search parameters (firstName, login, roleId) set hote hain.
 - 07. Ab UserModel ka object banaya jata hai:
-    UserModel model = new UserModel();
-- 08. model.search(bean, pageNo, pageSize) call hota hai.
+    `UserModel model = new UserModel();`
+- 08. `model.search(bean, pageNo, pageSize)` call hota hai.
 - 09. UserModel.search() method database me query chalati hai:
     `select * from st_user where 1=1`
 - 10. Database se users ka data fetch hota hai aur UserBean list me convert hota hai.
@@ -20,7 +21,6 @@
 	- list
 	- pageNo
 	- pageSize
-	- bean
 	- nextListSize
 - 14. ServletUtility.forward(getView(), request, response) call hota hai.
 - 15. Request UserListView.jsp par forward hoti hai.
@@ -39,7 +39,5 @@
 	- bean.getMobileNo()
 	- bean.getGender()
 	- bean.getDob()
-- 21. Role name ke liye:
-  RoleModel.findByPk(bean.getRoleId()) call hota hai.
 - 22. Final me:
   Table ke andar pura user data display ho jata hai.

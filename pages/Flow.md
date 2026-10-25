@@ -2,4 +2,5 @@
 - [[Signup]]
 - [[Edit]]
 - [[UserList]]
+- [[Email]]
 -
