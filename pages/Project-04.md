@@ -51,10 +51,7 @@
 									- replace localhost with url=`jdbc:mysql://mysql:3306/advance_java`
 										- port no. of localhost and docker container can be same but not ip address
 								- We need to do all this before creating WAR file as WAR Files are static and cant be changed
-		- DONE server
-			-
 - [[Fri, 17.07.2026]]
-  collapsed:: true
 	- java project sends request to db; url is in `system.properties`
 		- its in /ORSProject04/src/main/resources/com/sunilos/p4/bundle/system.properties
 		- replace
@@ -77,25 +74,21 @@
 					- ==Before running this all server should be off==
 					- build success
 				- target has `ORSProject04.war` file
-				  collapsed:: true
-					- if want to run on local apache 11 then copy and paste in webapp and run server (use localhost url here)
+					- if want to run on local apache 11 then copy and paste in webapp and run server from `bin/startup.bat` like `127.0.0.1:8080/ORSProject-04` or localhost:8080
 						- right click -> run as -> `maven  clean` to remove `WAR` file
 				- refresh to see.
-			- Use system explorer to see location of project
-				-
+				- Use system explorer to see location of project
+					-
 		- open the project now on vscode
 			- go to `C:\Users\Piyush\Documents\Project04\Mission_ORSProject4\New Project\ORSProject04`
-			  collapsed:: true
 				- Create `Dockerfile`: wherever dockerfile exists there is a target folder
-				  collapsed:: true
-					- ```shell
+					- ```Dockerfile
 					  FROM tomcat:11
 					  
 					  COPY target/ORSProject04.war /usr/local/tomcat/webapps/ORSProject04.war
 					  ```
 				- Create `docker-compose.yml`
-				  collapsed:: true
-					- ```shell
+					- ```yml
 					  version: '3'
 					  services:
 					    db:
@@ -121,10 +114,9 @@
 					  ```
 					- build reads `Dockerfile`
 					- p04 database will be created on its own; with its password; actually runs on `3306`
-					  collapsed:: true
 						- outside docker `3308`
 						- network it will create itself
-						- whatever you entering data in mysql will be stored in `/var/lib/mysql ` in docker
+						- whatever data we enter in mysql will be stored in `/var/lib/mysql ` in docker
 							- if you don't give that -> in next run it will be disappeared;
 								- a new folder will be created `mysql` whenever you enter data and gets stored.
 								-
@@ -1098,6 +1090,7 @@
 						-
 		- ==50:29==
 - [[Thu, 15-10-2026]]
+  collapsed:: true
 	- # Internationalization
 		- we will use resource bundle
 		  collapsed:: true
