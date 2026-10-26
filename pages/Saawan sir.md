@@ -1,4 +1,5 @@
 - [[Wed, 09-09-2026]]
+  collapsed:: true
 	- # Denormalization
 		- Example
 			- `st_user` does not have `role_name` column; it has `role_id`
@@ -49,6 +50,7 @@
 				- we use this.
 		-
 - [[10-09-2026]]
+  collapsed:: true
 	- # ORS
 		- Online Result System
 		- It maintains student and marksheet records. #def
@@ -161,6 +163,7 @@
 				-
 				-
 - [[Fri, 11-09-2026]]
+  collapsed:: true
 	- # DCP
 		- earlier we used to create connection in every method
 		- DCP has pool of connections which can be reused.
@@ -175,6 +178,7 @@
 		- ### why we are creating single instance of `JDBCDataSource`
 			- if we created 10 instances of this class then max pool size gets to 1000 if initially for a single instance it was 100.
 - [[Tue, 15-09-2026]]
+  collapsed:: true
 	- # Session
 		- ![image.png](../assets/image_1792470734322_0.png)
 			- conversation between browser and server.#def
@@ -204,6 +208,7 @@
 				- can be enabled/disabled at browser end.
 					- if someone has disabled JavaScript ; then validations won't work and wrong entries go into database hence unnecessary errors.
 - [[Wed, 16-09-2026]]
+  collapsed:: true
 	- ## Email
 		- ### To integrate/use/configure email
 			- We added `jakarta-mail` dependancy in pom.xml  which has version 2.0.1
@@ -282,6 +287,7 @@
 				- Controller calls model to check if login id already exist ; we raise exception that it exists already then exception propagate from model to controller and controller display error on view
 				-
 - [[Thu, 17-09-2026]]
+  collapsed:: true
 	- # Utility Class
 		- has reusable methods all are static methods so that they can be called directly by classname.
 			- Data Validator has input validation methods
@@ -306,10 +312,6 @@
 				- getDate: `formatter.parse(val);` String to date (`private static final SimpleDateFormat formatter = new SimpleDateFormat(APP_DATE_FORMAT);`)
 				- getDateString: date to string
 				- getTimestamp : long to timestamp
-				-
-				-
-				-
-				-
 			- Data Validator
 			  collapsed:: true
 				- validates input data entered by user #def
@@ -419,11 +421,13 @@
 			- Servlet related methods
 	-
 - [[Fri, 18-09-2026]]
+  collapsed:: true
 	- to get parameter like name from input field from view to controller we user `request.getParameter("name")`
 	- dropdown has fixed options can't change it.
 		- here we give parameter gender
 - [[Mon, 21-09-2026]]
 - [[Mon, 28-09-2026]]
+  collapsed:: true
 	- On clicking the link, how is this form came?
 		- The link of `SignUp` is on `Header.jsp`
 		- On clicking it the request goes to `UserRegistrationCtl`
@@ -649,7 +653,6 @@
 		- here bean is null and user's bean, pageNo->1 and pageSize->5
 		- when we need to search or filter the data we set some data in bean for now we don't want that
 	- search method returns list; so we hold returned list in list type variable.
-	  collapsed:: true
 		- ```java
 		  public static void setList(List list, HttpServletRequest request) {
 		  		request.setAttribute("list", list);

@@ -10,7 +10,6 @@
 	- [[Sql]]
 	- [[UI UX]]
 	- [[Trouble Shooting]]
-	-
 - Playground
   collapsed:: true
 	- [[Testing]]
