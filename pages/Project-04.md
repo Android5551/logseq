@@ -52,6 +52,7 @@
 										- port no. of localhost and docker container can be same but not ip address
 								- We need to do all this before creating WAR file as WAR Files are static and cant be changed
 - [[Fri, 17.07.2026]]
+  collapsed:: true
 	- java project sends request to db; url is in `system.properties`
 		- its in /ORSProject04/src/main/resources/com/sunilos/p4/bundle/system.properties
 		- replace
@@ -1198,4 +1199,130 @@
 					- made rb object in setLocale and load the property file
 					- in view messageSource pass the key in get() ; returns value in expression tag.
 					-
--
+- [[Fri, 23-10-2026]]
+	- # Photo
+		- photo's getter setter in userbean
+		- `setPhoto(rs.getString("photo"));` in resultset get photo and set in bean.
+		- create a column `Photo` in mysql's st_user
+		- UserModel : `pstmt.setString(19, bean.getPhoto());`
+			- When we add user ; photo gets null value.
+			- we will create a `updatePhoto((long id, String photo))`
+				- user id and dhoni.jpg
+				- query `UPDATE ST_USER SET PHOTO = ? WHERE ID = ?` #imp
+				- The Id which you send ; that user's photo will be uploaded.
+				- ```java
+				  pstmt.setString(1, photo);
+				  pstmt.setLong(2, id);
+				  ```
+		- UserView.
+			- create a input field of file.
+		- UploadPhotoCtl
+			- Here we will upload file(binary type data) not text data so it won't be normal WebServlet
+			- don't extend basectl
+			- directly extend `httpServlet` and make it servlet.
+			- apply wildcard mapping
+			- The user can upload photo only when he edits the record.
+			- `@MultipartConfig`
+				- if we don't use it ; From view if you send input type file, the servlet won't accept it.
+				- to make it accept the binary type files we need to use that.
+			- To get binary type file from view use `request.getPart()`
+			- To read/write binary data we need these classes:
+				- `FileInputStream()`, `FileOutputStream()`
+			- `doGet` uploads the photo
+				- send user's id
+				- using user's id; we can search record using `findByPk()` that searches photo's name too
+				- we will match that photo's name in folder where it was uploaded earlier.
+					- if they are matched we will read that photo and display.
+			- `doPost` displays the photo
+				- we will send the photo from view
+				- get the photo on controller using `Multipart's` `request.getPart("photo")`
+				- create a folder ; create objects `FileInputStream()`, `FileOutputStream()`
+					- Input reads and output writes in folder.
+					- store name of the file in database.
+					- set success message.
+					- use input validation; photo is required; user didn't select file in input type and clicked on uploadPhoto button
+			- `service`
+				- need to override service method here
+			- `ORSView`
+				- add path `public String UPLOAD_PHOTO_CTL = APP_CONTEXT + "/ctl/UploadPhotoCtl";`
+			- `UserView.jsp`
+				- `<form action="<%=ORSView.UPLOAD_PHOTO_CTL%>" method="POST" enctype="multipart/form-data">`
+					- we made controller to support multipart ; need to make form multipart too
+					- `encode type`
+					- here we can send input file or binary type file
+				- `<input type="hidden" name="id" value="<%=bean.getId()%>">`
+					- we need `id` to upload photo of certain user.
+				- To show image use this `<tr>`
+					- ```html
+					  <tr>
+					  	<td align="center"><img
+					  		src="<%=ORSView.UPLOAD_PHOTO_CTL%>?id=<%=bean.getId()%>"
+					  		width="80" height="80"
+					  		style="object-fit: cover; border-radius: 50%; border: 1px solid #ccc;">
+					  	</td>
+					  </tr>
+					  ```
+				- To select photo use this
+					- `<input type="file" name="photo" accept="image/*">`
+						- `Choose File` option will come.
+						- selected image must be a photo.
+						- `/*` means can be jpg or png or any other format
+				- Button
+					- `<input type="submit" value="Upload Photo">`
+					- it takes file in input ; selected photo will be sent
+		- ### Flow
+			- when we take input type file then we will get file select option in form of `Choose File`
+			- selected file will be stored in `name="photo"` this is part; part has photo.
+			- clicked submit
+			- request goes to `uploadPhotoCtl` method=POST
+			- `@MultipartConfig` -> the file gets stored in mutlipart's object
+			- doPost()
+			  collapsed:: true
+				- we have taken the hidden id from view.
+				- search user using `findByPk's` id and set the user in bean
+				- set the bean in request's object
+				- get the part from view using `request.getPart("photo")`
+				- Use Input Validation to validate data entered by user.
+					- checks if part is null i.e. you didn't select photo and clicked button.
+					- ```java
+					  if (part == null || part.getSize() == 0) {
+					    ServletUtility.setErrorMessage("Photo is required", request);
+					    ServletUtility.forward(getView(), request, response);
+					    return;
+					  }
+					  
+					  ```
+				- if part is not null then
+					- `part.getSubmittedFileName()` store it as FileName
+						- submitted file's name. dhoni.jpg
+					- from property reader get photo's path given in `system.properties` in `\\`
+					- create folder using `File folder = new File(photoPath);`
+						- Creates a File object representing the file or directory path stored in photoPath. Does not create folder.
+					- `		System.out.println("folder: " + folder.getAbsolutePath());`
+						- Returns the complete absolute path of the file or folder.
+					- Creates folder if it doesn't exist.
+						- ```java
+						  if (!folder.exists()) {
+						  			folder.mkdirs();
+						  		}
+						  ```
+					- `InputStream input = part.getInputStream();`
+						- read the file.
+						- part is photo
+						- get the part and hold in input
+					- `FileOutputStream output = new FileOutputStream(destFile);`
+						- pass the `File destFile = new File(folder, fileName);` in it.
+						- In this folder we need to write. Image goes in folder and db will get name.
+					- `int bytesRead = input.read(buffer);`
+						- read the input and hold in bytesRead
+					- until `bytesRead != -1` it reads binary till there is none. and writes in destination file.
+					- `byte[] buffer = new byte[4096];`
+						- size limit of image.
+					- close input and output.
+					- `model.updatePhoto(id, fileName);` this will run in try-catch
+						- hidden id and dhoni.jpg
+						- database will get dhoni.jpg
+						- successmsg will print `Photo uploaded successfully`
+						- forward to view.
+						- get on `UserView` `String succ = ServletUtility.getSuccessMessage(request);`
+						-

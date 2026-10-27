@@ -13,6 +13,27 @@ collapsed:: true
 		  Exception in thread "main" java.lang.NullPointerException: Cannot invoke "java.lang.Long.longValue()" because the return value of "in.co.rays.proj4.bean.RoleBean.getId()" is null
 		  ```
 			- turn Long to long in BaseBean
+	- ## ClassNotFoundException
+	  collapsed:: true
+		- ### 1. Check what Tomcat actually has
+		  
+		  Open this folder in File Explorer:
+		  
+		  ```
+		  C:\Users\FSOS\Documents\CODE\GIT\eclipse\p04\Project04R\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ORSProject-04\WEB-INF\lib
+		  ```
+		  
+		  Look for `c3p0-0.9.1.2.jar`.
+		- **Missing, or the `lib` folder is empty:** go to step 2.
+		- **Present:** the jar is there but not loading. Tell me, and also check that the `mysql-connector-java` jar sits next to it.
+		- ### 2. Make Eclipse deploy Maven dependencies
+		- Right-click the project > **Properties > Deployment Assembly**.
+		- If **Maven Dependencies** isn’t listed, click **Add... > Java Build Path Entries > Maven Dependencies > Finish**.
+		- Apply and close.
+		- ### 3. Refresh and rebuild
+		- Right-click the project > **Maven > Update Project...** (Alt+F5), tick **Force Update of Snapshots/Releases**, OK.
+		- In the Servers view, right-click the server > **Clean...** and **Clean Tomcat Work Directory**.
+		- Restart the server and try logging in again.
 - # Adv Java
   collapsed:: true
 	- ((6a742930-b24f-4fae-b85d-f7cae80b14cf))

@@ -1,6 +1,7 @@
 - [[Wed, 09-09-2026]]
   collapsed:: true
 	- # Denormalization
+	  collapsed:: true
 		- Example
 			- `st_user` does not have `role_name` column; it has `role_id`
 			- if we run `roleModel's` `findByPk(bean.roleId)` we get `rolebean`. from it we print `role_name`
@@ -15,6 +16,7 @@
 					- `faculty` having `college_id` `college_name` both N and D happening respectively.
 					-
 	- # Normalization
+	  collapsed:: true
 		- Why
 			- table has duplicate entries that's why we created a main table and used its primary key as foreign key to remove duplicate entry.
 		- it removes duplicate entries
@@ -28,6 +30,7 @@
 		- Only one can be made in a table.
 		- Types
 			- ## Business
+			  collapsed:: true
 				- Contains business/user information; Not related with database.
 				- related to user record.
 				- it is generally large in size.
@@ -176,6 +179,7 @@
 					- timeout : if certain connection hasn't used for certain amount of time , then it gets auto closed.
 					- max pool size (100)
 		- ### why we are creating single instance of `JDBCDataSource`
+		  collapsed:: true
 			- if we created 10 instances of this class then max pool size gets to 1000 if initially for a single instance it was 100.
 - [[Tue, 15-09-2026]]
   collapsed:: true
@@ -211,8 +215,10 @@
   collapsed:: true
 	- ## Email
 		- ### To integrate/use/configure email
+		  collapsed:: true
 			- We added `jakarta-mail` dependancy in pom.xml  which has version 2.0.1
 			- defined SMTP parameters in  `system.properties` in key value pair
+			  collapsed:: true
 				- ```
 				  smtp.server=smtp.gmail.com (email host; server's host is ip address)
 				  smtp.port=465 (server's port)
@@ -244,6 +250,7 @@
 			- IMAP -> Internet Message Access Protocol
 			- POP3 -> Post Office Protocol version 3
 	- ## Exceptions
+	  collapsed:: true
 		- Abnormal condition during flow of execution.
 		- 2 types of exception
 			- checked
@@ -284,6 +291,7 @@
 					  ```
 			- These custom exceptions are runtime exceptions. try-catch is not mandatory. unchecked.
 			- #### Exception Propogation
+			  collapsed:: true
 				- Controller calls model to check if login id already exist ; we raise exception that it exists already then exception propagate from model to controller and controller display error on view
 				-
 - [[Thu, 17-09-2026]]
@@ -302,7 +310,9 @@
 			- Email Utility
 			- Email Message -> to, from , cc , subject attributes and its setter and getter methods.
 		- Data
+		  collapsed:: true
 			- Data Utility
+			  collapsed:: true
 				- converts data from one format to another format #def
 				- ![image.png](../assets/image_1792477003022_0.png)
 				- getString's input -> String ; returns String.
@@ -429,6 +439,7 @@
 - [[Mon, 28-09-2026]]
   collapsed:: true
 	- On clicking the link, how is this form came?
+	  collapsed:: true
 		- The link of `SignUp` is on `Header.jsp`
 		- On clicking it the request goes to `UserRegistrationCtl`
 			- there `doGet()` get called and forwarded to `UserRegistrationView.jsp`
@@ -653,6 +664,7 @@
 		- here bean is null and user's bean, pageNo->1 and pageSize->5
 		- when we need to search or filter the data we set some data in bean for now we don't want that
 	- search method returns list; so we hold returned list in list type variable.
+	  collapsed:: true
 		- ```java
 		  public static void setList(List list, HttpServletRequest request) {
 		  		request.setAttribute("list", list);

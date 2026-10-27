@@ -5,7 +5,6 @@
 	- [[Sql]]
 	- [[UI UX]]
 	- [[JavaScript]]
-	-
 - [[Trouble Shooting]]
 - Questions
 	- [[Questions By sahu sir]]
