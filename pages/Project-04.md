@@ -1229,9 +1229,12 @@
 			- To read/write binary data we need these classes:
 				- `FileInputStream()`, `FileOutputStream()`
 			- `doGet` uploads the photo
-				- send user's id
+				- send user's id which we hide on view.
+					- `<img src="<%=ORSView.UPLOAD_PHOTO_CTL%>?id=<%=bean.getId()%>"`
+					- as by default
 				- using user's id; we can search record using `findByPk()` that searches photo's name too
 				- we will match that photo's name in folder where it was uploaded earlier.
+					- `String photoPath = PropertyReader.getValue("photoPath");` -> the folder where we uploaded image.
 					- if they are matched we will read that photo and display.
 			- `doPost` displays the photo
 				- we will send the photo from view
@@ -1243,6 +1246,7 @@
 					- use input validation; photo is required; user didn't select file in input type and clicked on uploadPhoto button
 			- `service`
 				- need to override service method here
+				- `findByPk` will run here.
 			- `ORSView`
 				- add path `public String UPLOAD_PHOTO_CTL = APP_CONTEXT + "/ctl/UploadPhotoCtl";`
 			- `UserView.jsp`
@@ -1251,7 +1255,7 @@
 					- `encode type`
 					- here we can send input file or binary type file
 				- `<input type="hidden" name="id" value="<%=bean.getId()%>">`
-					- we need `id` to upload photo of certain user.
+					- we need `id` to upload photo of user.
 				- To show image use this `<tr>`
 					- ```html
 					  <tr>
@@ -1277,7 +1281,6 @@
 			- request goes to `uploadPhotoCtl` method=POST
 			- `@MultipartConfig` -> the file gets stored in mutlipart's object
 			- doPost()
-			  collapsed:: true
 				- we have taken the hidden id from view.
 				- search user using `findByPk's` id and set the user in bean
 				- set the bean in request's object
@@ -1326,3 +1329,23 @@
 						- forward to view.
 						- get on `UserView` `String succ = ServletUtility.getSuccessMessage(request);`
 						-
+- [[Mon, 26-10-2026]]
+	- Dynamic Preload
+		- Go to rolebean; having getValue() which we override from dropdownlistBean.
+			- return the rolename.
+		- go to userctl
+			- override preload.
+			- `List<RoleBean> roleList = rmodel.search(null, 0, 0);` searches whole record.
+				- pageSize 0, no bean.
+			- call in basectl's service method
+				- preload will run every time
+		- ## How did you apply dynamic preload:
+			- Override preload() in userctl
+			- searched rolelist
+			- set rolelist in request
+			- call in basectl's service method
+			- get rolelist in userview
+			- in `HtmlUtility.getList` we have passed 3 parameters: parameter name, value and rolelist's object
+				- it takes key , value from rolelist
+				- id, name
+				- gives dropdown.

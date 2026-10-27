@@ -1,0 +1,8 @@
+- **Front Controller** is main controller that performs session checking and login operation before calling other application controller
+- **Design Pattern**
+	- SingleTon
+		-
+	- Factory
+	- Builder
+	- FrontController
+	-
