@@ -53,7 +53,6 @@
 				- we use this.
 		-
 - [[10-09-2026]]
-  collapsed:: true
 	- # ORS
 		- Online Result System
 		- It maintains student and marksheet records. #def
@@ -110,7 +109,6 @@
 					- we made it singleton because it acts as DCP(pool of connections; to reuse connection without destroying and recreating)
 				- returns single object no matter how many times you have called it.
 				- A class which has only one instance in their ((6ac892da-4125-49c2-add8-eb4a3ded8b19)) is called singleton class. #def
-				  collapsed:: true
 					- lifetime
 					  id:: 6ac892da-4125-49c2-add8-eb4a3ded8b19
 						- When we run the project/server; its instance gets created;
@@ -166,7 +164,6 @@
 				-
 				-
 - [[Fri, 11-09-2026]]
-  collapsed:: true
 	- # DCP
 		- earlier we used to create connection in every method
 		- DCP has pool of connections which can be reused.
@@ -182,7 +179,6 @@
 		  collapsed:: true
 			- if we created 10 instances of this class then max pool size gets to 1000 if initially for a single instance it was 100.
 - [[Tue, 15-09-2026]]
-  collapsed:: true
 	- # Session
 		- ![image.png](../assets/image_1792470734322_0.png)
 			- conversation between browser and server.#def
