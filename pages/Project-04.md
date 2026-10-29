@@ -75,6 +75,7 @@
 					- ==Before running this all server should be off==
 					- build success
 				- target has `ORSProject04.war` file
+				  collapsed:: true
 					- if want to run on local apache 11 then copy and paste in webapp and run server from `bin/startup.bat` like `127.0.0.1:8080/ORSProject-04` or localhost:8080
 						- right click -> run as -> `maven  clean` to remove `WAR` file
 				- refresh to see.
@@ -82,6 +83,7 @@
 					-
 		- open the project now on vscode
 			- go to `C:\Users\Piyush\Documents\Project04\Mission_ORSProject4\New Project\ORSProject04`
+			  collapsed:: true
 				- Create `Dockerfile`: wherever dockerfile exists there is a target folder
 					- ```Dockerfile
 					  FROM tomcat:11
@@ -115,6 +117,7 @@
 					  ```
 					- build reads `Dockerfile`
 					- p04 database will be created on its own; with its password; actually runs on `3306`
+					  collapsed:: true
 						- outside docker `3308`
 						- network it will create itself
 						- whatever data we enter in mysql will be stored in `/var/lib/mysql ` in docker
@@ -1228,7 +1231,7 @@
 			- To get binary type file from view use `request.getPart()`
 			- To read/write binary data we need these classes:
 				- `FileInputStream()`, `FileOutputStream()`
-			- `doGet` uploads the photo
+			- `doGet` displays the photo on User List
 				- send user's id which we hide on view.
 					- `<img src="<%=ORSView.UPLOAD_PHOTO_CTL%>?id=<%=bean.getId()%>"`
 					- as by default
@@ -1236,7 +1239,7 @@
 				- we will match that photo's name in folder where it was uploaded earlier.
 					- `String photoPath = PropertyReader.getValue("photoPath");` -> the folder where we uploaded image.
 					- if they are matched we will read that photo and display.
-			- `doPost` displays the photo
+			- `doPost` uploads the photo
 				- we will send the photo from view
 				- get the photo on controller using `Multipart's` `request.getPart("photo")`
 				- create a folder ; create objects `FileInputStream()`, `FileOutputStream()`
@@ -1250,10 +1253,26 @@
 			- `ORSView`
 				- add path `public String UPLOAD_PHOTO_CTL = APP_CONTEXT + "/ctl/UploadPhotoCtl";`
 			- `UserView.jsp`
+				- #gpt InputStream OutputStream
+					- ![image.png](../assets/image_1793178150565_0.png)
+					-
 				- `<form action="<%=ORSView.UPLOAD_PHOTO_CTL%>" method="POST" enctype="multipart/form-data">`
 					- we made controller to support multipart ; need to make form multipart too
 					- `encode type`
 					- here we can send input file or binary type file
+					- request contains multiple parts of data like text, file etc. #gpt
+					- is used to send different types of form data, such as text and files, in separate parts of the HTTP request body to the server.#gpt
+					- ## enctype="multipart/form-data" #gpt
+					  collapsed:: true
+						- `<form method="POST" enctype="multipart/form-data">`
+						- Encode: To convert or arrange data into a particular format so it can be transmitted or processed.
+						- enctype: Specifies the format in which form data is sent to the server.
+						- multipart: Divides the data into multiple separate parts.
+						- form-data: Refers to the data collected from HTML form fields, such as text inputs and file inputs.
+						- ### Overall   explanation
+							- enctype="multipart/form-data" specifies that form data is sent in separate parts in the HTTP request body, allowing files such as images to be uploaded along with other form fields.
+							  
+							  Interview tip: Use method="POST" with enctype="multipart/form-data" when uploading files through an HTML form.
 				- `<input type="hidden" name="id" value="<%=bean.getId()%>">`
 					- we need `id` to upload photo of user.
 				- To show image use this `<tr>`
@@ -1281,6 +1300,7 @@
 			- request goes to `uploadPhotoCtl` method=POST
 			- `@MultipartConfig` -> the file gets stored in mutlipart's object
 			- doPost()
+			  collapsed:: true
 				- we have taken the hidden id from view.
 				- search user using `findByPk's` id and set the user in bean
 				- set the bean in request's object
@@ -1332,7 +1352,7 @@
 - [[Mon, 26-10-2026]]
 	- Dynamic Preload
 		- Go to rolebean; having getValue() which we override from dropdownlistBean.
-			- return the rolename.
+			- return the rolename. should be of java not database.
 		- go to userctl
 			- override preload.
 			- `List<RoleBean> roleList = rmodel.search(null, 0, 0);` searches whole record.
