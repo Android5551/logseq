@@ -1,5 +1,4 @@
 - [[Wed, 09-09-2026]]
-  collapsed:: true
 	- # Denormalization
 	  collapsed:: true
 		- Example
@@ -30,7 +29,6 @@
 		- Only one can be made in a table.
 		- Types
 			- ## Business
-			  collapsed:: true
 				- Contains business/user information; Not related with database.
 				- related to user record.
 				- it is generally large in size.
@@ -109,6 +107,7 @@
 					- we made it singleton because it acts as DCP(pool of connections; to reuse connection without destroying and recreating)
 				- returns single object no matter how many times you have called it.
 				- A class which has only one instance in their ((6ac892da-4125-49c2-add8-eb4a3ded8b19)) is called singleton class. #def
+				  collapsed:: true
 					- lifetime
 					  id:: 6ac892da-4125-49c2-add8-eb4a3ded8b19
 						- When we run the project/server; its instance gets created;
@@ -179,6 +178,7 @@
 		  collapsed:: true
 			- if we created 10 instances of this class then max pool size gets to 1000 if initially for a single instance it was 100.
 - [[Tue, 15-09-2026]]
+  collapsed:: true
 	- # Session
 		- ![image.png](../assets/image_1792470734322_0.png)
 			- conversation between browser and server.#def
