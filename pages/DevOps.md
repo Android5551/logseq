@@ -1,5 +1,4 @@
 - [[Wed, 08.07.2026]]
-  collapsed:: true
 	- ## Development and Operations (DevOps)
 		- Daily updates of projects to client ==15:04==
 		- To run a project with configs on one machine it must be done on another machine too.
@@ -124,7 +123,6 @@
 		- Developer work is to store code on github
 		- after that all work is done by Jenkins
 		- ### Jenkins ==46:50==
-		  collapsed:: true
 			- It integrates with code, docker, git, AWS
 				- It takes code from git
 				- it creates docker images of code after building the code
@@ -135,7 +133,6 @@
 			- Nowadays, Event listeners automatically start pipelines whenever you check in check out on github
 				- git actions are like Jenkins
 - [[Thu, 16.07.2026]]
-  collapsed:: true
 	- [[Project-04]]
 		- [[Exceptions]]
 			- `java.lang.NullPointerException: Cannot invoke "in.co.rays.proj4.bean.BaseBean.setResultset(java.sql.ResultSet)" because "b" is null`

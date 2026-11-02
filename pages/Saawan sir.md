@@ -1,4 +1,5 @@
 - [[Wed, 09-09-2026]]
+  collapsed:: true
 	- # Denormalization
 	  collapsed:: true
 		- Example
@@ -51,6 +52,7 @@
 				- we use this.
 		-
 - [[10-09-2026]]
+  collapsed:: true
 	- # ORS
 		- Online Result System
 		- It maintains student and marksheet records. #def
@@ -291,7 +293,6 @@
 				- Controller calls model to check if login id already exist ; we raise exception that it exists already then exception propagate from model to controller and controller display error on view
 				-
 - [[Thu, 17-09-2026]]
-  collapsed:: true
 	- # Utility Class
 		- has reusable methods all are static methods so that they can be called directly by classname.
 			- Data Validator has input validation methods
@@ -351,7 +352,7 @@
 				  		return msg;
 				  	}
 				  ```
-		- Html Utility
+		- **Html Utility**
 			- to avoid hardcoding we use dropdown's utility
 			- for making dropdowns.
 			- we have 2 types of dropdowns
@@ -363,7 +364,7 @@
 					- at runtime data does not add or change.
 					- `public static String getList(String name, String selectedVal, HashMap<String, String> map)`
 						- map has key value pair
-							- `val = map.get(key);` get the key's value afind store in value.
+							- `val = map.get(key);` get the key's value and store in value.
 							- on `UserView`
 								- ```jsp
 								  HashMap genderMap = new HashMap();
@@ -392,6 +393,7 @@
 										- `selected value='male'` will be shown and it gets preselected as male.
 						- name is for gender parameter
 						- selected value
+						  collapsed:: true
 							- after selecting male/female , pressing the button ; in response it gets selected what we sent before pressing the button
 								- the following will run
 									- ```java
@@ -407,18 +409,54 @@
 						- if database has new entry then it will also be shown on dropdown
 					- data shown on dropdown gets loaded from database.
 					- the data we get from database is in form of list.
-						- list has 8 types beans
-							- the problem is for 8 types of beans we need to create 8 methods
-							- 2nd problem is every bean has different fields.
-								- so we made dropdownlistBean interface
-									- made 2 methods having String return type
-										- getkey
-										- getValue
-									- implemented in baseBean but did not override those methods. Hence baseBean becomes abstract
+						- list can have 8 types of  beans at runtime. like rolebean, userbean etc.
+							- **1st problem** : list can have 8 types of bean at runtime. (this can be tedious.) ; we set data in list in form of beans so we get in form of bean.
+							  collapsed:: true
+								- the problem is for 8 types of beans we need to create 8 variables , methods; need to give condition like if this bean is in the list then run these conditions.
+								- if bean is of type userbean then need to store
+								- List is a collection; here the end result is an object i.e. input and output both are objects ; need to typecast the end result to desired bean.
+								-
+							- **2nd problem** is every bean has different fields. the value field.
+							  collapsed:: true
+								- like can have name, loginid, firstname etc. in dropdown. like marksheet can have rolenumbers, user can have first name, last name.
+							- **Solution**
+							  collapsed:: true
+								- we made `dropdownlistBean` interface.
+								- made 2 abstract methods having String return type
+									- getkey -> id
+									- getValue -> whatever the child wants to display in dropdown. like firstname , lastname for user.
+								- implemented in `baseBean` but did not override those methods.  key and value. Hence baseBean becomes abstract
 									- all the 8 child classes need to override these methods.
-									- In each bean we have overridden these methods. In every bean we have returned `id+""` in getKey
-									- in getValue whatever we need to return for ex name, login id, first name , last name.
-									- this solved ==29:39==
+								- In each child bean we have overridden these methods. In every bean we have returned `id+""` in getKey
+								- in getValue whatever we need to return for ex name, login id, first name , last name.
+								- Here `Rolebean b = new Rolebean()`
+									- key and value will be of rolebean.
+								- But here `Dropdown b = new RoleBean()` or any bean getting from list from database.
+									- getKey will be called of dropdown but at runtime RoleBean's getkey will run.
+						- Interface
+						  collapsed:: true
+							- whichever class implements interface, interface forces class to override its(interface) abstract method otherwise that class will be abstract  and class's object can't be created if it is abstract
+							- if `businessman` class want to become
+								- `richman` it forced to implement methods like party,dontate, earn money.
+								- `social worker` -> helptoothers()
+								- if we made object of businessman we will get party() etc methods.
+									- `richman r = new businessman()`
+										- `richman` methods will be called but at runtime businessman methods run -> dynamic polymorphism.
+										- r.earnmoney(), r.donation(), r.party()
+									- similarly for `social worker` its respective methods.
+								- `businessman b = new businessman()`
+									-
+						- ### Code explanation
+							- `List<DropdownListBean> dd = (List<DropdownListBean>) list;`
+								- image
+								  collapsed:: true
+									- ![image.png](../assets/image_1793603292915_0.png)
+								- the list(having beans) must have the data (which we are getting from database) which has implemented `DropdownListBean`
+							- `for (DropdownListBean obj : dd) {`
+								- applied for each loop on dd; each object will be in obj
+								- `key = obj.getKey();`
+									- we have called interface's getKey() method but method will be called of respective bean's
+									- TODO ==57:55==
 		- Message Source
 		  collapsed:: true
 			- for internationalization
@@ -427,10 +465,10 @@
 			- Servlet related methods
 	-
 - [[Fri, 18-09-2026]]
-  collapsed:: true
 	- to get parameter like name from input field from view to controller we user `request.getParameter("name")`
 	- dropdown has fixed options can't change it.
 		- here we give parameter gender
+	-
 - [[Mon, 21-09-2026]]
 - [[Mon, 28-09-2026]]
   collapsed:: true
